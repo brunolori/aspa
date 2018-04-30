@@ -39,13 +39,25 @@ public class OfficerDAO {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public List<Officer> search(String name, String surname) 
+	public List<Officer> search(Integer rimsId, String name, String surname, Integer status, Integer firstResult, Integer maxResult) 
 	{
 		HashMap<String, Object> params = new HashMap<>();
 
 		String sql = "FROM Officer o WHERE 1=1 ";
 		String order = "ORDER BY o.officer.name";
 
+		if (rimsId != null) 
+		{
+			sql += "AND o.id=:rid ";
+			params.put("rid",rimsId);
+		}
+		
+		if (status != null) 
+		{
+			sql += "AND o.status=:st ";
+			params.put("st",status);
+		}
+		
 		if (StringUtil.isValid(name)) 
 		{
 			sql += "AND UPPER(o.name) LIKE :name ";
@@ -67,6 +79,16 @@ public class OfficerDAO {
 			Map.Entry pair = (Map.Entry) it.next();
 			q.setParameter((String) pair.getKey(), pair.getValue());
 			it.remove();
+		}
+		
+		if(firstResult != null)
+		{
+			q.setFirstResult(firstResult);
+		}
+		
+		if(maxResult != null)
+		{
+			q.setMaxResults(maxResult);
 		}
 
 		return q.getResultList();

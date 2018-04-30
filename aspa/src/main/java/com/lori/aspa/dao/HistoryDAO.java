@@ -11,65 +11,64 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import com.lori.aspa.entities.Structure;
+import com.lori.aspa.entities.ApprovalHistory;
 import com.lori.aspa.utils.StringUtil;
 
 @SuppressWarnings("unchecked")
 @Repository
-public class StructureDAO {
+public class HistoryDAO {
+
 	
 	@PersistenceContext
 	EntityManager em;
 	
 	
-	public Structure findById(Integer id) 
+	public ApprovalHistory create(ApprovalHistory history)
 	{
-		return em.find(Structure.class, id);
-	}
-	
-	
-	public Structure create(Structure structure)
-	{
-		em.persist(structure);
+		em.persist(history);
 		em.flush();
-		return structure;
+		return history;
 	}
 	
-	
-	public Structure update(Structure structure)
+	public ApprovalHistory update(ApprovalHistory history)
 	{
-		return em.merge(structure);		
+		return em.merge(history);
 	}
-	
 	
 	@SuppressWarnings("rawtypes")
-	public List<Structure> search(String name, Integer parentId, Integer status, Integer firstResult, Integer maxResult) 
+	public List<ApprovalHistory> search(Integer authId, Integer userId, String decision,Integer status, Integer firstResult, Integer maxResult)
 	{
+		String sql = "FROM ApprovalHistory ah WHERE 1=1 ";
+		
 		HashMap<String, Object> params = new HashMap<>();
-
-		String sql = "FROM Structure s WHERE 1=1 ";
-		String order = "ORDER BY s.structure.name";
-
-		if (StringUtil.isValid(name)) 
+		
+		if (authId != null) 
 		{
-			sql += "AND UPPER(s.name) LIKE :name ";
-			params.put("name", StringUtil.toUpper(name));
-		}
-
-		if (parentId != null) 
-		{
-			sql += "AND s.parent.id=:pid ";
-			params.put("pid", parentId);
-		}
-
-		if (status != null) 
-		{
-			sql += "AND s.status=:st ";
-			params.put("st",status);
+			sql += "AND ah.authorization.id=:aid ";
+			params.put("aid", authId);
 		}
 		
-		sql += order;
-
+		if (userId != null) 
+		{
+			sql += "AND ah.user.id=:uid ";
+			params.put("uid", userId);
+		}
+		
+		if(StringUtil.isValid(decision))
+		{
+			sql += "AND ah.decision=:de ";
+			params.put("de", decision);
+		}
+		
+		if (status != null) 
+		{
+			sql += "AND ah.status=:st ";
+			params.put("st", status);
+		}
+		
+		sql+="ORDER BY ah.id desc ";
+	
+		
 		Query q = em.createQuery(sql);
 
 		Iterator it = params.entrySet().iterator();
@@ -78,7 +77,6 @@ public class StructureDAO {
 			q.setParameter((String) pair.getKey(), pair.getValue());
 			it.remove();
 		}
-
 		
 		if(firstResult != null)
 		{
@@ -90,10 +88,13 @@ public class StructureDAO {
 			q.setMaxResults(maxResult);
 		}
 
-		
-		
 		return q.getResultList();
-
+		
+		
+		
 	}
+	
+	
+	
 	
 }
