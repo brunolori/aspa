@@ -1,7 +1,6 @@
 package com.lori.aspa.dto;
 
 
-
 public class AuthorizationDTO {
 
 	    private int id;

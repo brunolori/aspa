@@ -1,11 +1,6 @@
 package com.lori.aspa.dto;
 
-
-
-
-
 public class PlaceDTO {
-	
 	
 	
 	private int id;

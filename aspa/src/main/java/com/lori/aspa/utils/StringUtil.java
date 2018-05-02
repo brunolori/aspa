@@ -4,7 +4,7 @@ public class StringUtil {
 
 	public static boolean isValid(String value)
 	{
-		return value != null && "".equals(value.trim());
+		return value != null && !"".equals(value.trim());
 	}
 	
 	public static String toUpper(String value)

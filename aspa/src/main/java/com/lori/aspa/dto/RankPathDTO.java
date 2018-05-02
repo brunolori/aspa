@@ -1,9 +1,6 @@
 package com.lori.aspa.dto;
 
 
-
-
-
 public class RankPathDTO {
 	
 
