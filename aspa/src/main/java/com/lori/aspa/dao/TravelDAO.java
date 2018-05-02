@@ -18,7 +18,7 @@ import com.lori.aspa.entities.Travel;
 @SuppressWarnings("unchecked")
 @Repository
 public class TravelDAO {
-	
+	 
 	@PersistenceContext
 	EntityManager em;
 	

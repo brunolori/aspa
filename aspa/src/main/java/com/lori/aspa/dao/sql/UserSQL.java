@@ -3,7 +3,7 @@ package com.lori.aspa.dao.sql;
 import com.lori.aspa.utils.StringUtil;
 
 public class UserSQL {
-
+ 
 	String username;
 	String name;
 	String surname;

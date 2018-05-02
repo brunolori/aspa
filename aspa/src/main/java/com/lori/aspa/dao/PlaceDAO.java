@@ -19,7 +19,7 @@ import com.lori.aspa.utils.StringUtil;
 @SuppressWarnings("unchecked")
 @Repository
 public class PlaceDAO {
-	
+	 
 	
 	@PersistenceContext
 	EntityManager em;

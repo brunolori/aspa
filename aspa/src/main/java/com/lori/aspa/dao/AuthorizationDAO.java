@@ -17,7 +17,7 @@ import com.lori.aspa.entities.Authorization;
 @SuppressWarnings("unchecked")
 @Repository
 public class AuthorizationDAO {
-	
+	 
 	@PersistenceContext
 	EntityManager em;
 	

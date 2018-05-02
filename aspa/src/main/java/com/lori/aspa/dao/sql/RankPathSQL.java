@@ -4,7 +4,7 @@ public class RankPathSQL {
 
 	Integer firstResult;
 	Integer maxResult;
-
+ 
 	public RankPathSQL() {}
 
 	public Integer getFirstResult() {

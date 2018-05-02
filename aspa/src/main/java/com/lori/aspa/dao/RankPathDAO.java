@@ -17,7 +17,7 @@ import com.lori.aspa.entities.RankPath;
 @SuppressWarnings("unchecked")
 @Repository
 public class RankPathDAO {
-
+  
 	
 	@PersistenceContext
 	EntityManager em;

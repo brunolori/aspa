@@ -7,7 +7,7 @@ public class AuthorizationSQL {
 	Integer firstResult;
 	Integer maxResult;
 
-
+  
 
 	public AuthorizationSQL() {}
 	

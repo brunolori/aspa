@@ -22,7 +22,7 @@ public class VehicleDAO {
 	@PersistenceContext
 	EntityManager em;
 	
-	
+	  
 	public Vehicle findById(Integer id) 
 	{
 		return em.find(Vehicle.class, id);

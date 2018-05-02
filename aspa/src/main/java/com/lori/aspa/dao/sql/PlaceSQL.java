@@ -5,7 +5,7 @@ public class PlaceSQL {
 	String name;
 	Integer firstResult;
 	Integer maxResult;
-	
+	 
 	
 	public PlaceSQL(String name) {
 		setName(name);

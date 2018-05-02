@@ -4,7 +4,7 @@ public class TravelSQL {
 	
 	Integer firstResult;
 	Integer maxResult;
-	
+	 
 	
 	public  TravelSQL() {}
 	
