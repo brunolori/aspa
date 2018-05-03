@@ -49,12 +49,12 @@ public class AuthorizationDAO {
 		HashMap<String, Object> params = new HashMap<>();
 		
 		if (criterias.getFromDate() != null) {
-            sql += " AND a.data>=:fromDate";
+            sql += "AND a.data>=:fromDate ";
             params.put("fromDate", criterias.getFromDate());
         }
 
         if (criterias.getToDate() != null) {
-            sql += " AND a.data<=:toDate";
+            sql += "AND a.data<=:toDate ";
             params.put("toDate", criterias.getToDate());
         }
         
@@ -73,13 +73,13 @@ public class AuthorizationDAO {
 		
         if (criterias.getFromPlaceId() != null)
 		{
-			sql += "AND a.place.fromPlace.id=:fid ";
+			sql += "AND a.fromPlace.id=:fid ";
 			params.put("fid", criterias.getFromPlaceId());
 		}
 		
         if (criterias.getToPlaceId() != null)
 		{
-			sql += "AND a.place.toPlace.id=:tid ";
+			sql += "AND a.toPlace.id=:tid ";
 			params.put("tid", criterias.getToPlaceId());
 		}
 		

@@ -14,9 +14,7 @@ public class AuthorizationSQL {
 	Integer canceled;
 	Integer rank;
 	Integer status;
-	Integer markedForChange;
-	
-	
+	Integer markedForChange;	
 	Integer firstResult;
 	Integer maxResult;
 
