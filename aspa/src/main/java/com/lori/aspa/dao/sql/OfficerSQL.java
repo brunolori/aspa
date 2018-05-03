@@ -1,30 +1,28 @@
 package com.lori.aspa.dao.sql;
 
-import com.lori.aspa.utils.StringUtil;
+import java.util.List;
 
-public class UserSQL {
- 
-	String username;
+public class OfficerSQL {
+	
+	Integer rimsId;
 	String name;
 	String surname;
-	Integer status;
-	Integer structureId;
+	Integer status; 
+	List<Integer> structuresIdList;
 	Integer firstResult;
 	Integer maxResult;
 	
-	public UserSQL() {}
 	
-	public UserSQL(String username) {
-		setUsername(username);
-		this.maxResult = 1;
+	
+	public OfficerSQL() {}
+
+
+	public Integer getRimsId() {
+		return rimsId;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = StringUtil.toUpper(username);
+	public void setRimsId(Integer rimsId) {
+		this.rimsId = rimsId;
 	}
 
 	public String getName() {
@@ -32,7 +30,7 @@ public class UserSQL {
 	}
 
 	public void setName(String name) {
-		this.name = StringUtil.toUpper(name);
+		this.name = name;
 	}
 
 	public String getSurname() {
@@ -40,7 +38,7 @@ public class UserSQL {
 	}
 
 	public void setSurname(String surname) {
-		this.surname = StringUtil.toUpper(surname);
+		this.surname = surname;
 	}
 
 	public Integer getStatus() {
@@ -51,12 +49,12 @@ public class UserSQL {
 		this.status = status;
 	}
 
-	public Integer getStructureId() {
-		return structureId;
+	public List<Integer> getStructuresIdList() {
+		return structuresIdList;
 	}
 
-	public void setStructureId(Integer structureId) {
-		this.structureId = structureId;
+	public void setStructuresIdList(List<Integer> structuresIdList) {
+		this.structuresIdList = structuresIdList;
 	}
 
 	public Integer getFirstResult() {
@@ -74,6 +72,7 @@ public class UserSQL {
 	public void setMaxResult(Integer maxResult) {
 		this.maxResult = maxResult;
 	}
+
 	
-	
+
 }

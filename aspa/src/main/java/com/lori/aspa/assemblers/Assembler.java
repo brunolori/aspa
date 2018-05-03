@@ -64,7 +64,7 @@ public class Assembler {
 	
 	
 	
-	public List<ApprovalHistoryDTO> approvalHistoryListDto(List<ApprovalHistory> approvalHistories)
+	public List<ApprovalHistoryDTO> approvalHistoryListToDto(List<ApprovalHistory> approvalHistories)
 	{
 
 		if (approvalHistories == null || approvalHistories.isEmpty()) return null;
@@ -113,7 +113,7 @@ public class Assembler {
 	
 	
 	
-	public List<AuthorizationDTO> authorizationListDto(List<Authorization> e)
+	public List<AuthorizationDTO> authorizationListToDto(List<Authorization> e)
 	{
 
 		if (e == null || e.isEmpty()) return null;
@@ -146,7 +146,7 @@ public class Assembler {
 
 	}
 
-	public List<MunicipalityDTO> municipalityListDto(List<Municipality> e)
+	public List<MunicipalityDTO> municipalityListToDto(List<Municipality> e)
 	{
 
 		if (e == null || e.isEmpty()) return null;
@@ -180,7 +180,7 @@ public class Assembler {
 
 	}
 
-	public List<CityDTO> cityListDto(List<City> cities)
+	public List<CityDTO> cityListToDto(List<City> cities)
 	{
 
 		if (cities == null || cities.isEmpty()) return null;
@@ -211,7 +211,7 @@ public class Assembler {
 		return dto;
 	}
 
-	public List<VehicleTypeDTO> vehicleTypeListDto(List<VehicleType> vehicleTypes)
+	public List<VehicleTypeDTO> vehicleTypeListToDto(List<VehicleType> vehicleTypes)
 	{
 
 		if (vehicleTypes == null || vehicleTypes.isEmpty())	return null;
@@ -241,7 +241,7 @@ public class Assembler {
 
 	}
 
-	public List<RegionDTO> regionListDto(List<Region> regions) 
+	public List<RegionDTO> regionListToDto(List<Region> regions) 
 	{
 
 		if (regions == null || regions.isEmpty()) return null;
@@ -274,7 +274,7 @@ public class Assembler {
 		
 	}
 	
-	public List<RoleDTO> roleListDto(List<Role> roles)
+	public List<RoleDTO> roleListToDto(List<Role> roles)
 	{
 		
 		if(roles == null || roles.isEmpty()) return null;
@@ -312,7 +312,7 @@ public class Assembler {
 	}
 	
 	
-	public List<OfficerDTO> officerListDto(List<Officer> e)
+	public List<OfficerDTO> officerListToDto(List<Officer> e)
 	{
 
 		if (e == null || e.isEmpty()) return null;
@@ -348,7 +348,7 @@ public class Assembler {
 	}
 	
 	
-	public List<PlaceDTO> placeListDto(List<Place> e)
+	public List<PlaceDTO> placeListToDto(List<Place> e)
 	{
 
 		if (e == null || e.isEmpty()) return null;
@@ -390,7 +390,7 @@ public class Assembler {
 	}
 	
 	
-	public List<RankPathDTO> rankPathListDto(List<RankPath> e)
+	public List<RankPathDTO> rankPathListToDto(List<RankPath> e)
 	{
 
 		if (e == null || e.isEmpty()) return null;
@@ -426,7 +426,7 @@ public class Assembler {
 
 	}
 
-	public List<StructureDTO> structureListDto(List<Structure> e) 
+	public List<StructureDTO> structureListToDto(List<Structure> e) 
 	{
 
 		if (e == null || e.isEmpty())
@@ -468,7 +468,7 @@ public class Assembler {
 
 	}
 
-	public List<TravelDTO> travelListDto(List<Travel> e) 
+	public List<TravelDTO> travelListToDto(List<Travel> e) 
 	{
 
 		if (e == null || e.isEmpty())
@@ -505,14 +505,14 @@ public class Assembler {
 		dto.setUpdateUser(e.getUpdateUser().getUsername());
 		dto.setUpdateUserId(e.getUpdateUser().getId());
 		dto.setOfficer(toDto(e.getOfficer()));
-		dto.setRoles(roleListDto(e.getRoles()));
+		dto.setRoles(roleListToDto(e.getRoles()));
 			
 
 		return dto;
 
 	}
 
-	public List<UserDTO> userListDto(List<User> e) 
+	public List<UserDTO> userListToDto(List<User> e) 
 	{
 
 		if (e == null || e.isEmpty())
@@ -554,7 +554,7 @@ public class Assembler {
 
 	}
 
-	public List<VehicleDTO> vehicleListDto(List<Vehicle> e) 
+	public List<VehicleDTO> vehicleListToDto(List<Vehicle> e) 
 	{
 
 		if (e == null || e.isEmpty())

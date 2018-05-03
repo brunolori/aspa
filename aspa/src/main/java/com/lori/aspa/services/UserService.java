@@ -36,23 +36,23 @@ public class UserService {
 	RoleDAO roleDAO;
 	
 	
-	public UserDTO createUser(UserDTO dto, Integer userId) throws AppException
+	public UserDTO create(UserDTO dto, Integer userId) throws AppException
 	{
 		
 		User regUser = userDAO.findById(userId);
 		
 		if(dto == null) {
-			throw new EmptyFieldsException("Nuk ka te dhena");
+			throw new EmptyFieldsException("Nuk ka të dhëna");
 		}
 		
 		if(dto.getOfficer() == null)
 		{
-			throw new EmptyFieldsException("Nuk ka te dhena per oficerin");
+			throw new EmptyFieldsException("Nuk ka të dhëna për oficerin");
 		}
 		
 		if(!StringUtil.isValid(dto.getUsername()))
 		{
-			throw new EmptyFieldsException("Plotesoni 'Username'");
+			throw new EmptyFieldsException("Plotësoni 'Username'");
 		}
 		/*
 		if(!StringUtil.isValid(dto.getSecret()))
@@ -64,7 +64,7 @@ public class UserService {
 		List<User> users = userDAO.search(new UserSQL(dto.getUsername()));
 		if(users != null && !users.isEmpty())
 		{
-			throw new EntityExistsException("Ky perdorues ekziston ne sistem");
+			throw new EntityExistsException("Ky përdorues ekziston në sistem");
 		}
 		
 		

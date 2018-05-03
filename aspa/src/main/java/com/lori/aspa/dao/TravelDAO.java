@@ -52,7 +52,11 @@ public class TravelDAO {
 		String sql = "FROM Travel t WHERE 1=1 ";
 		String order = "ORDER BY t.id";
 
-
+		if (criterias.getAuthorizationId() != null)
+		{
+			sql += "AND t.authorization.id=:aid ";
+			params.put("aid", criterias.getAuthorizationId());
+		}
 
 		sql += order;
 

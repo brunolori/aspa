@@ -1,16 +1,14 @@
 package com.lori.aspa.dao.sql;
 
+import com.lori.aspa.utils.StringUtil;
+
 public class PlaceSQL {
 	
 	String name;
+	Integer municipalityId;
 	Integer firstResult;
 	Integer maxResult;
-	 
-	
-	public PlaceSQL(String name) {
-		setName(name);
-		this.maxResult = 1;
-	}
+	 	
 	
 	public PlaceSQL(){}
 
@@ -21,7 +19,7 @@ public class PlaceSQL {
 
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = StringUtil.toUpper(name);
 	}
 
 
@@ -42,6 +40,14 @@ public class PlaceSQL {
 
 	public void setMaxResult(Integer maxResult) {
 		this.maxResult = maxResult;
+	}
+
+	public Integer getMunicipalityId() {
+		return municipalityId;
+	}
+
+	public void setMunicipalityId(Integer municipalityId) {
+		this.municipalityId = municipalityId;
 	}
 	
 	

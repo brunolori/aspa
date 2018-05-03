@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.lori.aspa.dao.sql.OfficerSQL;
 import com.lori.aspa.entities.Officer;
 import com.lori.aspa.utils.StringUtil;
 
@@ -21,6 +22,7 @@ public class OfficerDAO {
 	@PersistenceContext
 	EntityManager em;
 
+	
 	public Officer findById(Integer id) 
 	{
 		return em.find(Officer.class, id);
@@ -39,35 +41,41 @@ public class OfficerDAO {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public List<Officer> search(Integer rimsId, String name, String surname, Integer status, Integer firstResult, Integer maxResult) 
+	public List<Officer> search(OfficerSQL criterias) 
 	{
 		HashMap<String, Object> params = new HashMap<>();
 
 		String sql = "FROM Officer o WHERE 1=1 ";
-		String order = "ORDER BY o.officer.name";
+		String order = "ORDER BY o.name,o.surname";
 
-		if (rimsId != null) 
+		if (criterias.getRimsId() != null) 
 		{
 			sql += "AND o.id=:rid ";
-			params.put("rid",rimsId);
+			params.put("rid",criterias.getRimsId());
 		}
 		
-		if (status != null) 
+		if (criterias.getStatus() != null)
 		{
 			sql += "AND o.status=:st ";
-			params.put("st",status);
+			params.put("st", criterias.getStatus());
 		}
 		
-		if (StringUtil.isValid(name)) 
+		if(criterias.getStructuresIdList() != null && !criterias.getStructuresIdList().isEmpty()) {
+			sql += "AND o.structure.id in :str ";
+			params.put("str",criterias.getStructuresIdList());
+			order = "ORDER BY o.structure,o.name,o.surname ";
+		}
+		
+		if (StringUtil.isValid(criterias.getName())) 
 		{
 			sql += "AND UPPER(o.name) LIKE :name ";
-			params.put("name", StringUtil.toUpper(name));
+			params.put("name", StringUtil.toUpper(criterias.getName()));
 		}
 
-		if (StringUtil.isValid(surname)) 
+		if (StringUtil.isValid(criterias.getSurname())) 
 		{
 			sql += "AND UPPER(o.surname) LIKE :name ";
-			params.put("name", StringUtil.toUpper(surname));
+			params.put("name", StringUtil.toUpper(criterias.getSurname()));
 		}
 
 		sql += order;
@@ -81,18 +89,21 @@ public class OfficerDAO {
 			it.remove();
 		}
 		
-		if(firstResult != null)
+		if (criterias.getFirstResult() != null) 
 		{
-			q.setFirstResult(firstResult);
+			q.setFirstResult(criterias.getFirstResult());
 		}
-		
-		if(maxResult != null)
+
+		if (criterias.getMaxResult() != null) 
 		{
-			q.setMaxResults(maxResult);
+			q.setMaxResults(criterias.getMaxResult());
 		}
 
 		return q.getResultList();
 
 	}
+	
+	
+	
 
 }

@@ -58,6 +58,12 @@ public class PlaceDAO {
 			sql += "AND UPPER(p.getName) LIKE :name ";
 			params.put("name", criterias.getName());
 		}
+		
+		if (criterias.getMunicipalityId() != null)
+		{
+			sql += "AND p.municipality.id=:mid ";
+			params.put("mid", criterias.getMunicipalityId());
+		}
 
 		sql += order;
 
