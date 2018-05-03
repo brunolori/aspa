@@ -33,9 +33,7 @@ public class OfficerService {
 		{
 			stdIds.add(d.getId());
 		}
-		
-		
-		
+				
 		OfficerSQL criterias = new OfficerSQL();
 		criterias.setStructuresIdList(stdIds);
 		criterias.setStatus(IStatus.ACTIVE);

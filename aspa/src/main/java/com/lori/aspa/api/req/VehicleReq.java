@@ -6,9 +6,9 @@ public class VehicleReq {
 	String plate;
 	String carriage;
 	String type;
-	boolean structureId;
-	boolean firstResult;
-	boolean maxResult;
+	Integer structureId;
+	Integer firstResult;
+	Integer maxResult;
 	
 	
 	public VehicleReq() {}
@@ -17,41 +17,50 @@ public class VehicleReq {
 	public String getPlate() {
 		return plate;
 	}
+	
 	public void setPlate(String plate) {
 		this.plate = plate;
 	}
+	
 	public String getCarriage() {
 		return carriage;
 	}
+	
 	public void setCarriage(String carriage) {
 		this.carriage = carriage;
 	}
+	
 	public String getType() {
 		return type;
 	}
+	
 	public void setType(String type) {
 		this.type = type;
 	}
-	public boolean isStructureId() {
+
+	public Integer getStructureId() {
 		return structureId;
 	}
-	public void setStructureId(boolean structureId) {
+
+	public void setStructureId(Integer structureId) {
 		this.structureId = structureId;
 	}
-	public boolean isFirstResult() {
+
+	public Integer getFirstResult() {
 		return firstResult;
 	}
-	public void setFirstResult(boolean firstResult) {
+
+	public void setFirstResult(Integer firstResult) {
 		this.firstResult = firstResult;
 	}
-	public boolean isMaxResult() {
+	
+	public Integer getMaxResult() {
 		return maxResult;
 	}
-	public void setMaxResult(boolean maxResult) {
+
+	public void setMaxResult(Integer maxResult) {
 		this.maxResult = maxResult;
 	}
-	
-	
 	
 	
 

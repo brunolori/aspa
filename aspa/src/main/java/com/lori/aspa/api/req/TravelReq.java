@@ -3,31 +3,41 @@ package com.lori.aspa.api.req;
 public class TravelReq {
 	
 	
-	boolean authorizationId;
-	boolean firstResult;
-	boolean maxResult;
+	Integer authorizationId;
+	Integer firstResult;
+	Integer maxResult;
 	
 	
 	public TravelReq() {}
-	
-	public boolean isAuthorizationId() {
+
+
+	public Integer getAuthorizationId() {
 		return authorizationId;
 	}
-	public void setAuthorizationId(boolean authorizationId) {
+
+	public void setAuthorizationId(Integer authorizationId) {
 		this.authorizationId = authorizationId;
 	}
-	public boolean isFirstResult() {
+
+	public Integer getFirstResult() {
 		return firstResult;
 	}
-	public void setFirstResult(boolean firstResult) {
+
+	public void setFirstResult(Integer firstResult) {
 		this.firstResult = firstResult;
 	}
-	public boolean isMaxResult() {
+
+	public Integer getMaxResult() {
 		return maxResult;
 	}
-	public void setMaxResult(boolean maxResult) {
+
+	public void setMaxResult(Integer maxResult) {
 		this.maxResult = maxResult;
 	}
+	
+	
+	
+	
 	
 	
 	

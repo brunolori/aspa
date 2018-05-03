@@ -36,7 +36,10 @@ public class UserService {
 	RoleDAO roleDAO;
 	
 	
-	public UserDTO create(UserDTO dto, Integer userId) throws AppException
+	public UserDTO
+	
+	
+	create(UserDTO dto, Integer userId) throws AppException
 	{
 		
 		User regUser = userDAO.findById(userId);
@@ -57,7 +60,7 @@ public class UserService {
 		/*
 		if(!StringUtil.isValid(dto.getSecret()))
 		{
-			throw new EmptyFieldsException("Plotesoni 'Fjalekalimin'");
+			throw new EmptyFieldsException("Plotësoni 'Fjalëkalimin'");
 		}
 		*/
 				
@@ -106,6 +109,7 @@ public class UserService {
 		u = userDAO.create(u);
 		return new Assembler().toDto(u);
 	}
+	
 	
 	
 	

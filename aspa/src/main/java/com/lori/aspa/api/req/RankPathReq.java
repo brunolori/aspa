@@ -3,47 +3,55 @@ package com.lori.aspa.api.req;
 public class RankPathReq {
 	
 	
-	boolean officerId;
-	boolean structureId;
-	boolean rank;
-	boolean firstResult;
-	boolean maxResult;
+	Integer officerId;
+	Integer structureId;
+	Integer rank;
+	Integer firstResult;
+	Integer maxResult;
 	
 	
 	public RankPathReq() {}
-	
-	public boolean isOfficerId() {
+
+
+	public Integer getOfficerId() {
 		return officerId;
 	}
-	public void setOfficerId(boolean officerId) {
+
+	public void setOfficerId(Integer officerId) {
 		this.officerId = officerId;
 	}
-	public boolean isStructureId() {
+
+	public Integer getStructureId() {
 		return structureId;
 	}
-	public void setStructureId(boolean structureId) {
+
+	public void setStructureId(Integer structureId) {
 		this.structureId = structureId;
 	}
-	public boolean isRank() {
+
+	public Integer getRank() {
 		return rank;
 	}
-	public void setRank(boolean rank) {
+
+	public void setRank(Integer rank) {
 		this.rank = rank;
 	}
-	public boolean isFirstResult() {
+
+	public Integer getFirstResult() {
 		return firstResult;
 	}
-	public void setFirstResult(boolean firstResult) {
+
+	public void setFirstResult(Integer firstResult) {
 		this.firstResult = firstResult;
 	}
-	public boolean isMaxResult() {
+
+	public Integer getMaxResult() {
 		return maxResult;
 	}
-	public void setMaxResult(boolean maxResult) {
+
+	public void setMaxResult(Integer maxResult) {
 		this.maxResult = maxResult;
 	}
-	
-	
 	
 	
 

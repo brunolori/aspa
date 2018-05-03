@@ -6,17 +6,17 @@ public class AuthorizationReq {
 	
 	String fromDate;
 	String toDate;
-	boolean structureId;
-	boolean userId;
-	boolean fromPlaceId;
-	boolean toPlaceId;
+	Integer structureId;
+	Integer userId;
+	Integer fromPlaceId;
+	Integer toPlaceId;
 	boolean approved;
 	boolean canceled;
-	boolean rank;
+	Integer rank;
 	boolean status;
 	boolean markedForChange;	
-	boolean firstResult;
-	boolean maxResult;
+	Integer firstResult;
+	Integer maxResult;
 	
 	
 	public AuthorizationReq() {}
@@ -38,35 +38,35 @@ public class AuthorizationReq {
 		this.toDate = toDate;
 	}
 
-	public boolean isStructureId() {
+	public Integer getStructureId() {
 		return structureId;
 	}
 
-	public void setStructureId(boolean structureId) {
+	public void setStructureId(Integer structureId) {
 		this.structureId = structureId;
 	}
 
-	public boolean isUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(boolean userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	public boolean isFromPlaceId() {
+	public Integer getFromPlaceId() {
 		return fromPlaceId;
 	}
 
-	public void setFromPlaceId(boolean fromPlaceId) {
+	public void setFromPlaceId(Integer fromPlaceId) {
 		this.fromPlaceId = fromPlaceId;
 	}
 
-	public boolean isToPlaceId() {
+	public Integer getToPlaceId() {
 		return toPlaceId;
 	}
 
-	public void setToPlaceId(boolean toPlaceId) {
+	public void setToPlaceId(Integer toPlaceId) {
 		this.toPlaceId = toPlaceId;
 	}
 
@@ -86,11 +86,11 @@ public class AuthorizationReq {
 		this.canceled = canceled;
 	}
 
-	public boolean isRank() {
+	public Integer getRank() {
 		return rank;
 	}
 
-	public void setRank(boolean rank) {
+	public void setRank(Integer rank) {
 		this.rank = rank;
 	}
 
@@ -101,6 +101,7 @@ public class AuthorizationReq {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+
 	public boolean isMarkedForChange() {
 		return markedForChange;
 	}
@@ -109,22 +110,23 @@ public class AuthorizationReq {
 		this.markedForChange = markedForChange;
 	}
 
-	public boolean isFirstResult() {
+	public Integer getFirstResult() {
 		return firstResult;
 	}
 
-	public void setFirstResult(boolean firstResult) {
+	public void setFirstResult(Integer firstResult) {
 		this.firstResult = firstResult;
 	}
 
-	public boolean isMaxResult() {
+	public Integer getMaxResult() {
 		return maxResult;
 	}
-	
-	public void setMaxResult(boolean maxResult) {
+
+	public void setMaxResult(Integer maxResult) {
 		this.maxResult = maxResult;
 	}
-	
+
+
 	
 	
 	

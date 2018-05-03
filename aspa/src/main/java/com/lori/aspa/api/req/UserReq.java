@@ -7,9 +7,9 @@ public class UserReq {
 	String name;
 	String surname;
 	boolean status;
-	boolean structureId;
-	boolean firstResult;
-	boolean maxResult;
+	Integer structureId;
+	Integer firstResult;
+	Integer maxResult;
 	
 	
 	public UserReq() {}
@@ -39,22 +39,28 @@ public class UserReq {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public boolean isStructureId() {
+
+	public Integer getStructureId() {
 		return structureId;
 	}
-	public void setStructureId(boolean structureId) {
+
+	public void setStructureId(Integer structureId) {
 		this.structureId = structureId;
 	}
-	public boolean isFirstResult() {
+
+	public Integer getFirstResult() {
 		return firstResult;
 	}
-	public void setFirstResult(boolean firstResult) {
+
+	public void setFirstResult(Integer firstResult) {
 		this.firstResult = firstResult;
 	}
-	public boolean isMaxResult() {
+
+	public Integer getMaxResult() {
 		return maxResult;
 	}
-	public void setMaxResult(boolean maxResult) {
+
+	public void setMaxResult(Integer maxResult) {
 		this.maxResult = maxResult;
 	}
 	
