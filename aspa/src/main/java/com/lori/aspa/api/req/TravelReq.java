@@ -34,12 +34,7 @@ public class TravelReq {
 	public void setMaxResult(Integer maxResult) {
 		this.maxResult = maxResult;
 	}
-	
-	
-	
-	
-	
-	
+
 	
 
 }

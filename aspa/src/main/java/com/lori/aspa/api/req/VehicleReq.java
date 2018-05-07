@@ -15,6 +15,7 @@ public class VehicleReq {
 	
 	
 	public String getPlate() {
+				
 		return plate;
 	}
 	
