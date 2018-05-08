@@ -8,15 +8,18 @@ public class AuthorizationSQL {
 	Date toDate;
 	Integer structureId;
 	Integer userId;
+	Integer nextUserId;
 	Integer fromPlaceId;
 	Integer toPlaceId;
-	Integer approved;
-	Integer canceled;
+	String approved;
+	String notApproved;
 	Integer rank;
 	Integer status;
 	Integer markedForChange;	
 	Integer firstResult;
 	Integer maxResult;
+	Integer officerId;
+	Integer vehicleId;
 
 	
 	public AuthorizationSQL() {}
@@ -68,20 +71,12 @@ public class AuthorizationSQL {
 		this.toPlaceId = toPlaceId;
 	}
 
-	public Integer getApproved() {
+	public String getApproved() {
 		return approved;
 	}
 
-	public void setApproved(Integer approved) {
+	public void setApproved(String approved) {
 		this.approved = approved;
-	}
-
-	public Integer getCanceled() {
-		return canceled;
-	}
-
-	public void setCanceled(Integer canceled) {
-		this.canceled = canceled;
 	}
 
 	public Integer getRank() {
@@ -123,5 +118,49 @@ public class AuthorizationSQL {
 	public void setMaxResult(Integer maxResult) {
 		this.maxResult = maxResult;
 	}
+
+
+	public Integer getNextUserId() {
+		return nextUserId;
+	}
+
+
+	public void setNextUserId(Integer nextUserId) {
+		this.nextUserId = nextUserId;
+	}
+
+
+	public String getNotApproved() {
+		return notApproved;
+	}
+
+
+	public void setNotApproved(String notApproved) {
+		this.notApproved = notApproved;
+	}
+
+
+	public Integer getOfficerId() {
+		return officerId;
+	}
+
+
+	public void setOfficerId(Integer officerId) {
+		this.officerId = officerId;
+	}
+
+
+	public Integer getVehicleId() {
+		return vehicleId;
+	}
+
+
+	public void setVehicleId(Integer vehicleId) {
+		this.vehicleId = vehicleId;
+	}
+
+
+	
+	
 
 }

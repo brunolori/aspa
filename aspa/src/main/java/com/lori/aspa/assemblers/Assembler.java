@@ -106,6 +106,17 @@ public class Assembler {
 		dto.setToPlaceId(e.getToPlace().getId());
 		dto.setUser(e.getUser().getUsername());
 		dto.setUserId(e.getUser().getId());
+		dto.setNextUserId(e.getNextUser().getId());
+		dto.setNextUser(e.getNextUser().getOfficer().getName()+" "+e.getNextUser().getOfficer().getSurname());
+		dto.setNextStructure(e.getNextUser().getOfficer().getStructure().getName());
+		if(e.getOfficers() != null && !e.getOfficers().isEmpty())
+		{
+				dto.setOfficers(officerListToDto(e.getOfficers()));
+		}
+		if(e.getVehicles() != null && !e.getVehicles().isEmpty())
+		{
+				dto.setVehicles(vehicleListToDto(e.getVehicles()));
+		}
 		
 		return dto;
 		

@@ -60,9 +60,18 @@ public class Vehicle implements Serializable {
     @ManyToOne
     private VehicleType type;
 
+    
+    
     public Vehicle() {
     }
 
+    public Vehicle(int id) {
+    	this.id = id;
+    }
+
+    
+    
+    
 	public int getId() {
 		return id;
 	}

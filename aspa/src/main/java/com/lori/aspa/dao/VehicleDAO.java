@@ -57,9 +57,9 @@ public class VehicleDAO {
 			params.put("plate", criterias.getPlate());
 		}
 		
-		if (StringUtil.isValid(criterias.getCarriage()))
+		if (criterias.getCarriage() != null)
 		{
-			sql += "AND UPPER(v.carriage) LIKE :carriage ";
+			sql += "AND v.carriage=:carriage ";
 			params.put("carriage", criterias.getCarriage());
 		}
 		

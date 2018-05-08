@@ -4,7 +4,7 @@ public class VehicleReq {
 	
 	
 	String plate;
-	String carriage;
+	Integer carriage;
 	String type;
 	Integer structureId;
 	Integer firstResult;
@@ -23,11 +23,11 @@ public class VehicleReq {
 		this.plate = plate;
 	}
 	
-	public String getCarriage() {
+	public Integer getCarriage() {
 		return carriage;
 	}
 	
-	public void setCarriage(String carriage) {
+	public void setCarriage(Integer carriage) {
 		this.carriage = carriage;
 	}
 	

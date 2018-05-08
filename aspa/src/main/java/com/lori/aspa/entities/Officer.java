@@ -63,6 +63,12 @@ public class Officer implements Serializable {
     public Officer() {
     }
 
+    
+    public Officer(int id) {
+    	this.id = id;
+    }
+
+    
 
 	public int getId() {
 		return id;

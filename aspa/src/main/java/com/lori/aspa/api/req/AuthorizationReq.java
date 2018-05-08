@@ -8,10 +8,10 @@ public class AuthorizationReq {
 	String toDate;
 	Integer structureId;
 	Integer userId;
+	Integer nextUserId;
 	Integer fromPlaceId;
 	Integer toPlaceId;
-	boolean approved;
-	boolean canceled;
+	String approved;
 	Integer rank;
 	boolean status;
 	boolean markedForChange;	
@@ -70,20 +70,12 @@ public class AuthorizationReq {
 		this.toPlaceId = toPlaceId;
 	}
 
-	public boolean isApproved() {
+	public String getApproved() {
 		return approved;
 	}
 
-	public void setApproved(boolean approved) {
+	public void setApproved(String approved) {
 		this.approved = approved;
-	}
-
-	public boolean isCanceled() {
-		return canceled;
-	}
-
-	public void setCanceled(boolean canceled) {
-		this.canceled = canceled;
 	}
 
 	public Integer getRank() {
@@ -124,6 +116,16 @@ public class AuthorizationReq {
 
 	public void setMaxResult(Integer maxResult) {
 		this.maxResult = maxResult;
+	}
+
+
+	public Integer getNextUserId() {
+		return nextUserId;
+	}
+
+
+	public void setNextUserId(Integer nextUserId) {
+		this.nextUserId = nextUserId;
 	}
 
 

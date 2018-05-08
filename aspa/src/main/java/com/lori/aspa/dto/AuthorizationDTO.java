@@ -1,35 +1,41 @@
 package com.lori.aspa.dto;
 
+import java.util.List;
 
 public class AuthorizationDTO {
 
-	    private int id;
+	    private Integer id;
 	    private String fromPlace;
-	    private int fromPlaceId;
+	    private Integer fromPlaceId;
 	    private String toPlace;
-	    private int toPlaceId;
+	    private Integer toPlaceId;
 	    private String fromDate;
 	    private String toDate;
-	    private int rank;
+	    private Integer rank;
 	    private String approved;
 	    private String finalApprovedDate;
 	    private String cancelDate;
 	    private String reasonOfTravel;
 	    private boolean marketForChange;
 	    private String structure;
-	    private int structureId;
+	    private Integer structureId;
 	    private String user;
-	    private int userId;
+	    private Integer userId;
 	    private String authorizationDate;
 	    private boolean active;
+	    private Integer nextUserId;
+	    private String nextUser;
+	    private String nextStructure;
+	    List<OfficerDTO> officers;
+	    List<TravelDTO> travels;
+	    List<VehicleDTO> vehicles;
 	    
 	    
 	    
-	    
-		public int getId() {
+		public Integer getId() {
 			return id;
 		}
-		public void setId(int id) {
+		public void setId(Integer id) {
 			this.id = id;
 		}
 		public String getFromPlace() {
@@ -38,10 +44,10 @@ public class AuthorizationDTO {
 		public void setFromPlace(String fromPlace) {
 			this.fromPlace = fromPlace;
 		}
-		public int getFromPlaceId() {
+		public Integer getFromPlaceId() {
 			return fromPlaceId;
 		}
-		public void setFromPlaceId(int fromPlaceId) {
+		public void setFromPlaceId(Integer fromPlaceId) {
 			this.fromPlaceId = fromPlaceId;
 		}
 		public String getToPlace() {
@@ -50,10 +56,10 @@ public class AuthorizationDTO {
 		public void setToPlace(String toPlace) {
 			this.toPlace = toPlace;
 		}
-		public int getToPlaceId() {
+		public Integer getToPlaceId() {
 			return toPlaceId;
 		}
-		public void setToPlaceId(int toPlaceId) {
+		public void setToPlaceId(Integer toPlaceId) {
 			this.toPlaceId = toPlaceId;
 		}
 		public String getFromDate() {
@@ -68,13 +74,13 @@ public class AuthorizationDTO {
 		public void setToDate(String toDate) {
 			this.toDate = toDate;
 		}
-		public int getRank() {
+		public Integer getRank() {
 			return rank;
 		}
-		public void setRank(int rank) {
+		public void setRank(Integer rank) {
 			this.rank = rank;
 		}
-		public String isApproved() {
+		public String getApproved() {
 			return approved;
 		}
 		public void setApproved(String approved) {
@@ -86,7 +92,6 @@ public class AuthorizationDTO {
 		public void setFinalApprovedDate(String finalApprovedDate) {
 			this.finalApprovedDate = finalApprovedDate;
 		}
-		
 		public String getCancelDate() {
 			return cancelDate;
 		}
@@ -111,10 +116,10 @@ public class AuthorizationDTO {
 		public void setStructure(String structure) {
 			this.structure = structure;
 		}
-		public int getStructureId() {
+		public Integer getStructureId() {
 			return structureId;
 		}
-		public void setStructureId(int structureId) {
+		public void setStructureId(Integer structureId) {
 			this.structureId = structureId;
 		}
 		public String getUser() {
@@ -123,10 +128,10 @@ public class AuthorizationDTO {
 		public void setUser(String user) {
 			this.user = user;
 		}
-		public int getUserId() {
+		public Integer getUserId() {
 			return userId;
 		}
-		public void setUserId(int userId) {
+		public void setUserId(Integer userId) {
 			this.userId = userId;
 		}
 		public String getAuthorizationDate() {
@@ -141,11 +146,46 @@ public class AuthorizationDTO {
 		public void setActive(boolean active) {
 			this.active = active;
 		}
-		
+		public Integer getNextUserId() {
+			return nextUserId;
+		}
+		public void setNextUserId(Integer nextUserId) {
+			this.nextUserId = nextUserId;
+		}
+		public String getNextUser() {
+			return nextUser;
+		}
+		public void setNextUser(String nextUser) {
+			this.nextUser = nextUser;
+		}
+		public String getNextStructure() {
+			return nextStructure;
+		}
+		public void setNextStructure(String nextStructure) {
+			this.nextStructure = nextStructure;
+		}
+		public List<OfficerDTO> getOfficers() {
+			return officers;
+		}
+		public void setOfficers(List<OfficerDTO> officers) {
+			this.officers = officers;
+		}
+		public List<TravelDTO> getTravels() {
+			return travels;
+		}
+		public void setTravels(List<TravelDTO> travels) {
+			this.travels = travels;
+		}
+		public List<VehicleDTO> getVehicles() {
+			return vehicles;
+		}
+		public void setVehicles(List<VehicleDTO> vehicles) {
+			this.vehicles = vehicles;
+		}
 	    
 	    
 	    
 	    
-	    
+	
 
 }

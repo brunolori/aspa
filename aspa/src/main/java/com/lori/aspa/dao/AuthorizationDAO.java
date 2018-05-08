@@ -13,6 +13,9 @@ import org.springframework.stereotype.Repository;
 
 import com.lori.aspa.dao.sql.AuthorizationSQL;
 import com.lori.aspa.entities.Authorization;
+import com.lori.aspa.entities.Officer;
+import com.lori.aspa.entities.Vehicle;
+import com.lori.aspa.utils.StringUtil;
 
 @SuppressWarnings("unchecked")
 @Repository
@@ -43,6 +46,8 @@ public class AuthorizationDAO {
 	@SuppressWarnings("rawtypes")
 	public List<Authorization> search(AuthorizationSQL criterias)
 	{
+		
+		
 		String sql = "FROM Authorization a WHERE 1=1 ";
 		       sql+="ORDER BY a.id ";
 		
@@ -83,16 +88,28 @@ public class AuthorizationDAO {
 			params.put("tid", criterias.getToPlaceId());
 		}
 		
-        if (criterias.getApproved() != null) {
+        if (StringUtil.isValid(criterias.getApproved())) {
             sql += " AND a.approved=:app";
             params.put("app", criterias.getApproved());
         }
         
-        if (criterias.getCanceled() != null) {
-            sql += " AND a.canceled=:can";
-            params.put("can", criterias.getCanceled());
+        if (StringUtil.isValid(criterias.getNotApproved())) {
+            sql += " AND a.approved != :n_app";
+            params.put("n_app", criterias.getNotApproved());
         }
         
+        if(criterias.getOfficerId() != null)
+		{
+        	sql += " AND :off MEMBER OF a.officers ";
+            params.put("off", new Officer(criterias.getOfficerId()));
+		}
+        
+        if(criterias.getVehicleId() != null)
+		{
+        	sql += " AND :vcl MEMBER OF a.vehicles ";
+            params.put("vcl", new Vehicle(criterias.getVehicleId()));
+		}
+                
         if (criterias.getRank() != null) {
             sql += " AND a.rank=:rank";
             params.put("rank", criterias.getRank());
@@ -108,6 +125,11 @@ public class AuthorizationDAO {
         if (criterias.getMarkedForChange()!= null) {
             sql += " AND a.markedForChange=:mfc";
             params.put("mfc", criterias.getMarkedForChange());
+        }
+        
+        if (criterias.getNextUserId() != null) {
+            sql += " AND a.nextUser.id=:nextuid";
+            params.put("nextuid", criterias.getNextUserId());
         }
         
 		

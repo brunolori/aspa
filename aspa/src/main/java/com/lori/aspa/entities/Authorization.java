@@ -68,6 +68,9 @@ public class Authorization implements Serializable {
     @Column(name = "UPDATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
+    @JoinColumn(name = "NEXT_USER_ID", referencedColumnName = "ID")
+    @ManyToOne
+    private User nextUser;
     @JoinTable(name = "AUTHORIZATION_OFFICERS", joinColumns = {
         @JoinColumn(name = "AUTHORIZATION_ID", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "OFFICER_ID", referencedColumnName = "ID")})
@@ -253,6 +256,14 @@ public class Authorization implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public User getNextUser() {
+		return nextUser;
+	}
+
+	public void setNextUser(User nextUser) {
+		this.nextUser = nextUser;
 	}
 
 	
