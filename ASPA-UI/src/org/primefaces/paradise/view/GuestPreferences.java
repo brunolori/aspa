@@ -3,11 +3,12 @@ package org.primefaces.paradise.view;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 
-@Named
+
+@ManagedBean
 @SessionScoped
 public class GuestPreferences implements Serializable {
         
@@ -19,13 +20,13 @@ public class GuestPreferences implements Serializable {
 
 	private String theme = "blue";
     
-    private String layout = "default";
+    private String layout = "horizon";
             
     private boolean overlayMenu = false;
     
     private boolean slimMenu = false;
     
-    private boolean darkMenu = false;
+    private boolean darkMenu = true;
                 
 	public String getTheme() {		
 		return theme;

@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
+
+	<ui:define name="title">Autorizim i ri</ui:define>
+
+	<ui:define name="content">
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="card">
+					<h1>Regjistro Autorizim</h1>
+
+					<div class="ui-g">
+
+
+						<div class="ui-g-12 ui-md-8">
+
+							<div class="ui-g">
+
+								<div class="ui-g-12">
+									<p:selectOneMenu value="#{null}">
+										<f:selectItem itemValue="#{null}" itemLabel="Struktura" />
+									</p:selectOneMenu>
+								</div>
+								<div class="ui-g-12 ui-md-6">
+									<p:selectOneMenu value="#{null}">
+										<f:selectItem itemValue="#{null}" itemLabel="Nisja" />
+									</p:selectOneMenu>
+								</div>
+								<div class="ui-g-12 ui-md-6">
+									<p:selectOneMenu value="#{null}">
+										<f:selectItem itemValue="#{null}" itemLabel="Mbërritja" />
+									</p:selectOneMenu>
+								</div>
+								<div class="ui-g-12 ui-md-6">
+									<p:calendar value="#{null}" pattern="dd.MM.yyyy"
+										placeholder="Data nisjes" />
+								</div>
+								<div class="ui-g-12 ui-md-6">
+									<p:calendar value="#{null}" pattern="dd.MM.yyyy"
+										placeholder="Data kthimit" />
+								</div>
+								<div class="ui-g-12">
+									<p:selectCheckboxMenu value="#{null}" label="Automjetet"
+										multiple="true" filter="true" filterMatchMode="contains"
+										panelStyle="width:250px">
+										<f:selectItems value="#{null}" var="v" itemLabel="#{v.plate}"
+											itemValue="#{v.id}" />
+									</p:selectCheckboxMenu>
+								</div>
+								<div class="ui-g-12">
+									<p:autoComplete value="#{null}" placeholder="Punonjësit">
+										<p:ajax event="itemSelect"
+											listener="#{autoCompleteView.onItemSelect}" update="off_tbl" />
+									</p:autoComplete>
+								</div>
+								<div class="ui-g-12">
+									<p:dataTable id="off_tbl" value="#{null}" var="o"
+										rowIndexVar="r" reflow="true">
+										<p:column headerText="#">
+									#{r+1}
+								</p:column>
+										<p:column headerText="Punonjësi">
+									#{o}
+								</p:column>
+										<p:column headerText="Struktura">
+									#{o}
+								</p:column>
+										<p:column headerText="Funksioni">
+									#{o}
+								</p:column>
+										<p:column headerText="Hiq">
+											<p:commandLink value="hiq" />
+										</p:column>
+									</p:dataTable>
+								</div>
+								<div class="ui-g-12">
+									<p:inputTextarea value="#{null}"
+										placeholder="Arsyeja e shërbimit" rows="5" />
+								</div>
+								<div class="ui-g-12">
+									<p:autoComplete id="dd" dropdown="true" value="#{null}"
+										placeholder="Delego për firmë" />
+								</div>
+
+								<div class="ui-g-12 ui-md-2">
+									<p:commandButton value="Regjistro" icon="fa fa-save"
+										styleClass="blue-btn" />
+								</div>
+								<div class="ui-g-12 ui-md-2">
+									<p:commandButton value="Pastro" icon="fa fa-clear"
+										styleClass="red-btn" />
+								</div>
+
+
+
+							</div>
+						</div>
+
+
+					</div>
+
+
+
+
+
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

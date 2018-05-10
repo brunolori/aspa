@@ -25,23 +25,23 @@
                         <h2>Welcome to Paradise</h2>
                     </div>
                     <div class="ui-g-12">
-                        <p:outputLabel for="username" value="Username" />
+                        <p:outputLabel for="username" value="Përdoruesi" />
                         <div class="input-wrapper">
-                            <p:inputText id="username" placeholder="Username" />
+                            <p:inputText id="username" placeholder="Përdoruesi" />
                             <i class="fa fa-user" />
                         </div>
                     </div>
                     <div class="ui-g-12">
-                        <p:outputLabel for="password" value="Password" />
+                        <p:outputLabel for="password" value="Fjalëkalimi" />
                         <div class="input-wrapper">
-                            <p:password id="password" placeholder="Password" feedback="false" />
+                            <p:password id="password" placeholder="Fjalëkalimi" feedback="false" />
                             <i class="fa fa-lock" />
                         </div>
                     </div>
                     <div class="ui-g-12 chkbox-container">
                         <div class="ui-g-6 ui-md-6">
                             <h:outputLink value="#">
-                                Forgot password?
+                                Harruat Fjalëkalimin?
                             </h:outputLink>
                         </div>
                         <div class="ui-g-6 rememberme-container">
@@ -51,7 +51,7 @@
                         
                     </div>
                     <div class="ui-g-12 button-container">
-                        <p:button outcome="/landing" value="Sign In" styleClass="blue-btn raised-btn"/>
+                        <p:button outcome="/sec/new_auth" value="Hyr" styleClass="blue-btn raised-btn"/>
                     </div>
                     
                     <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="paradise-layout" />
