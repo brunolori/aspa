@@ -1,46 +1,40 @@
-<ui:composition 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:pv="http://primefaces.org/paradise">
-    
-    <div class="layout-menu-wrapper #{guestPreferences.darkMenu ? 'layout-menu-dark' : null}">
-        <div class="nano">
-            <div class="nano-content sidebar-scroll-content">
-                <div class="layout-menu-container">
-                    <h:form id="menuform">
-                        
-                        <pv:menu>
-                            <p:menuitem id="pm_new_auth" value="Autorizim i ri" icon="fa fa-file"  />
-                            
-                            <p:submenu id="pm_verify" label="Verifiko Autorizimet" icon="fa fa-cog">
-                                <p:menuitem id="pm_verify_waiting_manager" value="Në pritje" icon="fa fa-spinner"/>
-                                <p:menuitem id="pm_verfy_verified" value="Të verifikuara" icon="fa fa-check-circle" />
-                            </p:submenu>
-                            
-                            <p:submenu id="pm_auth_list" label="Lista Autorizimeve" icon="fa fa-list">
-                                    <p:menuitem id="pm_list_process" value="Në proces" icon="fa fa-pause" />
-                                    <p:menuitem id="pm_list_returned" value="Të kthyera" icon="fa fa-reply" />
-                                    <p:menuitem id="pm_list_canceled" value="Të refuzuara" icon="fa fa-ban" />
-                                    <p:menuitem id="pm_list_approved" value="Të miratuara" icon="fa fa-thumbs-up" />
-                            </p:submenu>
-                            
-                            <p:menuitem id="pm_stats" value="Statistika" icon="fa fa-area-chart"  />
-                            
-                            <p:submenu id="pm_manager" label="Menaxhim" icon="fa fa-life-saver">
-                                <p:menuitem id="pm_cars" value="Automjetet" icon="fa fa-car"  />
-                                <p:menuitem id="pm_officers" value="Punonjësit" icon="fa fa-users" />
-                                <p:menuitem id="pm_users" value="Përdoruesit" icon="fa fa-user-circle-o" />
-                                <p:menuitem id="pm_strs" value="Strukturat" icon="fa fa-exclamation-circle" />
-                            </p:submenu>
-                            
-                        </pv:menu>
-                    </h:form>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pv="http://primefaces.org/paradise">
+
+	<div
+		class="layout-menu-wrapper #{guestPreferences.darkMenu ? 'layout-menu-dark' : null}">
+		<div class="nano">
+			<div class="nano-content sidebar-scroll-content">
+				<div class="layout-menu-container">
+					<h:form id="menuform">
+
+						<pv:menu>
+							<p:menuitem id="pm_new_auth" value="Dashboard" icon="fa fa-home" />
+							<p:menuitem id="pm_auth_list" value="Autorizim i ri" icon="fa fa-file" />
+
+							<p:submenu id="pm_verify" label="Verifiko Autorizimet" icon="fa fa-cog">
+								<p:menuitem id="pm_verify_waiting_manager" value="Në pritje" icon="fa fa-spinner" />
+								<p:menuitem id="pm_verfy_verified" value="Të verifikuara" icon="fa fa-check-circle" />
+							</p:submenu>
+
+							<p:menuitem id="pm_stats" value="Statistika" icon="fa fa-area-chart" />
+
+							<p:submenu id="pm_manager" label="Menaxhim" icon="fa fa-life-saver">
+								<p:menuitem id="pm_cars" value="Automjetet" icon="fa fa-car" />
+								<p:menuitem id="pm_officers" value="Punonjësit" icon="fa fa-users" />
+								<p:menuitem id="pm_users" value="Përdoruesit" icon="fa fa-user-circle-o" />
+								<p:menuitem id="pm_strs" value="Strukturat" icon="fa fa-exclamation-circle" />
+							</p:submenu>
+
+						</pv:menu>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </ui:composition>

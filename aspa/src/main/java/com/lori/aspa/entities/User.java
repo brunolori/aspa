@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -45,7 +46,11 @@ public class User implements Serializable {
     @Column(name = "UPDATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
-    @ManyToMany(mappedBy = "userList")
+    @ManyToMany
+    @JoinTable(name = "USER_ROLE",
+	    joinColumns = @JoinColumn(name = "USER_ID"),
+	    inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
+    )
     private List<Role> roles;
     @JoinColumn(name = "OFFICER_ID", referencedColumnName = "ID")
     @ManyToOne

@@ -36,10 +36,7 @@ public class UserService {
 	RoleDAO roleDAO;
 	
 	
-	public UserDTO
-	
-	
-	create(UserDTO dto, Integer userId) throws AppException
+	public UserDTO create(UserDTO dto, Integer userId) throws AppException
 	{
 		
 		User regUser = userDAO.findById(userId);
@@ -110,7 +107,10 @@ public class UserService {
 		return new Assembler().toDto(u);
 	}
 	
-	
+	public UserDTO findUserById(Integer id) 
+	{
+		return new Assembler().toDto(userDAO.findById(id));
+	}
 	
 	
 	

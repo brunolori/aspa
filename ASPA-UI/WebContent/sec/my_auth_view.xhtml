@@ -1,10 +1,88 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+   template="../WEB-INF/template.xhtml">
+	 
+	 
 
-</body>
-</html>
+	<ui:define name="content">
+	<h:form>
+		<div class="ui-g ui-fluid">
+		  <div class="ui-g-12 ui-md-10 ui-lg-6">
+			  <p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank">
+			  	  <p:commandButton value="Mbrapa" styleClass="orange-btn" icon="fa fa-arrow-left"/>
+				  <p:commandButton value="Modifiko" styleClass="green-btn" icon="fa fa-edit"/>
+				  <p:commandButton value="Printo" styleClass="blue-btn" icon="fa fa-print"/>
+				  <p:commandButton value="Fshijë" styleClass="red-btn" icon="fa fa-trash"/>
+			  </p:panelGrid>
+		  </div>
+		  
+		  <div class="ui-g-12">
+		  	<p:messages showDetail="true" closable="true">
+		  		<p:autoUpdate/>
+		  	</p:messages>
+		  </div>
+		  
+		  <div class="ui-g-12 ui-md-6 ">
+		  <p:panel header="Të dhënat e Autorizimit">
+		  	<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank" >
+		  		
+		  		<p:outputLabel value="Data Autorizimit" style="font-weight: bold" />
+		  		<p:outputLabel value="Përdoruesi" style="font-weight: bold" />
+		  		<p:inputText disabled="true"/>
+		  		<p:inputText disabled="true"/>
+		  		
+		  		
+		  		<p:outputLabel value="Statusi" style="font-weight: bold" />
+		  		<p:outputLabel value="Struktura" style="font-weight: bold" />
+		  		<p:inputText disabled="true"/>
+		  		<p:inputText disabled="true"/>
+		  		
+		  		<p:outputLabel value="Nisja" style="font-weight: bold"/>
+		  		<p:outputLabel value="Destinacioni" style="font-weight: bold"/>
+		  		<p:inputText disabled="true"/>
+		  		<p:inputText disabled="true"/>
+		  		
+		  		<p:outputLabel value="Data nisjes" style="font-weight: bold"/>
+		  		<p:outputLabel value="Data kthimit" style="font-weight: bold"/>
+		  		<p:inputText disabled="true"/>
+		  		<p:inputText disabled="true"/>
+		  		
+		  		<p:outputLabel value="Automjetet" style="font-weight: bold"/>
+		  		<p:outputLabel value="Punonjësit" style="font-weight: bold"/>
+		  		<p:inputText disabled="true"/>
+		  		<p:inputText disabled="true"/>
+
+		  	</p:panelGrid>
+		  	<p:panelGrid layout="grid" columns="1" styleClass="ui-panelgrid-blank" >
+		  		<p:outputLabel value="Arsyeja e shërbimit" style="font-weight: bold"/>
+		  		<p:inputTextarea rows="5" disabled="true"/>
+		  	</p:panelGrid>
+		  </p:panel>
+		  </div>
+		  
+		  <div class="ui-g-12 ui-md-6 ">
+		  <p:panel header="Historiku Autorizimit" style="height: 99%">
+		  	<p:dataTable reflow="true">			  	
+			  	<p:column headerText="#"></p:column>
+			  	<p:column headerText="Data"></p:column>
+			  	<p:column headerText="Përdoruesi"></p:column>
+			  	<p:column headerText="Veprimi"></p:column>
+			  	<p:column headerText="Arsyeja"></p:column>
+		  	</p:dataTable>
+		  </p:panel>
+		  </div>
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		</div>
+	</h:form>
+	</ui:define>
+	 
+	</ui:composition>

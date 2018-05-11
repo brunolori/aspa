@@ -51,7 +51,7 @@ public class StructureDAO {
 		HashMap<String, Object> params = new HashMap<>();
 
 		String sql = "FROM Structure s WHERE 1=1 ";
-		String order = "ORDER BY s.structure.name";
+		String order = "ORDER BY s.name";
 
 		if (StringUtil.isValid(name)) 
 		{

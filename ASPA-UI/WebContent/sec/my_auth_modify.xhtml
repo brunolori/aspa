@@ -1,10 +1,147 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
 
-</body>
-</html>
+	<ui:define name="title">Modifiko autorizim</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<h2>Modifiko autorizimin</h2>
+			<div class="ui-g ui-fluid">
+			
+			<div class="ui-g-12 ui-md-4">
+					<p:panelGrid layout="grid" columns="2"
+						styleClass="ui-panelgrid-blank">
+						<p:commandButton value="Mbrapa" icon="fa fa-arrow-left"
+							styleClass="orange-btn"/>
+
+						<p:commandButton value="Ruaj ndryshimet" icon="fa fa-save"
+							styleClass="green-btn"
+							update="@form" />
+					</p:panelGrid>
+				</div>
+				
+				<div class="ui-g-12">
+					<p:messages showDetail="true">
+						<p:autoUpdate />
+					</p:messages>
+				</div>
+			
+				<div class="ui-g-12 ui-md-6 ">
+					<p:panel header="Të dhënat e autorizimit">
+						<p:panelGrid columns="2" layout="grid"
+							columnClasses="ui-grid-col-3,ui-grid-col-9"
+							styleClass="ui-panelgrid-blank form-group">
+
+							<p:outputLabel value="Struktura" style="font-weight: bold" />
+							<p:selectOneMenu value="#{newAuthBean.auth.structureId}">
+								<f:selectItem itemValue="#{null}" itemLabel="Struktura" />
+								<f:selectItems value="#{newAuthBean.structures}" var="s"
+									itemValue="#{s.id}" itemLabel="#{s.name}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Nisja" style="font-weight: bold" />
+							<p:selectOneMenu value="#{newAuthBean.auth.fromPlaceId}">
+								<f:selectItem itemValue="#{null}" itemLabel="Nisja" />
+								<f:selectItems value="#{newAuthBean.places}" var="fp"
+									itemValue="#{fp}" itemLabel="#{fp.name}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Destinacioni" style="font-weight: bold" />
+							<p:selectOneMenu value="#{newAuthBean.auth.toPlaceId}">
+								<f:selectItem itemValue="#{null}" itemLabel="Destinacioni" />
+								<f:selectItems value="#{newAuthBean.places}" var="dp"
+									itemValue="#{dp}" itemLabel="#{dp.name}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Data nisjes" style="font-weight: bold" />
+							<p:inputMask value="#{newAuthBean.auth.fromDate}"
+								pattern="dd.MM.yyyy" placeholder="Data nisjes" />
+								
+							<p:outputLabel value="Data kthimit" style="font-weight: bold" />
+							<p:inputMask value="#{newAuthBean.auth.toDate}"
+								pattern="dd.MM.yyyy" placeholder="Data kthimit" />
+
+							<p:outputLabel value="Automjetet" style="font-weight: bold" />
+							<p:selectCheckboxMenu value="#{newAuthBean.selectedVehicles}"
+								label="Automjetet" multiple="true" filter="true"
+								filterMatchMode="contains" converter="vehicleConverter"
+								panelStyle="width:250px">
+								<f:selectItems value="#{newAuthBean.vehicles}" var="v"
+									itemLabel="#{v.plate}" itemValue="#{v}" />
+							</p:selectCheckboxMenu>
+							
+							<p:outputLabel value="Arsyeja e sherbimit"
+								style="font-weight: bold" />
+							<p:inputTextarea value="#{newAuthBean.auth.reasonOfTravel}"
+								placeholder="Arsyeja e shërbimit" rows="5" />
+								
+							<p:outputLabel value="Delego për firmë" style="font-weight: bold" />
+							<p:autoComplete id="dd" dropdown="true"
+								value="#{newAuthBean.auth.nextUserId}"
+								completeMethod="#{newAuthBean.searchUser}" var="nu"
+								itemLabel="#{nu.officer.name} #{nu.officer.surname}"
+								itemValue="#{nu.id}" placeholder="Delego për firmë">
+								<h:panelGrid>
+									<h:outputLabel value="#{nu.officer.name} #{nu.officer.surname}"
+										styleClass="bold" />
+									<h:outputLabel value="#{nu.officer.position}" />
+								</h:panelGrid>
+							</p:autoComplete>
+
+						</p:panelGrid>
+
+					</p:panel>
+
+				</div>
+
+				<div class="ui-g-12 ui-md-6">
+
+					<p:panel header="Lista punonjësve" style="height: 99%">
+					<p:panelGrid layout="grid" columns="1" styleClass="ui-panelgrid-blank"> 
+						<p:autoComplete value="#{newAuthBean.selectedOfficer}"
+							placeholder="Kërko punonjësin..."
+							completeMethod="#{newAuthBean.searchOfficer}"
+							converter="officerConverter">
+							<p:ajax event="itemSelect"
+								listener="#{newAuthBean.onOfficerSelect}" update="off_tbl" />
+						</p:autoComplete>
+						<p:dataTable id="off_tbl" value="#{newAuthBean.selectedOfficers}"
+							var="o" rowIndexVar="r" reflow="true" styleClass="no-border"
+							emptyMessage="Nuk keni zgjedhur asnjë punonjës">
+							<p:column headerText="#">
+										#{r+1}
+									</p:column>
+							<p:column headerText="Punonjësi">
+										#{o.name} #{o.surname}
+									</p:column>
+							<p:column headerText="Struktura">
+										#{o.structure}
+									</p:column>
+							<p:column headerText="Funksioni">
+										#{o.function}
+									</p:column>
+							<p:column headerText="Hiq">
+								<p:commandLink value="hiq" update="off_tbl"
+									action="#{newAuthBean.removeOfficer(o)}" />
+							</p:column>
+						</p:dataTable>
+						</p:panelGrid>
+					</p:panel>
+
+				</div>
+
+				
+
+				
+
+			</div>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,10 +1,88 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
 
-</body>
-</html>
+	<ui:define name="title">Dashboard</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+
+			<div class="ui-g dashboard">
+
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<h:commandLink>
+						<div class="ui-g card overview-box overview-box-1 no-gutter">
+							<div class="overview-box-title">Autorizime në proces</div>
+							<div class="overview-box-details">
+								<i class="fa fa-pause overview-box-details-icon" /> <span
+									class="overview-box-details-count">1</span>
+							</div>
+						</div>
+					</h:commandLink>
+				</div>
+
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<h:commandLink>
+						<div class="ui-g card overview-box overview-box-3 no-gutter">
+							<div class="overview-box-title">Autorizime të miratuara</div>
+							<div class="overview-box-details">
+								<i class="fa fa-thumbs-up overview-box-details-icon" /> <span
+									class="overview-box-details-count">1</span>
+							</div>
+						</div>
+					</h:commandLink>
+				</div>
+
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<h:commandLink>
+						<div class="ui-g card overview-box overview-box-2 no-gutter">
+							<div class="overview-box-title">Autorizime të kthyera</div>
+							<div class="overview-box-details">
+								<i class="fa fa-reply overview-box-details-icon" /> <span
+									class="overview-box-details-count">1</span>
+							</div>
+						</div>
+					</h:commandLink>
+				</div>
+
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<h:commandLink>
+						<div class="ui-g card overview-box overview-box-4 no-gutter">
+							<div class="overview-box-title">Autorizime të anulluara</div>
+							<div class="overview-box-details">
+								<i class="fa fa-ban overview-box-details-icon" /> <span
+									class="overview-box-details-count">1</span>
+							</div>
+						</div>
+					</h:commandLink>
+				</div>
+
+				<div class="ui-g-12">
+
+					<p:dataTable emptyMessage="Nuk keni asnje autorizim">
+						<f:facet name="header">Lista e autorizimeve</f:facet>
+						<p:column headerText="#"></p:column>
+						<p:column headerText="Data"></p:column>
+						<p:column headerText="Nisja"></p:column>
+						<p:column headerText="Destinacioni"></p:column>
+						<p:column headerText="Dt.Nisje"></p:column>
+						<p:column headerText="Dt.Kthimi"></p:column>
+						<p:column headerText="Përdoruesi"></p:column>
+						<p:column headerText="Statusi"></p:column>
+					</p:dataTable>
+
+				</div>
+
+
+
+
+			</div>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
