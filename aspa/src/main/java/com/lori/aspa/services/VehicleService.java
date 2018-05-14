@@ -56,7 +56,7 @@ public class VehicleService {
 			return new Assembler().toDto(v);
 		}
 		
-		throw new EntityExistsException("Automjeti "+v.getPlate()+" eshte i planifikuar me sherbim drejt "+listAuth.get(0).getToPlace().getName());
+		throw new EntityExistsException("Automjeti "+v.getPlate()+" është i planifikuar me shërbim drejt "+listAuth.get(0).getToPlace().getName());
 		
 		
 		

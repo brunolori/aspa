@@ -14,10 +14,11 @@
 			<div class="ui-g-12 ui-md-4">
 					<p:panelGrid layout="grid" columns="2"
 						styleClass="ui-panelgrid-blank">
-						<p:commandButton value="Mbrapa" icon="fa fa-arrow-left"
+						<p:button  value="Mbrapa" outcome="my_auth_view" icon="fa fa-arrow-left"
 							styleClass="orange-btn"/>
 
 						<p:commandButton value="Ruaj ndryshimet" icon="fa fa-save"
+						action="#{modifyAuthBean.modify()}"
 							styleClass="green-btn"
 							update="@form" />
 					</p:panelGrid>
@@ -36,52 +37,52 @@
 							styleClass="ui-panelgrid-blank form-group">
 
 							<p:outputLabel value="Struktura" style="font-weight: bold" />
-							<p:selectOneMenu value="#{newAuthBean.auth.structureId}">
+							<p:selectOneMenu value="#{modifyAuthBean.auth.structureId}">
 								<f:selectItem itemValue="#{null}" itemLabel="Struktura" />
-								<f:selectItems value="#{newAuthBean.structures}" var="s"
+								<f:selectItems value="#{modifyAuthBean.structures}" var="s"
 									itemValue="#{s.id}" itemLabel="#{s.name}" />
 							</p:selectOneMenu>
 
 							<p:outputLabel value="Nisja" style="font-weight: bold" />
-							<p:selectOneMenu value="#{newAuthBean.auth.fromPlaceId}">
+							<p:selectOneMenu value="#{modifyAuthBean.auth.fromPlaceId}">
 								<f:selectItem itemValue="#{null}" itemLabel="Nisja" />
-								<f:selectItems value="#{newAuthBean.places}" var="fp"
-									itemValue="#{fp}" itemLabel="#{fp.name}" />
+								<f:selectItems value="#{modifyAuthBean.places}" var="fp"
+									itemValue="#{fp.id}" itemLabel="#{fp.name}" />
 							</p:selectOneMenu>
 
 							<p:outputLabel value="Destinacioni" style="font-weight: bold" />
-							<p:selectOneMenu value="#{newAuthBean.auth.toPlaceId}">
+							<p:selectOneMenu value="#{modifyAuthBean.auth.toPlaceId}">
 								<f:selectItem itemValue="#{null}" itemLabel="Destinacioni" />
-								<f:selectItems value="#{newAuthBean.places}" var="dp"
-									itemValue="#{dp}" itemLabel="#{dp.name}" />
+								<f:selectItems value="#{modifyAuthBean.places}" var="dp"
+									itemValue="#{dp.id}" itemLabel="#{dp.name}" />
 							</p:selectOneMenu>
 
 							<p:outputLabel value="Data nisjes" style="font-weight: bold" />
-							<p:inputMask value="#{newAuthBean.auth.fromDate}"
+							<p:inputMask value="#{modifyAuthBean.auth.fromDate}"
 								pattern="dd.MM.yyyy" placeholder="Data nisjes" />
 								
 							<p:outputLabel value="Data kthimit" style="font-weight: bold" />
-							<p:inputMask value="#{newAuthBean.auth.toDate}"
+							<p:inputMask value="#{modifyAuthBean.auth.toDate}"
 								pattern="dd.MM.yyyy" placeholder="Data kthimit" />
 
 							<p:outputLabel value="Automjetet" style="font-weight: bold" />
-							<p:selectCheckboxMenu value="#{newAuthBean.selectedVehicles}"
+							<p:selectCheckboxMenu value="#{modifyAuthBean.selectedVehicles}"
 								label="Automjetet" multiple="true" filter="true"
 								filterMatchMode="contains" converter="vehicleConverter"
 								panelStyle="width:250px">
-								<f:selectItems value="#{newAuthBean.vehicles}" var="v"
+								<f:selectItems value="#{modifyAuthBean.vehicles}" var="v"
 									itemLabel="#{v.plate}" itemValue="#{v}" />
 							</p:selectCheckboxMenu>
 							
 							<p:outputLabel value="Arsyeja e sherbimit"
 								style="font-weight: bold" />
-							<p:inputTextarea value="#{newAuthBean.auth.reasonOfTravel}"
+							<p:inputTextarea value="#{modifyAuthBean.auth.reasonOfTravel}"
 								placeholder="Arsyeja e shërbimit" rows="5" />
 								
 							<p:outputLabel value="Delego për firmë" style="font-weight: bold" />
 							<p:autoComplete id="dd" dropdown="true"
-								value="#{newAuthBean.auth.nextUserId}"
-								completeMethod="#{newAuthBean.searchUser}" var="nu"
+								value="#{modifyAuthBean.auth.nextUserId}"
+								completeMethod="#{modifyAuthBean.searchUser}" var="nu"
 								itemLabel="#{nu.officer.name} #{nu.officer.surname}"
 								itemValue="#{nu.id}" placeholder="Delego për firmë">
 								<h:panelGrid>
@@ -101,14 +102,14 @@
 
 					<p:panel header="Lista punonjësve" style="height: 99%">
 					<p:panelGrid layout="grid" columns="1" styleClass="ui-panelgrid-blank"> 
-						<p:autoComplete value="#{newAuthBean.selectedOfficer}"
+						<p:autoComplete value="#{modifyAuthBean.selectedOfficer}"
 							placeholder="Kërko punonjësin..."
-							completeMethod="#{newAuthBean.searchOfficer}"
+							completeMethod="#{modifyAuthBean.searchOfficer}"
 							converter="officerConverter">
 							<p:ajax event="itemSelect"
-								listener="#{newAuthBean.onOfficerSelect}" update="off_tbl" />
+								listener="#{modifyAuthBean.onOfficerSelect}" update="off_tbl" />
 						</p:autoComplete>
-						<p:dataTable id="off_tbl" value="#{newAuthBean.selectedOfficers}"
+						<p:dataTable id="off_tbl" value="#{modifyAuthBean.selectedOfficers}"
 							var="o" rowIndexVar="r" reflow="true" styleClass="no-border"
 							emptyMessage="Nuk keni zgjedhur asnjë punonjës">
 							<p:column headerText="#">
@@ -125,7 +126,7 @@
 									</p:column>
 							<p:column headerText="Hiq">
 								<p:commandLink value="hiq" update="off_tbl"
-									action="#{newAuthBean.removeOfficer(o)}" />
+									action="#{modifyAuthBean.removeOfficer(o)}" />
 							</p:column>
 						</p:dataTable>
 						</p:panelGrid>

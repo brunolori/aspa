@@ -43,8 +43,6 @@ public class StructureDAO {
 	
 	
 	
-	
-	
 	@SuppressWarnings("rawtypes")
 	public List<Structure> search(String name, Integer parentId, Integer status, Integer firstResult, Integer maxResult) 
 	{

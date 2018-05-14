@@ -12,10 +12,12 @@
 		<div class="ui-g ui-fluid">
 		  <div class="ui-g-12 ui-md-10 ui-lg-6">
 			  <p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank">
-			  	  <p:commandButton value="Mbrapa" styleClass="orange-btn" icon="fa fa-arrow-left"/>
-				  <p:commandButton value="Modifiko" styleClass="green-btn" icon="fa fa-edit"/>
-				  <p:commandButton value="Printo" styleClass="blue-btn" icon="fa fa-print"/>
-				  <p:commandButton value="Fshijë" styleClass="red-btn" icon="fa fa-trash"/>
+			  	  <p:button value="Mbrapa" outcome="my_auth_dashboard" styleClass="orange-btn" icon="fa fa-arrow-left"/>
+				  <p:button value="Modifiko" outcome="my_auth_modify" styleClass="green-btn" icon="fa fa-edit">
+				  	<f:param name="auth_id" value="#{viewAuthBean.auth.id}"/>
+				  </p:button>
+				  <p:button value="Printo"  target="_blank" styleClass="blue-btn" icon="fa fa-print"/>
+				  <p:commandButton value="Fshijë" action="#{viewAuthBean.delete()}" styleClass="red-btn" icon="fa fa-trash"/>
 			  </p:panelGrid>
 		  </div>
 		  
@@ -31,46 +33,50 @@
 		  		
 		  		<p:outputLabel value="Data Autorizimit" style="font-weight: bold" />
 		  		<p:outputLabel value="Përdoruesi" style="font-weight: bold" />
-		  		<p:inputText disabled="true"/>
-		  		<p:inputText disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.authorizationDate}" disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.user}" disabled="true"/>
 		  		
 		  		
 		  		<p:outputLabel value="Statusi" style="font-weight: bold" />
 		  		<p:outputLabel value="Struktura" style="font-weight: bold" />
-		  		<p:inputText disabled="true"/>
-		  		<p:inputText disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.approved}" disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.structure}" disabled="true"/>
 		  		
 		  		<p:outputLabel value="Nisja" style="font-weight: bold"/>
 		  		<p:outputLabel value="Destinacioni" style="font-weight: bold"/>
-		  		<p:inputText disabled="true"/>
-		  		<p:inputText disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.fromPlace}" disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.toPlace}" disabled="true"/>
 		  		
 		  		<p:outputLabel value="Data nisjes" style="font-weight: bold"/>
 		  		<p:outputLabel value="Data kthimit" style="font-weight: bold"/>
-		  		<p:inputText disabled="true"/>
-		  		<p:inputText disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.fromDate}" disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.toDate}" disabled="true"/>
 		  		
 		  		<p:outputLabel value="Automjetet" style="font-weight: bold"/>
 		  		<p:outputLabel value="Punonjësit" style="font-weight: bold"/>
-		  		<p:inputText disabled="true"/>
-		  		<p:inputText disabled="true"/>
+		  		<p:dataList value="#{viewAuthBean.auth.vehicles}" var="v">
+		  			#{v.plate}
+		  		</p:dataList>
+		  		<p:dataList value="#{viewAuthBean.auth.officers}" var="of">
+		  			#{of.name} #{of.surname}
+		  		</p:dataList>
 
 		  	</p:panelGrid>
 		  	<p:panelGrid layout="grid" columns="1" styleClass="ui-panelgrid-blank" >
 		  		<p:outputLabel value="Arsyeja e shërbimit" style="font-weight: bold"/>
-		  		<p:inputTextarea rows="5" disabled="true"/>
+		  		<p:inputTextarea value="{viewAuthBean.auth.reasonOfTravel}" rows="5" disabled="true"/>
 		  	</p:panelGrid>
 		  </p:panel>
 		  </div>
 		  
 		  <div class="ui-g-12 ui-md-6 ">
 		  <p:panel header="Historiku Autorizimit" style="height: 99%">
-		  	<p:dataTable reflow="true">			  	
-			  	<p:column headerText="#"></p:column>
-			  	<p:column headerText="Data"></p:column>
-			  	<p:column headerText="Përdoruesi"></p:column>
-			  	<p:column headerText="Veprimi"></p:column>
-			  	<p:column headerText="Arsyeja"></p:column>
+		  	<p:dataTable value="#{viewAuthBean.history}" var="h" rowIndexVar="r" reflow="true">			  	
+			  	<p:column headerText="#">#{r+1}</p:column>
+			  	<p:column headerText="Data">#{h.approvalTime}</p:column>
+			  	<p:column headerText="Përdoruesi">#{h.user}</p:column>
+			  	<p:column headerText="Veprimi">#{h.decision}</p:column>
+			  	<p:column headerText="Arsyeja">#{h.reason}</p:column>
 		  	</p:dataTable>
 		  </p:panel>
 		  </div>

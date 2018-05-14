@@ -69,7 +69,7 @@ public class OfficerService {
 			return new Assembler().toDto(o);
 		}
 		
-		throw new EntityExistsException(o.getName()+" "+o.getSurname()+" eshte i planifikuar me sherbim drejt "+listAuth.get(0).getToPlace().getName());
+		throw new EntityExistsException(o.getName()+" "+o.getSurname()+" është i planifikuar me shërbim drejt "+listAuth.get(0).getToPlace().getName());
 		
 		
 	}

@@ -7,12 +7,22 @@ import com.lori.aspa.ui.models.AuthorizationDTO;
 public class AuthService {
 
 	
+	public AuthorizationDTO getAuthorizationById(Integer authId, String token)
+	{
+		return null;
+	}
+	
 	public AuthorizationDTO registerAuthorization(AuthorizationDTO auth, String token)
 	{
 		return null;
 	}
 	
 	public AuthorizationDTO modifyAuthorization(AuthorizationDTO auth, String token)
+	{
+		return null;
+	}
+	
+	public AuthorizationDTO deleteAuthorization(AuthorizationDTO auth, String token)
 	{
 		return null;
 	}

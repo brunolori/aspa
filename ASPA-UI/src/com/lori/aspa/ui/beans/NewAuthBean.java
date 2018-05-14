@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import com.lori.aspa.ui.models.AuthorizationDTO;
@@ -21,6 +22,9 @@ public class NewAuthBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	
+	@ManagedProperty(value="#{loginBean}")
+	LoginBean login;
 	
 	List<StructureDTO> structures;
 	List<PlaceDTO> places;
@@ -83,9 +87,13 @@ public class NewAuthBean implements Serializable {
 	}
 	public void setAuth(AuthorizationDTO auth) {
 		this.auth = auth;
+	}	
+	public LoginBean getLogin() {
+		return login;
 	}
-	
-	
+	public void setLogin(LoginBean login) {
+		this.login = login;
+	}
 	
 	
 	@PostConstruct

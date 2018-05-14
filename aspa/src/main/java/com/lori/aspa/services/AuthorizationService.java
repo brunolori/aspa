@@ -47,6 +47,15 @@ public class AuthorizationService {
 	@Autowired
 	PlaceDAO placeDAO;
 	
+	
+	
+	public AuthorizationDTO findAuthorizationById(Integer authorizationId)
+	{
+		
+		return new Assembler().toDto(authorizationDAO.findById(authorizationId));
+	}
+	
+	
 	public AuthorizationDTO registerAuthorization(AuthorizationDTO dto) throws AppException
 	{
 		
