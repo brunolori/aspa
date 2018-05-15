@@ -21,12 +21,9 @@ public class LoginBean implements Serializable {
 	
 	
 	
-	 public void login() {
-		
-              	           
-	    }
+	public void login() {}
 	
-	
+	public void logout() {}
 	
 
 }

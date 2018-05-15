@@ -22,10 +22,6 @@ public class DashboardBean implements Serializable{
 	
 	
 	
-	
-	
-	
-	
 	public MyDashboardDTO getDashboard() {
 		return dashboard;
 	}

@@ -1,3 +1,5 @@
+
+
 package com.lori.aspa.ui.beans;
 
 import java.io.Serializable;
@@ -57,7 +59,6 @@ public class ViewAuthBean implements Serializable {
 	
 	public String delete()
 	{
-		
 		new AuthService().deleteAuthorization(auth, null);
 		
 		return "my_auth_dashboard";
