@@ -1,3 +1,4 @@
+
 package com.lori.aspa.services;
 
 import java.util.Date;
@@ -46,7 +47,7 @@ public class VehicleService {
 		authSql.setFromDate(from);
 		authSql.setToDate(to);
 		authSql.setStatus(IStatus.ACTIVE);
-		authSql.setNotApproved(IDecision.DENY);
+		authSql.setNotDecision(IDecision.DENY);
 		authSql.setVehicleId(vehicleId);
 
 		List<Authorization> listAuth =  authorizationDAO.search(authSql);

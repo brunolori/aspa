@@ -20,22 +20,20 @@
             <div class="login-panel ui-fluid">
                 <div class="ui-g">
                     <div class="ui-g-12 logo-container">
-                  
-                      
                         
                         <h2 style="text-align: left; font-size: 20px;font-weight: bold;">ASP Autorizime</h2>
                     </div>
                     <div class="ui-g-12">
                         <p:outputLabel for="username" value="Përdoruesi" />
                         <div class="input-wrapper">
-                            <p:inputText id="username" placeholder="Përdoruesi" />
+                            <p:inputText id="username" value="#{loginBean.username}" placeholder="Përdoruesi" />
                             <i class="fa fa-user" />
                         </div>
                     </div>
                     <div class="ui-g-12">
                         <p:outputLabel for="password" value="Fjalëkalimi" />
                         <div class="input-wrapper">
-                            <p:password id="password" placeholder="Fjalëkalimi" feedback="false" />
+                            <p:password id="password" value="#{loginBean.password}" placeholder="Fjalëkalimi" feedback="false" />
                             <i class="fa fa-lock" />
                         </div>
                     </div>

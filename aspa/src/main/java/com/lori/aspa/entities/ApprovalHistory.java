@@ -34,7 +34,7 @@ public class ApprovalHistory implements Serializable {
     private int id;
     @Column(name = "APPROVAL_TIME")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date approvalTime;
+    private Date decisionTime;
     @Column(name = "REASON")
     private String reason;
     @Column(name = "CREATE_TIME")
@@ -76,13 +76,17 @@ public class ApprovalHistory implements Serializable {
 		this.id = id;
 	}
 
-	public Date getApprovalTime() {
-		return approvalTime;
+	
+
+	public Date getDecisionTime() {
+		return decisionTime;
 	}
 
-	public void setApprovalTime(Date approvalTime) {
-		this.approvalTime = approvalTime;
+
+	public void setDecisionTime(Date decisionTime) {
+		this.decisionTime = decisionTime;
 	}
+
 
 	public String getReason() {
 		return reason;

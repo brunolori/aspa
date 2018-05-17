@@ -12,11 +12,10 @@ public class AuthorizationDTO {
 	    private String fromDate;
 	    private String toDate;
 	    private Integer rank;
-	    private String approved;
+	    private String decision;
 	    private String finalApprovedDate;
 	    private String cancelDate;
 	    private String reasonOfTravel;
-	    private boolean marketForChange;
 	    private String structure;
 	    private Integer structureId;
 	    private String user;
@@ -80,11 +79,12 @@ public class AuthorizationDTO {
 		public void setRank(Integer rank) {
 			this.rank = rank;
 		}
-		public String getApproved() {
-			return approved;
+		
+		public String getDecision() {
+			return decision;
 		}
-		public void setApproved(String approved) {
-			this.approved = approved;
+		public void setDecision(String decision) {
+			this.decision = decision;
 		}
 		public String getFinalApprovedDate() {
 			return finalApprovedDate;
@@ -104,12 +104,7 @@ public class AuthorizationDTO {
 		public void setReasonOfTravel(String reasonOfTravel) {
 			this.reasonOfTravel = reasonOfTravel;
 		}
-		public boolean isMarketForChange() {
-			return marketForChange;
-		}
-		public void setMarketForChange(boolean marketForChange) {
-			this.marketForChange = marketForChange;
-		}
+		
 		public String getStructure() {
 			return structure;
 		}

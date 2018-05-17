@@ -59,7 +59,7 @@ public class OfficerService {
 		authSql.setFromDate(from);
 		authSql.setToDate(to);
 		authSql.setStatus(IStatus.ACTIVE);
-		authSql.setNotApproved(IDecision.DENY);
+		authSql.setNotDecision(IDecision.DENY);
 		authSql.setOfficerId(officerId);
 
 		List<Authorization> listAuth =  authorizationDAO.search(authSql);

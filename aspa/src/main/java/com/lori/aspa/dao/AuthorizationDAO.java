@@ -11,9 +11,11 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.lori.aspa.constants.IStatus;
 import com.lori.aspa.dao.sql.AuthorizationSQL;
 import com.lori.aspa.entities.Authorization;
 import com.lori.aspa.entities.Officer;
+import com.lori.aspa.entities.User;
 import com.lori.aspa.entities.Vehicle;
 import com.lori.aspa.utils.StringUtil;
 
@@ -88,14 +90,14 @@ public class AuthorizationDAO {
 			params.put("tid", criterias.getToPlaceId());
 		}
 		
-        if (StringUtil.isValid(criterias.getApproved())) {
-            sql += " AND a.approved=:app";
-            params.put("app", criterias.getApproved());
+        if (StringUtil.isValid(criterias.getDecision())) {
+            sql += " AND a.decision=:dcs";
+            params.put("dcs", criterias.getDecision());
         }
         
-        if (StringUtil.isValid(criterias.getNotApproved())) {
-            sql += " AND a.approved != :n_app";
-            params.put("n_app", criterias.getNotApproved());
+        if (StringUtil.isValid(criterias.getNotDecision())) {
+            sql += " AND a.decision != :n_dcs";
+            params.put("n_dcs", criterias.getNotDecision());
         }
         
         if(criterias.getOfficerId() != null)
@@ -120,12 +122,6 @@ public class AuthorizationDAO {
 			sql += "AND a.status=:st ";
 			params.put("st", criterias.getStatus());
 		}
-        
-        
-        if (criterias.getMarkedForChange()!= null) {
-            sql += " AND a.markedForChange=:mfc";
-            params.put("mfc", criterias.getMarkedForChange());
-        }
         
         if (criterias.getNextUserId() != null) {
             sql += " AND a.nextUser.id=:nextuid";
@@ -156,6 +152,16 @@ public class AuthorizationDAO {
 		return q.getResultList();
 				
 	}
+	
+	public Integer count(String decision,User user)
+	{
+		return (Integer)em.createQuery("SELECT count(a) FROM Authorization a WHERE a.status=:st AND a.decision=:dec AND a.user=:user")
+				.setParameter("st", IStatus.ACTIVE).setParameter("dec", decision).setParameter("user", user)
+				.getSingleResult();
+	}
+	
+	
+	
 	
 
 }

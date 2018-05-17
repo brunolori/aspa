@@ -15,6 +15,13 @@ import com.lori.aspa.ui.models.PlaceDTO;
 import com.lori.aspa.ui.models.StructureDTO;
 import com.lori.aspa.ui.models.UserDTO;
 import com.lori.aspa.ui.models.VehicleDTO;
+import com.lori.aspa.ui.services.AuthService;
+import com.lori.aspa.ui.services.OfficerService;
+import com.lori.aspa.ui.services.PlaceService;
+import com.lori.aspa.ui.services.StructureService;
+import com.lori.aspa.ui.services.UserService;
+import com.lori.aspa.ui.services.VehicleService;
+import com.lori.aspa.ui.utils.Messages;
 
 @ManagedBean
 @ViewScoped
@@ -26,6 +33,10 @@ public class NewAuthBean implements Serializable {
 	@ManagedProperty(value="#{loginBean}")
 	LoginBean login;
 	
+	String token;
+	Integer userId;
+	
+	
 	List<StructureDTO> structures;
 	List<PlaceDTO> places;
 	List<VehicleDTO> vehicles;
@@ -34,7 +45,6 @@ public class NewAuthBean implements Serializable {
 	List<VehicleDTO> selectedVehicles;
 	
 	OfficerDTO selectedOfficer;
-	UserDTO selectedNextUser;
 	
 	AuthorizationDTO auth;
 	
@@ -76,12 +86,6 @@ public class NewAuthBean implements Serializable {
 	public void setSelectedOfficer(OfficerDTO selectedOfficer) {
 		this.selectedOfficer = selectedOfficer;
 	}
-	public UserDTO getSelectedNextUser() {
-		return selectedNextUser;
-	}
-	public void setSelectedNextUser(UserDTO selectedNextUser) {
-		this.selectedNextUser = selectedNextUser;
-	}
 	public AuthorizationDTO getAuth() {
 		return auth;
 	}
@@ -99,9 +103,12 @@ public class NewAuthBean implements Serializable {
 	@PostConstruct
 	public void load()
 	{
-		this.structures = null;// mbushi
-		this.vehicles = null;
-		this.places = null;
+		this.userId = login.getUserToken().getUser().getId();
+		this.token = login.getUserToken().getToken();
+		
+		this.structures = new StructureService().getUserStructures(token);
+		this.vehicles = new VehicleService().getUserVehicles(token);
+		this.places = new PlaceService().loadPlaces();
 		
 		init();
 	}
@@ -109,6 +116,9 @@ public class NewAuthBean implements Serializable {
 	private void init()
 	{
 		this.auth = new AuthorizationDTO();
+		this.selectedOfficers = new ArrayList<>();
+		this.selectedVehicles = new ArrayList<>();
+		this.selectedOfficer = null;
 
 	}
 	
@@ -119,28 +129,44 @@ public class NewAuthBean implements Serializable {
 	
 	public void register()
 	{
+		
+		if(selectedOfficers.isEmpty())
+		{
+			Messages.throwFacesMessage("Zgjidhni punonjesit", 2);
+			return;
+		}
+		if(selectedVehicles.isEmpty())
+		{
+			Messages.throwFacesMessage("Zgjidhni automjetin", 2);
+			return;
+		}
+		
+		new AuthService().registerAuthorization(auth, selectedOfficers, selectedVehicles, token);
+		Messages.throwFacesMessage("Autorizimi u regjistrua me sukses", 1);
+		
 		init();
 	}
 	
 	
 	public List<OfficerDTO> searchOfficer(String query)
 	{
-		return new ArrayList<>();
+		return new OfficerService().queryOfficer(query);
 	}
 	
 	public List<UserDTO> searchUser(String query)
 	{
-		return new ArrayList<>();
+		return new UserService().queryUser(query);
 	}
 	
 	public void onOfficerSelect()
 	{
-		
+		this.selectedOfficers.add(selectedOfficer);
+		this.selectedOfficer = null;
 	}
 	
 	public void removeOfficer(OfficerDTO o)
 	{
-		
+		this.selectedOfficers.remove(o);
 	}
 	
 	

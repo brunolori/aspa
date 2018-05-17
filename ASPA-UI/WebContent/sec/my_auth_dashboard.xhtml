@@ -12,7 +12,7 @@
 			<div class="ui-g dashboard">
 
 				<div class="ui-g-12 ui-md-6 ui-lg-3">
-					<p:commandLink action="#{dashboardBean.loadAuths('A')}" update="@form">
+					<p:commandLink action="#{dashboardBean.loadAuths('P')}" update="@form">
 						<div class="ui-g card overview-box overview-box-1 no-gutter">
 							<div class="overview-box-title">Autorizime në proces</div>
 							<div class="overview-box-details">
@@ -61,7 +61,7 @@
 
 				<div class="ui-g-12">
 
-					<p:dataTable  value="#{dashboardBean.auths}" var="a" rowIndexVar="r" emptyMessage="Nuk keni asnje autorizim">
+					<p:dataTable  value="#{dashboardBean.auths}" var="a" rowIndexVar="r" emptyMessage="Nuk keni asnjë autorizim">
 						<f:facet name="header">Lista e autorizimeve</f:facet>
 						<p:column headerText="#">#{r+1}</p:column>
 						<p:column headerText="Data">#{a.authorizationDate}</p:column>
@@ -70,7 +70,7 @@
 						<p:column headerText="Dt.Nisje">#{a.fromdate}</p:column>
 						<p:column headerText="Dt.Kthimi">#{a.toDate}</p:column>
 						<p:column headerText="Përdoruesi">#{a.user}</p:column>
-						<p:column headerText="Statusi">#{a.approved}</p:column>
+						<p:column headerText="Statusi">#{a.decision}</p:column>
 					</p:dataTable>
 
 				</div>

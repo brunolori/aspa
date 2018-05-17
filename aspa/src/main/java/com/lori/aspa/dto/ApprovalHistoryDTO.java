@@ -15,7 +15,7 @@ package com.lori.aspa.dto;
 public class ApprovalHistoryDTO {
   
     private int id;
-    private String approvalTime;
+    private String decisionTime;
     private String reason;
     private String decision;
     private int authorizationId;
@@ -34,11 +34,11 @@ public class ApprovalHistoryDTO {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getApprovalTime() {
-		return approvalTime;
+	public String getDecisionTime() {
+		return decisionTime;
 	}
-	public void setApprovalTime(String approvalTime) {
-		this.approvalTime = approvalTime;
+	public void setDecisionTime(String decisionTime) {
+		this.decisionTime = decisionTime;
 	}
 	public String getReason() {
 		return reason;

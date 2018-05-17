@@ -39,6 +39,19 @@ public class UserDAO {
 		return em.merge(user);
 	}
 
+	public User findByUsername(String uname) 
+	{
+		List<User> list = em.createQuery("From User u where u.username=:uname").setParameter("uname", uname).getResultList();
+		if(list != null && !list.isEmpty())
+		{
+			return list.get(0);
+		}
+		
+		return null;
+	}
+	
+	
+	
 	@SuppressWarnings("rawtypes")
 	public List<User> search(UserSQL criterias) 
 	{

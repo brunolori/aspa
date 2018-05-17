@@ -11,10 +11,9 @@ public class AuthorizationReq {
 	Integer nextUserId;
 	Integer fromPlaceId;
 	Integer toPlaceId;
-	String approved;
+	String decision;
 	Integer rank;
 	boolean status;
-	boolean markedForChange;	
 	Integer firstResult;
 	Integer maxResult;
 	
@@ -70,13 +69,16 @@ public class AuthorizationReq {
 		this.toPlaceId = toPlaceId;
 	}
 
-	public String getApproved() {
-		return approved;
+	
+	public String getDecision() {
+		return decision;
 	}
 
-	public void setApproved(String approved) {
-		this.approved = approved;
+
+	public void setDecision(String decision) {
+		this.decision = decision;
 	}
+
 
 	public Integer getRank() {
 		return rank;
@@ -93,15 +95,7 @@ public class AuthorizationReq {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
-	public boolean isMarkedForChange() {
-		return markedForChange;
-	}
-
-	public void setMarkedForChange(boolean markedForChange) {
-		this.markedForChange = markedForChange;
-	}
-
+	
 	public Integer getFirstResult() {
 		return firstResult;
 	}

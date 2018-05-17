@@ -49,7 +49,7 @@ public class Authorization implements Serializable {
     @Column(name = "RANK")
     private int rank;
     @Column(name = "APPROVED")
-    private String approved;
+    private String decision;
     @Column(name = "FINAL_APPROVED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date finalApprovedDate;
@@ -58,8 +58,6 @@ public class Authorization implements Serializable {
     private Date cancelDate;
     @Column(name = "REASON_OF_TRAVEL")
     private String reasonOfTravel;
-    @Column(name = "MARKET_FOR_CHANGE")
-    private int marketForChange;
     @Column(name = "STATUS")
     private int status;
     @Column(name = "CREATE_TIME")
@@ -146,12 +144,12 @@ public class Authorization implements Serializable {
 		this.rank = rank;
 	}
 
-	public String getApproved() {
-		return approved;
+	public String getDecision() {
+		return decision;
 	}
 
-	public void setApproved(String approved) {
-		this.approved = approved;
+	public void setDecision(String decision) {
+		this.decision = decision;
 	}
 
 	public Date getFinalApprovedDate() {
@@ -176,14 +174,6 @@ public class Authorization implements Serializable {
 
 	public void setReasonOfTravel(String reasonOfTravel) {
 		this.reasonOfTravel = reasonOfTravel;
-	}
-
-	public int getMarketForChange() {
-		return marketForChange;
-	}
-
-	public void setMarketForChange(int marketForChange) {
-		this.marketForChange = marketForChange;
 	}
 
 	public Date getCreateTime() {

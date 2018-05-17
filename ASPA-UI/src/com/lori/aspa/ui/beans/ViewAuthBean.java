@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import com.lori.aspa.ui.models.ApprovalHistoryDTO;
@@ -19,6 +20,12 @@ import com.lori.aspa.ui.utils.Util;
 public class ViewAuthBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@ManagedProperty(value="#{loginBean}")
+	LoginBean login;
+	
+	String token;
+	Integer userId;
 	
 	
 	AuthorizationDTO auth;
@@ -38,17 +45,24 @@ public class ViewAuthBean implements Serializable {
 	public void setHistory(List<ApprovalHistoryDTO> history) {
 		this.history = history;
 	}
-	
-	
+	public LoginBean getLogin() {
+		return login;
+	}
+	public void setLogin(LoginBean login) {
+		this.login = login;
+	}
 	
 	
 	@PostConstruct
 	public void load()
 	{
-		String idStr = Util.getParam("auth_id");
+		String idString = Util.getParam("auth_id");
+		this.userId = login.getUserToken().getUser().getId();
+		this.token = login.getUserToken().getToken();
+		
 		try {
-		   Integer id = Integer.valueOf(idStr);
-		   this.auth = new AuthService().getAuthorizationById(id, null);
+		   Integer id = Integer.valueOf(idString);
+		   this.auth = new AuthService().getAuthorizationById(id);
 		}catch(NumberFormatException ne) {
 			Util.redirect("sec/my_auth_dashboard");
 		}
@@ -59,7 +73,7 @@ public class ViewAuthBean implements Serializable {
 	
 	public String delete()
 	{
-		new AuthService().deleteAuthorization(auth, null);
+		new AuthService().deleteAuthorization(auth, token);
 		
 		return "my_auth_dashboard";
 	}

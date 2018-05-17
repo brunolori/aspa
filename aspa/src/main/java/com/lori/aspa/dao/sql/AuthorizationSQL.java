@@ -11,11 +11,10 @@ public class AuthorizationSQL {
 	Integer nextUserId;
 	Integer fromPlaceId;
 	Integer toPlaceId;
-	String approved;
-	String notApproved;
+	String decision;
+	String notDecision;
 	Integer rank;
 	Integer status;
-	Integer markedForChange;	
 	Integer firstResult;
 	Integer maxResult;
 	Integer officerId;
@@ -71,13 +70,7 @@ public class AuthorizationSQL {
 		this.toPlaceId = toPlaceId;
 	}
 
-	public String getApproved() {
-		return approved;
-	}
-
-	public void setApproved(String approved) {
-		this.approved = approved;
-	}
+	
 
 	public Integer getRank() {
 		return rank;
@@ -95,14 +88,7 @@ public class AuthorizationSQL {
 		this.status = status;
 	}
 
-	public Integer getMarkedForChange() {
-		return markedForChange;
-	}
-
-	public void setMarkedForChange(Integer markedForChange) {
-		this.markedForChange = markedForChange;
-	}
-
+	
 	public Integer getFirstResult() {
 		return firstResult;
 	}
@@ -130,13 +116,24 @@ public class AuthorizationSQL {
 	}
 
 
-	public String getNotApproved() {
-		return notApproved;
+	
+	public String getDecision() {
+		return decision;
 	}
 
 
-	public void setNotApproved(String notApproved) {
-		this.notApproved = notApproved;
+	public void setDecision(String decision) {
+		this.decision = decision;
+	}
+
+
+	public String getNotDecision() {
+		return notDecision;
+	}
+
+
+	public void setNotDecision(String notDecision) {
+		this.notDecision = notDecision;
 	}
 
 

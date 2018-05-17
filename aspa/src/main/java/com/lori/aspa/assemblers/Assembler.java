@@ -49,7 +49,7 @@ public class Assembler {
 		dto.setId(e.getId());
 		dto.setReason(e.getReason());
 		dto.setActive(e.getStatus() == IStatus.ACTIVE);
-		dto.setApprovalTime(DateUtil.formatTimestamp(e.getApprovalTime()));
+		dto.setDecisionTime(DateUtil.formatTimestamp(e.getDecisionTime()));
 		dto.setAuthorizationId(e.getAuthorozation().getId());
 		dto.setDecision(e.getDecision());
 		dto.setRank(e.getRankPath().getRank());
@@ -88,7 +88,7 @@ public class Assembler {
 		AuthorizationDTO dto = new AuthorizationDTO();
 		
 		dto.setId(e.getId());
-		dto.setApproved(e.getApproved());
+		dto.setDecision(e.getDecision());
 		dto.setAuthorizationDate(DateUtil.formatTimestamp(e.getCreateTime()));
 		dto.setCancelDate(DateUtil.formatTimestamp(e.getCancelDate()));
 		dto.setFinalApprovedDate(DateUtil.formatTimestamp(e.getFinalApprovedDate()));
@@ -96,7 +96,6 @@ public class Assembler {
 		dto.setFromDate(DateUtil.formatDate(e.getFromDate()));
 		dto.setFromPlace(e.getFromPlace().getName());
 		dto.setFromPlaceId(e.getFromPlace().getId());
-		dto.setMarketForChange(e.getMarketForChange() == IStatus.ACTIVE);
 		dto.setRank(e.getRank());
 		dto.setReasonOfTravel(e.getReasonOfTravel());
 		dto.setStructure(e.getStructure().getName());
