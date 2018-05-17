@@ -115,5 +115,20 @@ public class UserDAO {
 		return q.getResultList();
 
 	}
+	
+	
+	public List<User> query(String query)
+	{
+		return em.createQuery("FROM User u WHERE u.status=1 "
+				+ "AND (UPPER(u.officer.name) LIKE :on OR UPPER(u.officer.surname) LIKE :os ) "
+				+ "ORDER BY u.officer.name,u.officer.surname")
+				.setParameter("on", "%"+query.toUpperCase()+"%").setParameter("os", "%"+query.toUpperCase()+"%")
+				.getResultList();
+	}
+	
+	
+	
+	
+	
 
 }

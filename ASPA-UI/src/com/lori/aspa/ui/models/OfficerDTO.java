@@ -70,6 +70,10 @@ public class OfficerDTO {
 		this.structureId = structureId;
 	}
 	
+	public String fullName()
+	{
+		return name+" "+surname;
+	}
     
     
 }

@@ -512,8 +512,11 @@ public class Assembler {
 		dto.setRegisterUser(e.getCreateUser().getUsername());
 		dto.setRegisterUserId(e.getCreateUser().getId());
 		dto.setLastUpdate(DateUtil.formatTimestamp(e.getUpdateTime()));
-		dto.setUpdateUser(e.getUpdateUser().getUsername());
-		dto.setUpdateUserId(e.getUpdateUser().getId());
+		if(e.getUpdateUser() != null) {
+		  dto.setUpdateUser(e.getUpdateUser().getUsername());
+		  dto.setUpdateUserId(e.getUpdateUser().getId());
+		}
+		
 		dto.setOfficer(toDto(e.getOfficer()));
 		dto.setRoles(roleListToDto(e.getRoles()));
 			

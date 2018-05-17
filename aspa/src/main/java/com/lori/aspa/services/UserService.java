@@ -22,6 +22,8 @@ import com.lori.aspa.entities.User;
 import com.lori.aspa.exceptions.AppException;
 import com.lori.aspa.exceptions.EmptyFieldsException;
 import com.lori.aspa.exceptions.EntityExistsException;
+import com.lori.aspa.model.Principal;
+import com.lori.aspa.model.UserTokenDTO;
 import com.lori.aspa.utils.StringUtil;
 
 @Service
@@ -100,9 +102,7 @@ public class UserService {
 			}
 		}
 		
-		u.setRoles(roleDAO.findByCode(roles));
-		
-		
+		u.setRoles(roleDAO.findByCode(roles));		
 		u = userDAO.create(u);
 		return new Assembler().toDto(u);
 	}
@@ -112,6 +112,40 @@ public class UserService {
 		return new Assembler().toDto(userDAO.findById(id));
 	}
 	
+	public UserDTO findUserByUsername(String uname) 
+	{
+		return new Assembler().toDto(userDAO.findByUsername(uname));
+	}
+	
+	public UserTokenDTO login(Principal princ)
+	{
+		User u = userDAO.findByUsername(princ.getUsername());
+		
+		if(u == null) return null;
+		
+		if(u.getStatus() != IStatus.ACTIVE)
+		{
+			return null;
+		}
+		if(!u.getSecret().equals(princ.getPassword()))
+		{
+			return null;
+		}
+		
+		UserTokenDTO ut = new UserTokenDTO();
+		ut.setUser(new Assembler().toDto(u));
+		ut.setToken("fakju");
+				
+		return ut;
+		
+		
+	}
+
+
+	public List<UserDTO> queryUser(String query)
+	{
+		return new Assembler().userListToDto(userDAO.query(query));
+	}
 	
 	
 	

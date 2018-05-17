@@ -31,6 +31,12 @@ public class VehicleService {
 	@Autowired
 	AuthorizationDAO authorizationDAO;
 	
+	public VehicleDTO findVehicleById(Integer id)
+	{
+		return new Assembler().toDto(vehicleDAO.findById(id));
+	}
+	
+	
 	public List<VehicleDTO> searchVehicle(VehicleReq req)
 	{
 		VehicleSQL sql = new RequestAssembler().toSql(req);

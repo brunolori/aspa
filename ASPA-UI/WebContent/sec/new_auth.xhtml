@@ -28,14 +28,14 @@
 							<p:selectOneMenu value="#{newAuthBean.auth.fromPlaceId}">
 								<f:selectItem itemValue="#{null}" itemLabel="Nisja" />
 								<f:selectItems value="#{newAuthBean.places}" var="fp"
-									itemValue="#{fp}" itemLabel="#{fp.name}" />
+									itemValue="#{fp.id}" itemLabel="#{fp.name}" />
 							</p:selectOneMenu>
 
 							<p:outputLabel value="Destinacioni" style="font-weight: bold" />
-							<p:selectOneMenu value="#{newAuthBean.auth.toPlaceId}">
+							<p:selectOneMenu value="#{newAuthBean.auth.toPlaceId}" >
 								<f:selectItem itemValue="#{null}" itemLabel="Destinacioni" />
 								<f:selectItems value="#{newAuthBean.places}" var="dp"
-									itemValue="#{dp}" itemLabel="#{dp.name}" />
+									itemValue="#{dp.id}" itemLabel="#{dp.name}" />
 							</p:selectOneMenu>
 
 							<p:outputLabel value="Data nisjes" style="font-weight: bold" />
@@ -61,15 +61,9 @@
 							<p:autoComplete id="dd" dropdown="true"
 								value="#{newAuthBean.auth.nextUserId}"
 								completeMethod="#{newAuthBean.searchUser}" var="nu"
-								itemLabel="#{nu.officer.name} #{nu.officer.surname}"
-								itemValue="#{nu.id}" placeholder="Delego për firmë">
-								<h:panelGrid>
-									<h:outputLabel value="#{nu.officer.name} #{nu.officer.surname}"
-										styleClass="bold" />
-									<h:outputLabel value="#{nu.officer.position}" />
-								</h:panelGrid>
-							</p:autoComplete>
-
+								itemLabel="#{nu.officer.fullName()}"
+								itemValue="#{nu.id}" placeholder="Delego për firmë"/>
+								
 						</p:panelGrid>
 
 					</p:panel>

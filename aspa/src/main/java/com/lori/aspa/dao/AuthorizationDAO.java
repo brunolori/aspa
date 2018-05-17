@@ -51,7 +51,8 @@ public class AuthorizationDAO {
 		
 		
 		String sql = "FROM Authorization a WHERE 1=1 ";
-		       sql+="ORDER BY a.id ";
+		
+		String order = "ORDER BY a.id ";
 		
 		HashMap<String, Object> params = new HashMap<>();
 		
@@ -128,7 +129,8 @@ public class AuthorizationDAO {
             params.put("nextuid", criterias.getNextUserId());
         }
         
-		
+		sql += order;
+        
 		Query q = em.createQuery(sql);
 
 		Iterator it = params.entrySet().iterator();
@@ -155,9 +157,11 @@ public class AuthorizationDAO {
 	
 	public Integer count(String decision,User user)
 	{
-		return (Integer)em.createQuery("SELECT count(a) FROM Authorization a WHERE a.status=:st AND a.decision=:dec AND a.user=:user")
+		Long v = (Long)em.createQuery("SELECT count(a) FROM Authorization a WHERE a.status=:st AND a.decision=:dec AND a.user=:user")
 				.setParameter("st", IStatus.ACTIVE).setParameter("dec", decision).setParameter("user", user)
 				.getSingleResult();
+		
+		return v.intValue();
 	}
 	
 	
