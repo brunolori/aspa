@@ -53,6 +53,24 @@ public class AuthService {
 		new AuthClient().decide(history, token);
 	}
 	
+	public List<AuthorizationDTO> getAuthsToVerify(String token)
+	{
+		return new AuthClient().getAuthsToVerify(token);
+	}
+	
+	public List<AuthorizationDTO> getVerifiedAuths(String token)
+	{
+		return new AuthClient().getVerifiedAuths(token);
+	}
+	
+	public List<ApprovalHistoryDTO> getAuthHistory(AuthorizationDTO auth, String token)
+	{
+		 return new AuthClient().getAuthHistory(auth, token);
+	}
+	
+	
+	
+	
 	
 	
 }

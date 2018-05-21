@@ -1,62 +1,29 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui">
 
-    <h:head>
-        <f:facet name="first">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-            <meta name="apple-mobile-web-app-capable" content="yes" />
-        </f:facet>
-        <title>PrimeFaces Paradise</title>
-    </h:head>
+<h:head>
+  <meta charset="UTF-8"/>
+  <title>ASPA Login</title>
+  
+    <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'/>
+	<h:outputStylesheet name="style_login.css" library="css" />
 
-    <h:body styleClass="login-body">
-        <h:form>
-            <div class="login-panel ui-fluid">
-                <div class="ui-g">
-                    <div class="ui-g-12 logo-container">
-                        
-                        <h2 style="text-align: left; font-size: 20px;font-weight: bold;">ASP Autorizime</h2>
-                    </div>
-                    <div class="ui-g-12">
-                        <p:outputLabel for="username" value="Përdoruesi" />
-                        <div class="input-wrapper">
-                            <p:inputText id="username" value="#{loginBean.username}" placeholder="Përdoruesi" />
-                            <i class="fa fa-user" />
-                        </div>
-                    </div>
-                    <div class="ui-g-12">
-                        <p:outputLabel for="password" value="Fjalëkalimi" />
-                        <div class="input-wrapper">
-                            <p:password id="password" value="#{loginBean.password}" placeholder="Fjalëkalimi" feedback="false" />
-                            <i class="fa fa-lock" />
-                        </div>
-                    </div>
-                    <div class="ui-g-12 chkbox-container">
-                        <div class="ui-g-6 ui-md-6">
-                            <h:outputLink value="#">
-                                Harruat Fjalëkalimin?
-                            </h:outputLink>
-                        </div>
-                        <div class="ui-g-6 rememberme-container">
-                            <p:outputLabel for="remember-me" value="Remember Me"/>
-                            <p:selectBooleanCheckbox id="remember-me" />
-                        </div>
-                        
-                    </div>
-                    <div class="ui-g-12 button-container">
-                        <p:commandButton value="Hyr" action="#{loginBean.login()}" styleClass="blue-btn raised-btn"/>
-                    </div>
-                    
-                    <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="paradise-layout" />
-                </div>
-            </div>
-        </h:form>
-    </h:body>
+</h:head>
+<h:body>
+
+    <div class="wrapper">
+    <h:form class="form-signin">       
+      <h2 style="font-size: 18px; font-family: cursive;text-align: center;" class="form-signin-heading">Ju lutem identifikohuni!</h2>
+      <h:inputText class="form-control" value="#{loginBean.username}" a:placeholder="Përdoruesi"  />
+      <h:inputSecret class="form-control" value="#{loginBean.password}" a:placeholder="Fjalëkalimi" />      
+      <h:commandButton value="Hyr" action="#{loginBean.login()}" class="btn btn-lg btn-primary btn-block" />
+    </h:form>
+  </div>
+  
+</h:body>
 
 </html>

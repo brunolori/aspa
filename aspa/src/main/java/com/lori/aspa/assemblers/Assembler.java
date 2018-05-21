@@ -50,14 +50,17 @@ public class Assembler {
 		dto.setReason(e.getReason());
 		dto.setActive(e.getStatus() == IStatus.ACTIVE);
 		dto.setDecisionTime(DateUtil.formatTimestamp(e.getDecisionTime()));
-		dto.setAuthorizationId(e.getAuthorozation().getId());
+		dto.setAuthorizationId(e.getAuthorization().getId());
 		dto.setDecision(e.getDecision());
-		dto.setRank(e.getRankPath().getRank());
-		dto.setStructure(e.getAuthorozation().getStructure().getName());
-		dto.setStructureId(e.getAuthorozation().getStructure().getId());
+		//dto.setRank(e.getRankPath().getRank());
+		dto.setStructure(e.getAuthorization().getStructure().getName());
+		dto.setStructureId(e.getAuthorization().getStructure().getId());
 		dto.setUser(e.getUser().getUsername());
 		dto.setUserId(e.getUser().getId());
-		
+		if(e.getNextUser() != null)
+		{
+		   dto.setNextUserId(e.getNextUser().getId());
+		}
 		return dto;
 		
 	}
@@ -514,6 +517,8 @@ public class Assembler {
 		dto.setRegisterUser(e.getCreateUser().getUsername());
 		dto.setRegisterUserId(e.getCreateUser().getId());
 		dto.setLastUpdate(DateUtil.formatTimestamp(e.getUpdateTime()));
+		dto.setFinalApproval(e.getFinalApproval() != null && e.getFinalApproval() == IStatus.ACTIVE);
+		
 		if(e.getUpdateUser() != null) {
 		  dto.setUpdateUser(e.getUpdateUser().getUsername());
 		  dto.setUpdateUserId(e.getUpdateUser().getId());
@@ -521,6 +526,7 @@ public class Assembler {
 		
 		dto.setOfficer(toDto(e.getOfficer()));
 		dto.setRoles(roleListToDto(e.getRoles()));
+		
 			
 
 		return dto;

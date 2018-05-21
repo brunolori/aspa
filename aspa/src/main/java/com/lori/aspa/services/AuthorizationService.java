@@ -281,18 +281,28 @@ public class AuthorizationService {
 	
 	public void decide(ApprovalHistoryDTO dto, String uname)
 	{
-		
+		User u = userDAO.findByUsername(uname);
+		User nextUser = null;
 		String decision = dto.getDecision();
-		if(decision.equals(IDecision.ACCEPT))
+		if(decision.equals(IDecision.ACCEPT) && (u.getFinalApproval() == null || u.getFinalApproval() != IStatus.ACTIVE))
 		{
 			decision = IDecision.IN_PROCESS;
 		}
 		
 		Authorization auth = authorizationDAO.findById(dto.getAuthorizationId());
 		auth.setDecision(decision);
+		if(decision.equals(IDecision.ACCEPT))
+		{
+			auth.setFinalApprovedDate(Calendar.getInstance().getTime());
+		}
+		if(dto.getNextUserId() > 0)
+		{
+			nextUser = userDAO.findById(dto.getNextUserId());
+			auth.setNextUser(nextUser);
+		}
 		auth = authorizationDAO.update(auth);
 		
-		User u = userDAO.findByUsername(uname);
+		
 		
 		ApprovalHistory ah = new ApprovalHistory();
 		ah.setAuthorozation(auth);
@@ -303,7 +313,10 @@ public class AuthorizationService {
 		ah.setReason(dto.getReason());
 		ah.setStatus(IStatus.ACTIVE);
 		ah.setUser(u);
-		
+		if(nextUser != null)
+		{
+			ah.setNextUser(nextUser);
+		}
 		ah = historyDAO.create(ah);
 		
 	}
@@ -321,6 +334,33 @@ public class AuthorizationService {
 		return dto;
 		
 	}
+	
+	
+	public List<AuthorizationDTO> getAuthsToVerify(String uname)
+	{
+		User u = userDAO.findByUsername(uname);
+		
+		AuthorizationSQL sql = new AuthorizationSQL();
+		sql.setNextUserId(u.getId());
+		sql.setStatus(IStatus.ACTIVE);
+		sql.setNotDecision(IDecision.ACCEPT);
+		
+		return new Assembler().authorizationListToDto(authorizationDAO.search(sql));
+		
+	}
+	
+	public List<AuthorizationDTO> getVerifiedAuths(String uname)
+	{
+		User u = userDAO.findByUsername(uname);
+		return new Assembler().authorizationListToDto(authorizationDAO.getVerifiedAuths(u));
+	}
+	
+	
+	public List<ApprovalHistoryDTO> getAuthHistory(Integer authId)
+	{
+		return new Assembler().approvalHistoryListToDto(historyDAO.search(authId, null, null, IStatus.ACTIVE, null, null));
+	}
+	
 	
 	
 

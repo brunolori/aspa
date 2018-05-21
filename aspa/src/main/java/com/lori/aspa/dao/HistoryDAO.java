@@ -42,13 +42,13 @@ public class HistoryDAO {
 		
 		HashMap<String, Object> params = new HashMap<>();
 		
-		if (authId != null) 
+		if(authId != null) 
 		{
 			sql += "AND ah.authorization.id=:aid ";
 			params.put("aid", authId);
 		}
 		
-		if (userId != null) 
+		if(userId != null) 
 		{
 			sql += "AND ah.user.id=:uid ";
 			params.put("uid", userId);

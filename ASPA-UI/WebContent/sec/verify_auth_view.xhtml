@@ -1,0 +1,137 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
+
+
+
+	<ui:define name="content">
+		<h:form id="verify_auth_form">
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12 ui-md-10 ui-lg-6">
+					<p:panelGrid layout="grid" columns="4"
+						styleClass="ui-panelgrid-blank">
+						<p:button value="Mbrapa" outcome="verify_auth_list"
+							styleClass="orange-btn" icon="fa fa-arrow-left" />
+						<p:button value="Printo" target="_blank" styleClass="blue-btn"
+							icon="fa fa-print" />
+
+					</p:panelGrid>
+				</div>
+
+				<div class="ui-g-12">
+					<p:messages showDetail="true" closable="true">
+						<p:autoUpdate />
+					</p:messages>
+				</div>
+
+
+
+				<div class="ui-g-12 ui-md-4">
+					<p:panel header="Verifiko" >
+						<p:panelGrid layout="grid" columns="1"
+							styleClass="ui-panelgrid-blank form-group">
+							<p:outputLabel value="Veprimi" styleClass="bold"/> 
+							<p:selectOneMenu value="#{verifyAuthBean.decider.decision}">
+								<f:selectItem itemLabel="Veprimi..." itemValue="#{null}" />
+								<f:selectItem itemLabel="Mirato" itemValue="#{constantBean.DECISION_ACCEPT}" />
+								<f:selectItem itemLabel="Të ndryshohet" itemValue="#{constantBean.DECISION_RETURNED}" />
+								<f:selectItem itemLabel="Refuzo" itemValue="#{constantBean.DECISION_DENY}" />
+							</p:selectOneMenu>
+							<p:outputLabel value="Delego për firmë" styleClass="bold"/> 
+							<p:autoComplete dropdown="true" value="#{verifyAuthBean.nextUser}" converter="userConverter"
+								completeMethod="#{verifyAuthBean.searchUser}" var="u" itemLabel="#{u.officer.fullName()}"
+								itemValue="#{u}" placeholder="Kërko..." />
+							<p:outputLabel value="Arsyeja" styleClass="bold"/> 
+							<p:inputTextarea value="#{verifyAuthBean.decider.reason}" placeholder="Arsyeja..." rows="5" />
+
+							<p:commandButton value="Ruaj" action="#{verifyAuthBean.decide()}" update="@form" 
+							styleClass="green-btn"/>
+						</p:panelGrid>
+
+					</p:panel>
+				</div>
+
+
+
+
+				<div class="ui-g-12 ui-md-8 ">
+					<p:panel header="Të dhënat e Autorizimit">
+						<p:panelGrid layout="grid" columns="2"
+							styleClass="ui-panelgrid-blank">
+
+							<p:outputLabel value="Data Autorizimit" style="font-weight: bold" />
+							<p:outputLabel value="Përdoruesi" style="font-weight: bold" />
+							<p:inputText value="#{verifyAuthBean.auth.authorizationDate}"
+								readonly="true" />
+							<p:inputText value="#{verifyAuthBean.auth.user}" readonly="true" />
+
+
+							<p:outputLabel value="Statusi" style="font-weight: bold" />
+							<p:outputLabel value="Struktura" style="font-weight: bold" />
+							<p:inputText value="#{verifyAuthBean.auth.decision}"
+								readonly="true" />
+							<p:inputText value="#{verifyAuthBean.auth.structure}"
+								readonly="true" />
+
+							<p:outputLabel value="Nisja" style="font-weight: bold" />
+							<p:outputLabel value="Destinacioni" style="font-weight: bold" />
+							<p:inputText value="#{verifyAuthBean.auth.fromPlace}"
+								readonly="true" />
+							<p:inputText value="#{verifyAuthBean.auth.toPlace}"
+								readonly="true" />
+
+							<p:outputLabel value="Data nisjes" style="font-weight: bold" />
+							<p:outputLabel value="Data kthimit" style="font-weight: bold" />
+							<p:inputText value="#{verifyAuthBean.auth.fromDate}"
+								readonly="true" />
+							<p:inputText value="#{verifyAuthBean.auth.toDate}"
+								readonly="true" />
+
+							<p:outputLabel value="Automjetet" style="font-weight: bold" />
+							<p:outputLabel value="Punonjësit" style="font-weight: bold" />
+							<p:dataList value="#{verifyAuthBean.auth.vehicles}" var="v">
+		  			#{v.plate}
+		  		</p:dataList>
+							<p:dataList value="#{verifyAuthBean.auth.officers}" var="of">
+		  			#{of.name} #{of.surname}
+		  		</p:dataList>
+
+						</p:panelGrid>
+						<p:panelGrid layout="grid" columns="1"
+							styleClass="ui-panelgrid-blank">
+							<p:outputLabel value="Arsyeja e shërbimit"
+								style="font-weight: bold" />
+							<p:inputTextarea value="#{verifyAuthBean.auth.reasonOfTravel}"
+								rows="5" readonly="true" />
+						</p:panelGrid>
+					</p:panel>
+				</div>
+	<div class="ui-g-12 ui-md-4 ">
+	</div>
+				<div class="ui-g-12 ui-md-8 ">
+					<p:panel header="Historiku Autorizimit" style="height: 99%">
+						<p:dataTable value="#{verifyAuthBean.history}" var="h"
+							rowIndexVar="r" reflow="true"
+							emptyMessage="Autorizimi sapo është regjistruar">
+							<p:column headerText="#">#{r+1}</p:column>
+							<p:column headerText="Data">#{h.decisionTime}</p:column>
+							<p:column headerText="Përdoruesi">#{h.user}</p:column>
+							<p:column headerText="Veprimi">#{h.decision}</p:column>
+							<p:column headerText="Arsyeja">#{h.reason}</p:column>
+						</p:dataTable>
+					</p:panel>
+				</div>
+
+
+
+
+
+
+
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

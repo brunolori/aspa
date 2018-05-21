@@ -37,11 +37,15 @@ public class AuthorizationApi {
 	@RequestMapping(value = "/findAuthorization/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> findAuthorization(@PathVariable(name = "id") Integer authorizationId) {
 		AuthorizationDTO auth = authorizationService.findAuthorizationById(authorizationId);
+		if(auth == null) {
+		return new ResponseEntity<String>(new String("Nuk u gjend autorizimi"), HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<>(auth, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/searchAuthorization", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> searchAuthorization(@RequestHeader(value = "Authorization", required = false) String token, @RequestBody AuthorizationReq req) {
+				
 		List<AuthorizationDTO> auths = authorizationService.searchAuthorization(req);
 		return new ResponseEntity<>(auths, HttpStatus.OK);
 	}
@@ -103,7 +107,31 @@ public class AuthorizationApi {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/getAuthHistory/{auth_id}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> getVerifiedAuths(@RequestHeader(value = "Authorization", required = false) String token,
+			@PathVariable(name="auth_id") Integer authId) {
+				
+		List<ApprovalHistoryDTO> histories = authorizationService.getAuthHistory(authId);
+		return new ResponseEntity<>(histories, HttpStatus.OK);
+	}
 	
+	@RequestMapping(value = "/getAuthorizationsToVerify", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> getAuthsToVerify(@RequestHeader(value = "Authorization", required = false) String token) {
+		
+		String uname = TokenUtil.getUsername(token);
+		
+		List<AuthorizationDTO> auths = authorizationService.getAuthsToVerify(uname);
+		return new ResponseEntity<>(auths, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getVerifiedAuths", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> getVerifiedAuths(@RequestHeader(value = "Authorization", required = false) String token) {
+		
+		String uname = TokenUtil.getUsername(token);
+		
+		List<AuthorizationDTO> auths = authorizationService.getVerifiedAuths(uname);
+		return new ResponseEntity<>(auths, HttpStatus.OK);
+	}
 	
 
 }

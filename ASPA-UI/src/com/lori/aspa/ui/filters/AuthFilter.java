@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.lori.aspa.ui.beans.LoginBean;
 
-//@WebFilter(filterName = "AuthFilter", urlPatterns = {"/*"})
+@WebFilter(filterName = "AuthFilter", urlPatterns = {"/*"})
 public class AuthFilter implements Filter 
 {
 

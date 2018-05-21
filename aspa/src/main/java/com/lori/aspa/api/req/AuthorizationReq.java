@@ -13,7 +13,7 @@ public class AuthorizationReq {
 	Integer toPlaceId;
 	String decision;
 	Integer rank;
-	boolean status;
+	Boolean status;
 	Integer firstResult;
 	Integer maxResult;
 	
@@ -87,15 +87,17 @@ public class AuthorizationReq {
 	public void setRank(Integer rank) {
 		this.rank = rank;
 	}
-
-	public boolean isStatus() {
+	
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	
+
+
 	public Integer getFirstResult() {
 		return firstResult;
 	}
@@ -120,6 +122,21 @@ public class AuthorizationReq {
 
 	public void setNextUserId(Integer nextUserId) {
 		this.nextUserId = nextUserId;
+	}
+
+
+	@Override
+	public String toString() {
+		return "AuthorizationReq [" + (fromDate != null ? "fromDate=" + fromDate + ", " : "")
+				+ (toDate != null ? "toDate=" + toDate + ", " : "")
+				+ (structureId != null ? "structureId=" + structureId + ", " : "")
+				+ (userId != null ? "userId=" + userId + ", " : "")
+				+ (nextUserId != null ? "nextUserId=" + nextUserId + ", " : "")
+				+ (fromPlaceId != null ? "fromPlaceId=" + fromPlaceId + ", " : "")
+				+ (toPlaceId != null ? "toPlaceId=" + toPlaceId + ", " : "")
+				+ (decision != null ? "decision=" + decision + ", " : "") + (rank != null ? "rank=" + rank + ", " : "")
+				+ "status=" + status + ", " + (firstResult != null ? "firstResult=" + firstResult + ", " : "")
+				+ (maxResult != null ? "maxResult=" + maxResult : "") + "]";
 	}
 
 

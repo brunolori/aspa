@@ -15,7 +15,7 @@ package com.lori.aspa.ui.models;
 public class ApprovalHistoryDTO {
   
     private int id;
-    private String approvalTime;
+    private String decisionTime;
     private String reason;
     private String decision;
     private int authorizationId;
@@ -25,6 +25,7 @@ public class ApprovalHistoryDTO {
     private String user;
     private int userId;
     private boolean active;
+    private int nextUserId;
     
     
     
@@ -34,11 +35,14 @@ public class ApprovalHistoryDTO {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getApprovalTime() {
-		return approvalTime;
+	
+	
+	
+	public String getDecisionTime() {
+		return decisionTime;
 	}
-	public void setApprovalTime(String approvalTime) {
-		this.approvalTime = approvalTime;
+	public void setDecisionTime(String decisionTime) {
+		this.decisionTime = decisionTime;
 	}
 	public String getReason() {
 		return reason;
@@ -95,7 +99,12 @@ public class ApprovalHistoryDTO {
 		this.active = active;
 	}
 
-
+	public int getNextUserId() {
+		return nextUserId;
+	}
+	public void setNextUserId(int nextUserId) {
+		this.nextUserId = nextUserId;
+	}
     
     
 }

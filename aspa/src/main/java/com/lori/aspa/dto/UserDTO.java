@@ -19,6 +19,7 @@ public class UserDTO {
 	    private String registerUser;
 	    private int updateUserId;
 	    private String updateUser;
+	    private boolean finalApproval;
 	    
 	    
 	    
@@ -93,6 +94,12 @@ public class UserDTO {
 		}
 		public void setUpdateUser(String updateUser) {
 			this.updateUser = updateUser;
+		}
+		public boolean isFinalApproval() {
+			return finalApproval;
+		}
+		public void setFinalApproval(boolean finalApproval) {
+			this.finalApproval = finalApproval;
 		}
 	    
    

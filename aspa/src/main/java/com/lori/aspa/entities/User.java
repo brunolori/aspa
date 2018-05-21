@@ -45,6 +45,8 @@ public class User implements Serializable {
     private String secret;
     @Column(name = "STATUS")
     private int status;
+    @Column(name = "FINAL_APPROVAL")
+    private Integer finalApproval;
     @Column(name = "CREATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -148,6 +150,14 @@ public class User implements Serializable {
 
 	public void setCreateUser(User createUser) {
 		this.createUser = createUser;
+	}
+
+	public Integer getFinalApproval() {
+		return finalApproval;
+	}
+
+	public void setFinalApproval(Integer finalApproval) {
+		this.finalApproval = finalApproval;
 	}
 
     

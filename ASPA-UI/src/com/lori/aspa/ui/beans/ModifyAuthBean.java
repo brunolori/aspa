@@ -122,16 +122,20 @@ public class ModifyAuthBean implements Serializable {
 			
 			Integer id = Integer.valueOf(idString);
 			this.auth = new AuthService().getAuthorizationById(id);
-			
-
-			this.structures = new StructureService().getUserStructures(token);
-			this.vehicles = new VehicleService().getUserVehicles(token);
-			this.places = new PlaceService().loadPlaces();
-			this.users = new UserService().queryUser("");
-			
-			this.selectedVehicles = auth.getVehicles();
-			this.selectedOfficers = auth.getOfficers();
-		   
+			if(auth==null)
+			{
+				Util.redirect("sec/my_auth_dashboard");
+			}
+			else 
+			{
+				this.structures = new StructureService().getUserStructures(token);
+				this.vehicles = new VehicleService().getUserVehicles(token);
+				this.places = new PlaceService().loadPlaces();
+				this.users = new UserService().queryUser("");
+				
+				this.selectedVehicles = auth.getVehicles();
+				this.selectedOfficers = auth.getOfficers();
+			}
 		   
 		}catch(NumberFormatException ne) {
 			Util.redirect("sec/my_auth_dashboard");

@@ -52,9 +52,12 @@ public class ApprovalHistory implements Serializable {
     private String decision;
     @Column(name = "STATUS")
     private int status;
-    @JoinColumn(name = "AUTHOROZATION_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "AUTHORIZATION_ID", referencedColumnName = "ID")
     @ManyToOne
-    private Authorization authorozation;
+    private Authorization authorization;
+    @JoinColumn(name = "NEXT_USER_ID", referencedColumnName = "ID")
+    @ManyToOne
+    private User nextUser;
     @JoinColumn(name = "RANK_PATH_ID", referencedColumnName = "ID")
     @ManyToOne
     private RankPath rankPath;
@@ -125,12 +128,12 @@ public class ApprovalHistory implements Serializable {
 		this.decision = decision;
 	}
 
-	public Authorization getAuthorozation() {
-		return authorozation;
+	public Authorization getAuthorization() {
+		return authorization;
 	}
 
-	public void setAuthorozation(Authorization authorozation) {
-		this.authorozation = authorozation;
+	public void setAuthorozation(Authorization gdfgfh) {
+		this.authorization =  gdfgfh;
 	}
 
 	public RankPath getRankPath() {
@@ -173,6 +176,16 @@ public class ApprovalHistory implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+
+	public User getNextUser() {
+		return nextUser;
+	}
+
+
+	public void setNextUser(User nextUser) {
+		this.nextUser = nextUser;
 	}
 
     

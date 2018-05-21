@@ -163,6 +163,14 @@ public class AuthorizationDAO {
 		return v.intValue();
 	}
 	
+	public List<Authorization> getVerifiedAuths(User user)
+	{
+		return em.createQuery("SELECT DISTINCT h.authorization FROM ApprovalHistory h WHERE h.status=:st AND h.user=:usr and h.authorization.status=:ast")
+				.setParameter("st", IStatus.ACTIVE)
+				.setParameter("usr", user)
+				.setParameter("ast", IStatus.ACTIVE)
+				.getResultList();
+	}
 	
 	
 	

@@ -25,6 +25,7 @@ public class ApprovalHistoryDTO {
     private String user;
     private int userId;
     private boolean active;
+    private int nextUserId;
     
     
     
@@ -93,6 +94,12 @@ public class ApprovalHistoryDTO {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public int getNextUserId() {
+		return nextUserId;
+	}
+	public void setNextUserId(int nextUserId) {
+		this.nextUserId = nextUserId;
 	}
 
 

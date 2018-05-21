@@ -2,6 +2,7 @@ package com.lori.aspa.assemblers;
 
 import com.lori.aspa.api.req.AuthorizationReq;
 import com.lori.aspa.api.req.VehicleReq;
+import com.lori.aspa.constants.IStatus;
 import com.lori.aspa.dao.sql.AuthorizationSQL;
 import com.lori.aspa.dao.sql.VehicleSQL;
 import com.lori.aspa.utils.DateUtil;
@@ -25,6 +26,9 @@ public class RequestAssembler {
 		sql.setToDate(DateUtil.toDate(req.getToDate()));
 		sql.setToPlaceId(req.getToPlaceId());
 		sql.setUserId(req.getUserId());
+		if(req.getStatus() != null) {
+			sql.setStatus(req.getStatus()?IStatus.ACTIVE:IStatus.NOT_ACTIVE);
+		}
 		
 		
 		return sql;

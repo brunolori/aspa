@@ -73,7 +73,7 @@
 		  <p:panel header="Historiku Autorizimit" style="height: 99%">
 		  	<p:dataTable value="#{viewAuthBean.history}" var="h" rowIndexVar="r" reflow="true" emptyMessage="Autorizimi sapo është regjistruar">			  	
 			  	<p:column headerText="#">#{r+1}</p:column>
-			  	<p:column headerText="Data">#{h.approvalTime}</p:column>
+			  	<p:column headerText="Data">#{h.decisionTime}</p:column>
 			  	<p:column headerText="Përdoruesi">#{h.user}</p:column>
 			  	<p:column headerText="Veprimi">#{h.decision}</p:column>
 			  	<p:column headerText="Arsyeja">#{h.reason}</p:column>
