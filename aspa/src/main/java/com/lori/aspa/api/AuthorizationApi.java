@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lori.aspa.api.req.AuthorizationReq;
 import com.lori.aspa.dto.ApprovalHistoryDTO;
 import com.lori.aspa.dto.AuthorizationDTO;
+import com.lori.aspa.dto.UserDTO;
 import com.lori.aspa.exceptions.AppException;
 import com.lori.aspa.model.MyDashboardDTO;
 import com.lori.aspa.security.TokenUtil;
 import com.lori.aspa.services.AuthorizationService;
+import com.lori.aspa.services.UserService;
 
 @RestController
 @RequestMapping("/api/authorization")
@@ -26,6 +28,11 @@ public class AuthorizationApi {
 
 	@Autowired
 	AuthorizationService authorizationService;
+	@Autowired
+	UserService userService;
+	
+	
+	
 
 	@RequestMapping(value = "/findAuthorization/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> findAuthorization(@PathVariable(name = "id") Integer authorizationId) {
@@ -54,6 +61,10 @@ public class AuthorizationApi {
 
 		try {
 
+			String uname = TokenUtil.getUsername(token);
+			UserDTO u = userService.findUserByUsername(uname);
+			dto.setUserId(u.getId());
+			
 			AuthorizationDTO auth = authorizationService.registerAuthorization(dto);
 			return new ResponseEntity<>(auth, HttpStatus.OK);
 
@@ -91,5 +102,8 @@ public class AuthorizationApi {
 		authorizationService.decide(dto, uname);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	
+	
 
 }

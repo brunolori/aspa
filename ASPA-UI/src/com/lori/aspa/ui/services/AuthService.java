@@ -28,6 +28,8 @@ public class AuthService {
 	
 	public AuthorizationDTO modifyAuthorization(AuthorizationDTO auth, List<OfficerDTO> officers, List<VehicleDTO> vehicles, String token)
 	{
+		auth.setVehicles(vehicles);
+		auth.setOfficers(officers);
 		return new AuthClient().modifyAuthorization(auth, token);
 	}
 	

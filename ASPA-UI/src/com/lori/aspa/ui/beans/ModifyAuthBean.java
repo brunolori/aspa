@@ -43,6 +43,7 @@ public class ModifyAuthBean implements Serializable {
 	List<VehicleDTO> vehicles;
 	List<PlaceDTO> places;
     List<StructureDTO> structures;
+    List<UserDTO> users;
 	
 	List<OfficerDTO> selectedOfficers;
 	List<VehicleDTO> selectedVehicles;
@@ -100,6 +101,12 @@ public class ModifyAuthBean implements Serializable {
 	public void setLogin(LoginBean login) {
 		this.login = login;
 	}
+	public List<UserDTO> getUsers() {
+		return users;
+	}
+	public void setUsers(List<UserDTO> users) {
+		this.users = users;
+	}
 	
 	
 	
@@ -120,6 +127,8 @@ public class ModifyAuthBean implements Serializable {
 			this.structures = new StructureService().getUserStructures(token);
 			this.vehicles = new VehicleService().getUserVehicles(token);
 			this.places = new PlaceService().loadPlaces();
+			this.users = new UserService().queryUser("");
+			
 			this.selectedVehicles = auth.getVehicles();
 			this.selectedOfficers = auth.getOfficers();
 		   
@@ -158,8 +167,12 @@ public class ModifyAuthBean implements Serializable {
 		
 		this.auth = new AuthService().modifyAuthorization(auth, selectedOfficers, selectedVehicles, token);
 		Messages.throwFacesMessage("Autorizimi u ndryshua me sukses", 1);
-		
+				
 	}
 	
+	public void viewAuth()
+	{
+		Util.redirect("sec/my_auth_view?auth_id="+auth.getId());
+	}
 
 }

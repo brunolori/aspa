@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lori.aspa.api.req.VehicleReq;
-import com.lori.aspa.dto.UserDTO;
 import com.lori.aspa.dto.VehicleDTO;
-import com.lori.aspa.security.TokenUtil;
 import com.lori.aspa.services.UserService;
 import com.lori.aspa.services.VehicleService;
 
@@ -38,8 +36,8 @@ public class VehicleApi {
 	@RequestMapping(value = "/getUserVehicles", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> loadUserVehicles(@RequestHeader(value = "Authorization", required = false) String token) {
 
-		String uname = TokenUtil.getUsername(token);
-		UserDTO u = userService.findUserByUsername(uname);
+		//String uname = TokenUtil.getUsername(token);
+		//UserDTO u = userService.findUserByUsername(uname);
 		
 		List<VehicleDTO> v = vehicleService.searchVehicle(new VehicleReq());
 		

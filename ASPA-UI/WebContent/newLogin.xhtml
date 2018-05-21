@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+  <meta charset="UTF-8"/>
+  <title>ASPA Login</title>
+  
+    <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'/>
+	<h:outputStylesheet name="style_login.css" library="css" />
+
+</h:head>
+<h:body>
+
+    <div class="wrapper">
+    <h:form class="form-signin">       
+      <h2 style="font-size: 18px; font-family: cursive;text-align: center;" class="form-signin-heading">Ju lutem identifikohuni!</h2>
+      <h:inputText class="form-control" value="#{loginBean.username}" a:placeholder="Përdoruesi"  />
+      <h:inputSecret class="form-control" value="#{loginBean.password}" a:placeholder="Fjalëkalimi" />      
+      <h:commandButton value="Hyr" action="#{loginBean.login()}" class="btn btn-lg btn-primary btn-block" />
+    </h:form>
+  </div>
+  
+</h:body>
+
+</html>

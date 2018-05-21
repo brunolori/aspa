@@ -43,7 +43,12 @@
                <h:outputText value="" />
            </f:facet>
        </p:ajaxStatus>
-        
+       <h:form id="conf_dlg_form">
+	       <p:confirmDialog responsive="true" global="true">  
+	            <p:commandButton value="Po" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+	            <p:commandButton value="Jo" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+	       </p:confirmDialog>
+        </h:form>
         <h:outputStylesheet name="css/nanoscroller.css" library="paradise-layout" />
         <h:outputStylesheet name="css/animate.css" library="paradise-layout" />
         <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="paradise-layout" />

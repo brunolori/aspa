@@ -61,13 +61,20 @@
 
 				<div class="ui-g-12">
 
-					<p:dataTable  value="#{dashboardBean.auths}" var="a" rowIndexVar="r" emptyMessage="Nuk keni asnjë autorizim">
+					<p:dataTable  value="#{dashboardBean.auths}" var="a" rowIndexVar="r" 
+					rowKey="#{a.id}"
+					selection="#{dashboardBean.selectedAuth}" selectionMode="single"
+					emptyMessage="Nuk keni asnjë autorizim">
+						
+						<p:ajax event="rowSelect" listener="#{dashboardBean.onAuthSelect()}"/>
+						
 						<f:facet name="header">Lista e autorizimeve</f:facet>
+						
 						<p:column headerText="#">#{r+1}</p:column>
 						<p:column headerText="Data">#{a.authorizationDate}</p:column>
 						<p:column headerText="Nisja">#{a.fromPlace}</p:column>
 						<p:column headerText="Destinacioni">#{a.toPlace}</p:column>
-						<p:column headerText="Dt.Nisje">#{a.fromdate}</p:column>
+						<p:column headerText="Dt.Nisje">#{a.fromDate}</p:column>
 						<p:column headerText="Dt.Kthimi">#{a.toDate}</p:column>
 						<p:column headerText="Përdoruesi">#{a.user}</p:column>
 						<p:column headerText="Statusi">#{a.decision}</p:column>

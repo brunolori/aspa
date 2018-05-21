@@ -138,12 +138,12 @@ public class AuthorizationService {
         List<Vehicle> vehicles = new ArrayList<>();
         for(VehicleDTO d : dto.getVehicles())
         {
-        	vehicles.add(new Vehicle(vehicleService.isAvailable(d.getId(), from, to).getId()));
+        	vehicles.add(new Vehicle(vehicleService.isAvailable(d.getId(), from, to, null).getId()));
         }
         List<Officer> officers = new ArrayList<>();
         for(OfficerDTO o : dto.getOfficers())
         {
-        	officers.add(new Officer(officerService.isAvailable(o.getId(), from, to).getId()));
+        	officers.add(new Officer(officerService.isAvailable(o.getId(), from, to, null).getId()));
         }
         
         
@@ -238,12 +238,13 @@ public class AuthorizationService {
         List<Vehicle> vehicles = new ArrayList<>();
         for(VehicleDTO d : dto.getVehicles())
         {
-        	vehicles.add(new Vehicle(vehicleService.isAvailable(d.getId(), from, to).getId()));
+        	vehicles.add(new Vehicle(vehicleService.isAvailable(d.getId(), from, to, dto.getId()).getId()));
         }
+        
         List<Officer> officers = new ArrayList<>();
         for(OfficerDTO o : dto.getOfficers())
         {
-        	officers.add(new Officer(officerService.isAvailable(o.getId(), from, to).getId()));
+        	officers.add(new Officer(officerService.isAvailable(o.getId(), from, to, dto.getId()).getId()));
         }
         
         

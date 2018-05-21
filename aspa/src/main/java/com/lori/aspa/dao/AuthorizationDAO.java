@@ -57,12 +57,12 @@ public class AuthorizationDAO {
 		HashMap<String, Object> params = new HashMap<>();
 		
 		if (criterias.getFromDate() != null) {
-            sql += "AND a.data>=:fromDate ";
+            sql += "AND a.fromDate>=:fromDate ";
             params.put("fromDate", criterias.getFromDate());
         }
 
         if (criterias.getToDate() != null) {
-            sql += "AND a.data<=:toDate ";
+            sql += "AND a.toDate<=:toDate ";
             params.put("toDate", criterias.getToDate());
         }
         
@@ -72,7 +72,6 @@ public class AuthorizationDAO {
 			params.put("sid", criterias.getStructureId());
 		}
 		
-        
         if (criterias.getUserId() != null)
 		{
 			sql += "AND a.user.id=:uid ";
@@ -92,29 +91,29 @@ public class AuthorizationDAO {
 		}
 		
         if (StringUtil.isValid(criterias.getDecision())) {
-            sql += " AND a.decision=:dcs";
+            sql += "AND a.decision=:dcs ";
             params.put("dcs", criterias.getDecision());
         }
         
         if (StringUtil.isValid(criterias.getNotDecision())) {
-            sql += " AND a.decision != :n_dcs";
+            sql += "AND a.decision != :n_dcs ";
             params.put("n_dcs", criterias.getNotDecision());
         }
         
         if(criterias.getOfficerId() != null)
 		{
-        	sql += " AND :off MEMBER OF a.officers ";
+        	sql += "AND :off MEMBER OF a.officers ";
             params.put("off", new Officer(criterias.getOfficerId()));
 		}
         
         if(criterias.getVehicleId() != null)
 		{
-        	sql += " AND :vcl MEMBER OF a.vehicles ";
+        	sql += "AND :vcl MEMBER OF a.vehicles ";
             params.put("vcl", new Vehicle(criterias.getVehicleId()));
 		}
                 
         if (criterias.getRank() != null) {
-            sql += " AND a.rank=:rank";
+            sql += "AND a.rank=:rank ";
             params.put("rank", criterias.getRank());
         }
         
@@ -125,7 +124,7 @@ public class AuthorizationDAO {
 		}
         
         if (criterias.getNextUserId() != null) {
-            sql += " AND a.nextUser.id=:nextuid";
+            sql += "AND a.nextUser.id=:nextuid ";
             params.put("nextuid", criterias.getNextUserId());
         }
         

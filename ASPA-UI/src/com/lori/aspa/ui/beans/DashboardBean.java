@@ -12,6 +12,7 @@ import com.lori.aspa.ui.criterias.AuthorizationReq;
 import com.lori.aspa.ui.models.AuthorizationDTO;
 import com.lori.aspa.ui.models.MyDashboardDTO;
 import com.lori.aspa.ui.services.AuthService;
+import com.lori.aspa.ui.utils.Util;
 
 @ManagedBean
 @ViewScoped
@@ -27,6 +28,7 @@ public class DashboardBean implements Serializable{
 	
 	MyDashboardDTO dashboard;
 	List<AuthorizationDTO> auths;
+	AuthorizationDTO selectedAuth;
 	
 	
 	
@@ -53,9 +55,17 @@ public class DashboardBean implements Serializable{
 	public void setLogin(LoginBean login) {
 		this.login = login;
 	}
+	
+	public AuthorizationDTO getSelectedAuth() {
+		return selectedAuth;
+	}
 
+	public void setSelectedAuth(AuthorizationDTO selectedAuth) {
+		this.selectedAuth = selectedAuth;
+	}
 	
 	
+
 	@PostConstruct
 	public void load()
 	{
@@ -76,7 +86,14 @@ public class DashboardBean implements Serializable{
 		req.setUserId(userId);
 		req.setDecision(type);	
 		this.auths = new AuthService().searchAuthorization(req, token);
+		this.selectedAuth = null;
 	}
+	
+	public void onAuthSelect()
+	{
+		Util.redirect("sec/my_auth_view?auth_id="+selectedAuth.getId());
+	}
+	
 	
 
 }

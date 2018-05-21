@@ -30,6 +30,14 @@ public class OfficerService {
 	@Autowired
 	AuthorizationDAO authorizationDAO;
 	
+	
+	public OfficerDTO findOfficerById(Integer officerId)
+	{
+		return new Assembler().toDto(officerDAO.findById(officerId));
+	}
+	
+	
+	
 	public List<OfficerDTO> getStructureOfficers(Integer structureId)
 	{
 		List<StructureDTO> strs = structureService.getStructureChilds(structureId);
@@ -51,7 +59,7 @@ public class OfficerService {
 		
 	}
 	
-	public OfficerDTO isAvailable(Integer officerId,Date from, Date to) throws EntityExistsException
+	public OfficerDTO isAvailable(Integer officerId,Date from, Date to, Integer authId) throws EntityExistsException
 	{
 		
 		Officer o = officerDAO.findById(officerId);
@@ -68,11 +76,21 @@ public class OfficerService {
 		{
 			return new Assembler().toDto(o);
 		}
+		if(authId == null || (authId == listAuth.get(0).getId()))
+		{
+			return new Assembler().toDto(o);
+		}
 		
 		throw new EntityExistsException(o.getName()+" "+o.getSurname()+" është i planifikuar me shërbim drejt "+listAuth.get(0).getToPlace().getName());
 		
 		
 	}
+	
+	public List<OfficerDTO> queryOfficer(String query)
+	{
+		return new Assembler().officerListToDto(officerDAO.queryOfficer(query));
+	}
+	
 	
 	
 }

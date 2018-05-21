@@ -100,7 +100,7 @@ public class Assembler {
 		dto.setReasonOfTravel(e.getReasonOfTravel());
 		dto.setStructure(e.getStructure().getName());
 		dto.setStructureId(e.getStructure().getId());
-		dto.setToDate(DateUtil.formatDate(e.getFromDate()));
+		dto.setToDate(DateUtil.formatDate(e.getToDate()));
 		dto.setToPlace(e.getToPlace().getName());
 		dto.setToPlaceId(e.getToPlace().getId());
 		dto.setUser(e.getUser().getUsername());
@@ -313,8 +313,10 @@ public class Assembler {
 		dto.setId(e.getId());
 		dto.setName(e.getName());
 		dto.setPosition(e.getPosition());
-		dto.setStructure(e.getStructure().getName());
-		dto.setStructureId(e.getStructure().getId());
+		if(e.getStructure() != null) {
+			dto.setStructure(e.getStructure().getName());
+			dto.setStructureId(e.getStructure().getId());
+		}
 		dto.setSurname(e.getSurname());
 		
 		return dto;
@@ -557,11 +559,14 @@ public class Assembler {
 		dto.setCapacity(e.getCapacity());
 		dto.setCarriage(e.getCarriage() == IStatus.ACTIVE);
 		dto.setDescription(e.getDescription());
-		dto.setStructure(e.getStructure().getName());
-		dto.setStructureId(e.getStructure().getId());
-		dto.setType(e.getType().getDescription());
-		dto.setTypeCode(e.getType().getTag());
-		
+		if(e.getStructure() != null) {
+			dto.setStructure(e.getStructure().getName());
+			dto.setStructureId(e.getStructure().getId());
+		}
+		if(e.getType() != null) {
+			dto.setType(e.getType().getDescription());
+			dto.setTypeCode(e.getType().getTag());
+		}
 	
 		return dto;
 

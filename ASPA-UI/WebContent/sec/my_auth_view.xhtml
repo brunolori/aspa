@@ -33,45 +33,45 @@
 		  		
 		  		<p:outputLabel value="Data Autorizimit" style="font-weight: bold" />
 		  		<p:outputLabel value="Përdoruesi" style="font-weight: bold" />
-		  		<p:inputText value="#{viewAuthBean.auth.authorizationDate}" disabled="true"/>
-		  		<p:inputText value="#{viewAuthBean.auth.user}" disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.authorizationDate}" readonly="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.user}" readonly="true"/>
 		  		
 		  		
 		  		<p:outputLabel value="Statusi" style="font-weight: bold" />
 		  		<p:outputLabel value="Struktura" style="font-weight: bold" />
-		  		<p:inputText value="#{viewAuthBean.auth.decision}" disabled="true"/>
-		  		<p:inputText value="#{viewAuthBean.auth.structure}" disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.decision}" readonly="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.structure}" readonly="true"/>
 		  		
 		  		<p:outputLabel value="Nisja" style="font-weight: bold"/>
 		  		<p:outputLabel value="Destinacioni" style="font-weight: bold"/>
-		  		<p:inputText value="#{viewAuthBean.auth.fromPlace}" disabled="true"/>
-		  		<p:inputText value="#{viewAuthBean.auth.toPlace}" disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.fromPlace}" readonly="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.toPlace}" readonly="true"/>
 		  		
 		  		<p:outputLabel value="Data nisjes" style="font-weight: bold"/>
 		  		<p:outputLabel value="Data kthimit" style="font-weight: bold"/>
-		  		<p:inputText value="#{viewAuthBean.auth.fromDate}" disabled="true"/>
-		  		<p:inputText value="#{viewAuthBean.auth.toDate}" disabled="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.fromDate}" readonly="true"/>
+		  		<p:inputText value="#{viewAuthBean.auth.toDate}" readonly="true"/>
 		  		
 		  		<p:outputLabel value="Automjetet" style="font-weight: bold"/>
 		  		<p:outputLabel value="Punonjësit" style="font-weight: bold"/>
-		  		<p:dataList value="#{viewAuthBean.auth.vehicles}" var="v">
+		  		<p:dataList value="#{viewAuthBean.auth.vehicles}" var="v" >
 		  			#{v.plate}
 		  		</p:dataList>
-		  		<p:dataList value="#{viewAuthBean.auth.officers}" var="of">
+		  		<p:dataList value="#{viewAuthBean.auth.officers}" var="of" >
 		  			#{of.name} #{of.surname}
 		  		</p:dataList>
 
 		  	</p:panelGrid>
 		  	<p:panelGrid layout="grid" columns="1" styleClass="ui-panelgrid-blank" >
 		  		<p:outputLabel value="Arsyeja e shërbimit" style="font-weight: bold"/>
-		  		<p:inputTextarea value="{viewAuthBean.auth.reasonOfTravel}" rows="5" disabled="true"/>
+		  		<p:inputTextarea value="#{viewAuthBean.auth.reasonOfTravel}" rows="5" readonly="true"/>
 		  	</p:panelGrid>
 		  </p:panel>
 		  </div>
 		  
 		  <div class="ui-g-12 ui-md-6 ">
 		  <p:panel header="Historiku Autorizimit" style="height: 99%">
-		  	<p:dataTable value="#{viewAuthBean.history}" var="h" rowIndexVar="r" reflow="true">			  	
+		  	<p:dataTable value="#{viewAuthBean.history}" var="h" rowIndexVar="r" reflow="true" emptyMessage="Autorizimi sapo është regjistruar">			  	
 			  	<p:column headerText="#">#{r+1}</p:column>
 			  	<p:column headerText="Data">#{h.approvalTime}</p:column>
 			  	<p:column headerText="Përdoruesi">#{h.user}</p:column>

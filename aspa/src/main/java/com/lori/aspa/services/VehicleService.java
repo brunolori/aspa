@@ -45,7 +45,7 @@ public class VehicleService {
 	}
 	
 	
-	public VehicleDTO isAvailable(Integer vehicleId, Date from, Date to) throws AppException
+	public VehicleDTO isAvailable(Integer vehicleId, Date from, Date to, Integer authId) throws AppException
 	{
 		
 		Vehicle v = vehicleDAO.findById(vehicleId);
@@ -59,6 +59,10 @@ public class VehicleService {
 		List<Authorization> listAuth =  authorizationDAO.search(authSql);
 		
 		if(listAuth == null || listAuth.isEmpty())
+		{
+			return new Assembler().toDto(v);
+		}
+		if(authId == null || (authId == listAuth.get(0).getId()))
 		{
 			return new Assembler().toDto(v);
 		}

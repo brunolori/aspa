@@ -1,8 +1,12 @@
 package com.lori.aspa.ui.models;
 
+import java.io.Serializable;
 
-public class UserTokenDTO {
+public class UserTokenDTO implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
+	
 	UserDTO user;
 	String token;
 	

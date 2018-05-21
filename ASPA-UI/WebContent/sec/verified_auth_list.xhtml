@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
+
+	<ui:define name="title">Të verifikuara</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+
+<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+
+				<p:dataTable value="#{dashboardBean.auths}" var="a" rowIndexVar="r"
+					rowKey="#{a.id}" selection="#{dashboardBean.selectedAuth}"
+					selectionMode="single" emptyMessage="Nuk keni asnjë autorizim">
+					<p:ajax event="rowSelect"
+						listener="#{dashboardBean.onAuthSelect()}" />
+					<f:facet name="header">Autorizimet e verifikuara</f:facet>
+					<p:column headerText="#">#{r+1}</p:column>
+					<p:column headerText="Data autorizimit">#{a.authorizationDate}</p:column>
+					<p:column headerText="Struktura">#{a.authorizationDate}</p:column>
+					<p:column headerText="Nisja">#{a.fromPlace}</p:column>
+					<p:column headerText="Destinacioni">#{a.toPlace}</p:column>
+					<p:column headerText="Dt.Nisje">#{a.fromDate}</p:column>
+					<p:column headerText="Dt.Kthimi">#{a.toDate}</p:column>
+					<p:column headerText="Përdoruesi">#{a.user}</p:column>
+					<p:column headerText="Statusi">#{a.decision}</p:column>
+				</p:dataTable>
+
+			</div>
+</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

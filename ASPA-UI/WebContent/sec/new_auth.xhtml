@@ -40,10 +40,10 @@
 
 							<p:outputLabel value="Data nisjes" style="font-weight: bold" />
 							<p:inputMask value="#{newAuthBean.auth.fromDate}"
-								pattern="dd.MM.yyyy" placeholder="Data nisjes" />
+								mask="99.99.9999" placeholder="Data nisjes" />
 							<p:outputLabel value="Data kthimit" style="font-weight: bold" />
 							<p:inputMask value="#{newAuthBean.auth.toDate}"
-								pattern="dd.MM.yyyy" placeholder="Data kthimit" />
+								mask="99.99.9999" placeholder="Data kthimit" />
 
 							<p:outputLabel value="Automjetet" style="font-weight: bold" />
 							<p:selectCheckboxMenu value="#{newAuthBean.selectedVehicles}"
@@ -60,9 +60,11 @@
 							<p:outputLabel value="Delego për firmë" style="font-weight: bold" />
 							<p:autoComplete id="dd" dropdown="true"
 								value="#{newAuthBean.auth.nextUserId}"
-								completeMethod="#{newAuthBean.searchUser}" var="nu"
+								completeMethod="#{newAuthBean.searchUser}" 
+								var="nu"
 								itemLabel="#{nu.officer.fullName()}"
-								itemValue="#{nu.id}" placeholder="Delego për firmë"/>
+								itemValue="#{nu.id}" 
+								placeholder="Delego për firmë"/>
 								
 						</p:panelGrid>
 
@@ -74,12 +76,13 @@
 
 					<p:panel header="Shto punonjësit" style="height: 99%">
 					<p:panelGrid layout="grid" columns="1" styleClass="ui-panelgrid-blank"> 
-						<p:autoComplete value="#{newAuthBean.selectedOfficer}"
+						<p:autoComplete id="ac_sx_off" value="#{newAuthBean.selectedOfficer}"
 							placeholder="Kërko punonjësin..."
-							completeMethod="#{newAuthBean.searchOfficer}"
+							completeMethod="#{newAuthBean.searchOfficer}" var="ao" itemLabel="#{ao.fullName()}"
+							itemValue="#{ao}"
 							converter="officerConverter">
 							<p:ajax event="itemSelect"
-								listener="#{newAuthBean.onOfficerSelect}" update="off_tbl" />
+								listener="#{newAuthBean.onOfficerSelect}" update="ac_sx_off off_tbl" />
 						</p:autoComplete>
 						<p:dataTable id="off_tbl" value="#{newAuthBean.selectedOfficers}"
 							var="o" rowIndexVar="r" reflow="true" styleClass="no-border"
@@ -117,11 +120,15 @@
 						styleClass="ui-panelgrid-blank">
 						<p:commandButton value="Regjistro" icon="fa fa-save"
 							styleClass="blue-btn" action="#{newAuthBean.register()}"
-							update="@form" />
+							update="@form">
+							 <p:confirm header="Regjistro autorizimin" message="Jeni të sigurt?" icon="ui-icon-alert" />
+                         </p:commandButton>
 
 						<p:commandButton value="Pastro" icon="fa fa-clear"
 							styleClass="red-btn" action="#{newAuthBean.clear()}"
-							update="@form" />
+							update="@form" >
+							 <p:confirm header="Regjistro autorizimin" message="Jeni të sigurt?" icon="ui-icon-alert" />
+                         </p:commandButton>
 					</p:panelGrid>
 				</div>
 

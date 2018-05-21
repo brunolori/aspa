@@ -104,6 +104,17 @@ public class OfficerDAO {
 	}
 	
 	
+	public List<Officer> queryOfficer(String query)
+	{
+		return em.createQuery("FROM Officer o WHERE o.status=1 "
+				+ "AND (UPPER(o.name) LIKE :on OR UPPER(o.surname) LIKE :os ) "
+				+ "ORDER BY o.name,o.surname")
+				.setParameter("on", "%"+query.toUpperCase()+"%").setParameter("os", "%"+query.toUpperCase()+"%")
+				.getResultList();
+	}
+	
+	
+	
 	
 
 }
