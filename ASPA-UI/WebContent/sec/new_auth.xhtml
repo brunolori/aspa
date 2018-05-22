@@ -59,11 +59,11 @@
 								placeholder="Arsyeja e shërbimit" rows="5" />
 							<p:outputLabel value="Delego për firmë" style="font-weight: bold" />
 							<p:autoComplete id="dd" dropdown="true"
-								value="#{newAuthBean.auth.nextUserId}"
+								value="#{newAuthBean.nextUser}"
 								completeMethod="#{newAuthBean.searchUser}" 
-								var="nu"
+								var="nu" converter="userConverter"
 								itemLabel="#{nu.officer.fullName()}"
-								itemValue="#{nu.id}" 
+								itemValue="#{nu}" 
 								placeholder="Delego për firmë"/>
 								
 						</p:panelGrid>

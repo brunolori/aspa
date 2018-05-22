@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 
 import com.lori.aspa.ui.models.Principal;
 import com.lori.aspa.ui.models.UserTokenDTO;
@@ -57,11 +58,13 @@ public class LoginBean implements Serializable {
 		if(!StringUtil.isValid(username))
 		{
 			Messages.throwFacesMessage("Plotëso Përdoruesin", 3);
+			return;
 		}
 		
 		if(!StringUtil.isValid(password))
 		{
 			Messages.throwFacesMessage("Plotëso Fjalëkalimin", 3);
+			return;
 		}
 		
 		Principal principal = new Principal();
@@ -81,7 +84,23 @@ public class LoginBean implements Serializable {
 		
 	}
 	
-	public void logout() {}
+
+	 public String logout() {
+		try {
+		            HttpSession session = Util.getSession();
+		            if (session != null) {
+		                session.invalidate();
+		            }
+		            
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+		return "/login.xhtml?faces-redirect=true";
+	}
+
+		
+		
+	
 	
 
 }

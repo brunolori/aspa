@@ -75,6 +75,7 @@ public class AuthorizationService {
 	public AuthorizationDTO registerAuthorization(AuthorizationDTO dto) throws AppException
 	{
 		
+		
 		if(dto.getUserId() == null) {
 			
 			throw new EmptyFieldsException("Përdoruesi i papërcaktuar ");
@@ -92,7 +93,7 @@ public class AuthorizationService {
 		
         if(dto.getToDate() == null) {
 			
-			throw new EmptyFieldsException("Data e mbërritjes e papërcaktuar ");
+			throw new EmptyFieldsException("Data e kthimit e papërcaktuar ");
 		}
         
         if(dto.getFromPlaceId() == null) {
@@ -124,7 +125,7 @@ public class AuthorizationService {
         Date from = DateUtil.toDate(dto.getFromDate());
         Date to = DateUtil.toDate(dto.getToDate());
         
-        if(!to.after(from))
+        if(to.before(from))
         {
         	throw new TimeOutException("Data e kthimit duhet pas nisjes");
         }
@@ -175,6 +176,11 @@ public class AuthorizationService {
 	public AuthorizationDTO modifyAuthorization(AuthorizationDTO dto,String uname) throws AppException
 	{
 		
+		if(dto.getDecision().equals(IDecision.IN_PROCESS) && isVerified(dto))
+		{
+			throw new AppException("Autorizimi nuk mund te ndryshohet ne kete moment");
+		}
+		
 		if(dto.getUserId() == null) {
 			
 			throw new EmptyFieldsException("Përdoruesi i papërcaktuar ");
@@ -224,7 +230,7 @@ public class AuthorizationService {
         Date from = DateUtil.toDate(dto.getFromDate());
         Date to = DateUtil.toDate(dto.getToDate());
         
-        if(!to.after(from))
+        if(to.before(from))
         {
         	throw new TimeOutException("Data e kthimit duhet pas nisjes");
         }
@@ -258,6 +264,7 @@ public class AuthorizationService {
         auth.setVehicles(vehicles);
         auth.setReasonOfTravel(dto.getReasonOfTravel());        
         auth.setStructure(structure);
+        auth.setDecision(IDecision.IN_PROCESS);
         
         auth.setUpdateTime(Calendar.getInstance().getTime());
         auth.setUpdateUser(user);
@@ -279,7 +286,7 @@ public class AuthorizationService {
 	}
 	
 	
-	public void decide(ApprovalHistoryDTO dto, String uname)
+	public void decide(ApprovalHistoryDTO dto, String uname) throws EmptyFieldsException
 	{
 		User u = userDAO.findByUsername(uname);
 		User nextUser = null;
@@ -291,17 +298,26 @@ public class AuthorizationService {
 		
 		Authorization auth = authorizationDAO.findById(dto.getAuthorizationId());
 		auth.setDecision(decision);
+		
 		if(decision.equals(IDecision.ACCEPT))
 		{
 			auth.setFinalApprovedDate(Calendar.getInstance().getTime());
 		}
+		
+		if(decision.equals(IDecision.IN_PROCESS))
+		{
+			if(dto.getNextUserId()<=0)
+			{
+				throw new EmptyFieldsException("Zgjidhni personin qe do firmosi");
+			}
+		}
+		
 		if(dto.getNextUserId() > 0)
 		{
 			nextUser = userDAO.findById(dto.getNextUserId());
 			auth.setNextUser(nextUser);
 		}
 		auth = authorizationDAO.update(auth);
-		
 		
 		
 		ApprovalHistory ah = new ApprovalHistory();
@@ -343,7 +359,7 @@ public class AuthorizationService {
 		AuthorizationSQL sql = new AuthorizationSQL();
 		sql.setNextUserId(u.getId());
 		sql.setStatus(IStatus.ACTIVE);
-		sql.setNotDecision(IDecision.ACCEPT);
+		sql.setDecision(IDecision.IN_PROCESS);
 		
 		return new Assembler().authorizationListToDto(authorizationDAO.search(sql));
 		
@@ -361,7 +377,11 @@ public class AuthorizationService {
 		return new Assembler().approvalHistoryListToDto(historyDAO.search(authId, null, null, IStatus.ACTIVE, null, null));
 	}
 	
-	
+	public boolean isVerified(AuthorizationDTO auth)
+	{
+		List<ApprovalHistory> h = historyDAO.search(auth.getId(), null, null, IStatus.ACTIVE, null, 1);
+		return (h != null && !h.isEmpty());
+	}
 	
 
 }

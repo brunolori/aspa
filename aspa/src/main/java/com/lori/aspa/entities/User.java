@@ -54,10 +54,11 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
     @ManyToMany
-    @JoinTable(name = "USER_ROLE",
-	    joinColumns = @JoinColumn(name = "USER_ID"),
-	    inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
-    )
+    @JoinTable(
+            name = "USER_ROLE", 
+            joinColumns = { @JoinColumn(name = "USER_ID") }, 
+            inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") }
+        )
     private List<Role> roles;
     @JoinColumn(name = "OFFICER_ID", referencedColumnName = "ID")
     @ManyToOne

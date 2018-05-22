@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import com.lori.aspa.ui.clients.ApiException;
 import com.lori.aspa.ui.models.AuthorizationDTO;
 import com.lori.aspa.ui.models.OfficerDTO;
 import com.lori.aspa.ui.models.PlaceDTO;
@@ -157,6 +158,19 @@ public class ModifyAuthBean implements Serializable {
 	
 	public void onOfficerSelect()
 	{
+		if(!selectedOfficers.isEmpty())
+		{
+			for(OfficerDTO o : selectedOfficers)
+			{
+				if(o.getId() == selectedOfficer.getId())
+				{
+					Messages.throwFacesMessage("Punonjesin "+selectedOfficer.fullName()+" e keni zgjedhur njehere", 3);
+					this.selectedOfficer = null;
+					return;
+				}
+			}
+		}
+		
 		this.selectedOfficers.add(selectedOfficer);
 		this.selectedOfficer = null;
 	}
@@ -168,9 +182,12 @@ public class ModifyAuthBean implements Serializable {
 	
 	
 	public void modify() {
-		
-		this.auth = new AuthService().modifyAuthorization(auth, selectedOfficers, selectedVehicles, token);
-		Messages.throwFacesMessage("Autorizimi u ndryshua me sukses", 1);
+		try {
+			this.auth = new AuthService().modifyAuthorization(auth, selectedOfficers, selectedVehicles, token);
+			Messages.throwFacesMessage("Autorizimi u ndryshua me sukses", 1);
+		}catch(ApiException a) {
+			Messages.throwFacesMessage(a.getMessage(), a.getSeverity());
+		}
 				
 	}
 	

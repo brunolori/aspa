@@ -20,7 +20,7 @@ public class GuestPreferences implements Serializable {
 
 	private String theme = "blue";
     
-    private String layout = "opa";
+    private String layout = "blue";
             
     private boolean overlayMenu = false;
     

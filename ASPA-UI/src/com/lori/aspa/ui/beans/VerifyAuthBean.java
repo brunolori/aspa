@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import com.lori.aspa.ui.clients.ApiException;
 import com.lori.aspa.ui.models.ApprovalHistoryDTO;
 import com.lori.aspa.ui.models.AuthorizationDTO;
 import com.lori.aspa.ui.models.UserDTO;
@@ -116,9 +117,13 @@ public class VerifyAuthBean implements Serializable {
 		{
 			decider.setNextUserId(nextUser.getId());
 		}
+		try {
+			
 		new AuthService().decide(decider, token);
-		
 		Util.redirect("sec/verify_auth_list");
+		
+		}catch(ApiException a) 
+		{Messages.throwFacesMessage(a.getMessage(), a.getSeverity());}
 		
 	}
 	

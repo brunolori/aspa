@@ -35,6 +35,12 @@ public class RoleDTO {
 			this.active = active;
 		}
 		
+		
+		@Override
+		public String toString() {
+			return "["+tag+"]";
+		}
+		
 
 		
 	    

@@ -1,0 +1,175 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+   template="../WEB-INF/template.xhtml">
+	 
+	 
+
+<ui:define name="title">Statistika</ui:define>
+
+    <ui:define name="head">
+           <script type="text/javascript">
+               //<![CDATA[
+               function skinBar() {
+                   this.cfg.shadow = false;
+                   this.cfg.title = '';
+                   this.cfg.seriesColors = ['#3984b8','#7e8dcd'];
+                   this.cfg.grid = {
+                       background: '#ffffff',
+                       borderColor: '#ffffff',
+                       gridLineColor: '#dee4e9',
+                       shadow: false
+                   };
+                   this.cfg.axesDefaults = {
+                       borderWidth: 0.1,
+                       borderColor: 'dce2e7',
+                       rendererOptions: {
+                           textColor: '#757575'
+                       }
+                   };
+                   this.cfg.seriesDefaults = {
+                       shadow: false,
+                       lineWidth: 1,
+                       renderer: $.jqplot.BarRenderer,
+                       markerOptions: {
+                           shadow: false,
+                           size: 7,
+                           style: 'circle'
+                       }
+                   }
+               }
+               //]]>  
+           </script>
+           <style type="text/css">
+               .main-content {
+                   padding: 0;
+               }
+           </style>
+       </ui:define>
+
+    <ui:define name="content">
+    <h:form id="statistic_form">
+        <div class="ui-g dashboard">
+        <div class="ui-g-12 ui-md-7 ui-fluid">
+	        <p:panelGrid layout="grid" columns="1" styleClass="ui-panelgrid-blank">
+	        	<p:outputLabel value="Statistika" styleClass="bold" style="font-size: 22px"/>
+	        </p:panelGrid>
+        </div>
+        <div class="ui-g-12 ui-md-5 ui-fluid">
+        	<p:panelGrid layout="grid" columns="3" styleClass="ui-panelgrid-blank">
+        		<p:calendar value="#{null}" pattern="dd.MM.yyyy" placeholder="Nga data"/>
+        		<p:calendar value="#{null}" pattern="dd.MM.yyyy" placeholder="Në datën"/>
+        		<p:selectOneMenu value="#{null}">
+        			<f:selectItem itemValue="#{null}" itemLabel="Struktura" />
+        		</p:selectOneMenu>
+        	</p:panelGrid>
+        </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="ui-g card overview-box overview-box-1 no-gutter">
+                    <div class="overview-box-title">Autorizime gjithsej</div>
+                    <div class="overview-box-details">
+                        <i class="fa fa-inbox overview-box-details-icon" />
+                        <span class="overview-box-details-count">150</span>
+                    </div>
+                    <div class="overview-box-stats" style="color:#3fb839">+%50</div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="ui-g card overview-box overview-box-2 no-gutter">
+                    <div class="overview-box-title">Autorizime të miratuara</div>
+                    <div class="overview-box-details">
+                        <i class="fa fa-map-pin overview-box-details-icon" />
+                        <span class="overview-box-details-count">532</span>
+                    </div>
+                    <div class="overview-box-stats" style="color:#3fb839">+%75</div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="ui-g card overview-box overview-box-2 no-gutter">
+                    <div class="overview-box-title">Autorizime në proces</div>
+                    <div class="overview-box-details">
+                        <i class="fa fa-map-pin overview-box-details-icon" />
+                        <span class="overview-box-details-count">532</span>
+                    </div>
+                    <div class="overview-box-stats" style="color:#3fb839">+%75</div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="ui-g card overview-box overview-box-2 no-gutter">
+                    <div class="overview-box-title">Autorizime të refuzuara</div>
+                    <div class="overview-box-details">
+                        <i class="fa fa-map-pin overview-box-details-icon" />
+                        <span class="overview-box-details-count">532</span>
+                    </div>
+                    <div class="overview-box-stats" style="color:#3fb839">+%75</div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="ui-g card overview-box overview-box-3 no-gutter">
+                    <div class="overview-box-title">Shërbime aktive</div>
+                    <div class="overview-box-details">
+                        <i class="fa fa-folder overview-box-details-icon" />
+                        <span class="overview-box-details-count">25</span>
+                    </div>
+                    <div class="overview-box-stats" style="color:#3fb839">+%50</div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="ui-g card overview-box overview-box-4 no-gutter">
+                    <div class="overview-box-title">Punonjës me shërbim</div>
+                    <div class="overview-box-details">
+                        <i class="fa fa-user overview-box-details-icon" />
+                        <span class="overview-box-details-count">156</span>
+                    </div>
+                    <div class="overview-box-stats" style="color:#e17576">-%15</div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="ui-g card overview-box overview-box-4 no-gutter">
+                    <div class="overview-box-title">Automjete në shërbim</div>
+                    <div class="overview-box-details">
+                        <i class="fa fa-user overview-box-details-icon" />
+                        <span class="overview-box-details-count">156</span>
+                    </div>
+                    <div class="overview-box-stats" style="color:#e17576">-%15</div>
+                </div>
+            </div>
+            
+            <div class="ui-g-12 ui-md-8">
+	            <div class="ui-g ui-g-nopad">
+		            <div class="ui-g-12 ui-g-nopad">
+		            	<p:panel header="Grafiku punonjësve me shërbim" style="min-height: 300px">
+		            	
+		            	</p:panel>
+		            </div>
+		            <div class="ui-g-12 ui-g-nopad">
+		            	<p:panel header="Grafiku mujor i autorizimeve" style="min-height: 300px">
+		            	<f:facet name="action">
+		            		<p:selectOneMenu value="#{null}">
+		            			<f:selectItem itemValue="#{null}" itemLabel="Viti"/>
+		            		</p:selectOneMenu>
+		            	</f:facet>
+		            	
+		            	</p:panel>
+		            </div>
+	            </div>
+            </div>
+           
+           <div class="ui-g-12 ui-md-4">
+           		<p:panel header="Punonjës sipas ditë-shërbimi" style="height: 99%">
+	           		<p:dataTable emptyMessage="">
+	           			<p:column headerText="#"></p:column>
+	           			<p:column headerText="Punonjësi"></p:column>
+	           			<p:column headerText="Ditë"></p:column>
+	           		</p:dataTable>
+           		</p:panel>
+            </div>
+                        
+            
+        </div>
+</h:form>
+	</ui:define>
+	 
+	</ui:composition>

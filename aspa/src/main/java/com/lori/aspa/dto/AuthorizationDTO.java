@@ -2,6 +2,8 @@ package com.lori.aspa.dto;
 
 import java.util.List;
 
+import com.lori.aspa.utils.StringUtil;
+
 public class AuthorizationDTO {
 
 	    private Integer id;
@@ -65,13 +67,27 @@ public class AuthorizationDTO {
 			return fromDate;
 		}
 		public void setFromDate(String fromDate) {
-			this.fromDate = fromDate;
+			if(!StringUtil.isValid(fromDate))
+			{
+				this.fromDate = null;
+			}
+			else
+			{
+				this.fromDate = fromDate;
+			}
 		}
 		public String getToDate() {
 			return toDate;
 		}
 		public void setToDate(String toDate) {
-			this.toDate = toDate;
+			if(!StringUtil.isValid(toDate))
+			{
+				this.toDate = null;
+			}
+			else 
+			{
+				this.toDate = toDate;
+			}
 		}
 		public Integer getRank() {
 			return rank;
@@ -176,6 +192,17 @@ public class AuthorizationDTO {
 		}
 		public void setVehicles(List<VehicleDTO> vehicles) {
 			this.vehicles = vehicles;
+		}
+		@Override
+		public String toString() {
+			return "AuthorizationDTO [id=" + id + ", fromPlace=" + fromPlace + ", fromPlaceId=" + fromPlaceId
+					+ ", toPlace=" + toPlace + ", toPlaceId=" + toPlaceId + ", fromDate=" + fromDate + ", toDate="
+					+ toDate + ", rank=" + rank + ", decision=" + decision + ", finalApprovedDate=" + finalApprovedDate
+					+ ", cancelDate=" + cancelDate + ", reasonOfTravel=" + reasonOfTravel + ", structure=" + structure
+					+ ", structureId=" + structureId + ", user=" + user + ", userId=" + userId + ", authorizationDate="
+					+ authorizationDate + ", active=" + active + ", nextUserId=" + nextUserId + ", nextUser=" + nextUser
+					+ ", nextStructure=" + nextStructure + ", officers=" + officers + ", travels=" + travels
+					+ ", vehicles=" + vehicles + "]";
 		}
 	    
 	    

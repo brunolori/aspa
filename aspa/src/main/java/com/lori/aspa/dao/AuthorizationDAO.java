@@ -129,6 +129,7 @@ public class AuthorizationDAO {
         }
         
 		sql += order;
+		
         
 		Query q = em.createQuery(sql);
 
@@ -149,7 +150,7 @@ public class AuthorizationDAO {
 			q.setMaxResults(criterias.getMaxResult());
 		}
 
-
+		
 		return q.getResultList();
 				
 	}
@@ -171,8 +172,6 @@ public class AuthorizationDAO {
 				.setParameter("ast", IStatus.ACTIVE)
 				.getResultList();
 	}
-	
-	
 	
 
 }

@@ -43,7 +43,7 @@ public class StructureApi {
 	}
 	
 	@RequestMapping(value="/userStructures/{userId}", method=RequestMethod.GET, produces={"application/json"})
-	public ResponseEntity<?> loadUserStructures(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable(name="userId") Integer userId)
+	public ResponseEntity<?> loadUserStructures(@RequestHeader(value = "Authorization") String token, @PathVariable(name="userId") Integer userId)
 	{
 		String uname = TokenUtil.getUsername(token);
 		

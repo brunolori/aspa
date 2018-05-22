@@ -24,6 +24,7 @@ import com.lori.aspa.exceptions.EmptyFieldsException;
 import com.lori.aspa.exceptions.EntityExistsException;
 import com.lori.aspa.model.Principal;
 import com.lori.aspa.model.UserTokenDTO;
+import com.lori.aspa.security.TokenUtil;
 import com.lori.aspa.utils.StringUtil;
 
 @Service
@@ -117,11 +118,14 @@ public class UserService {
 		return new Assembler().toDto(userDAO.findByUsername(uname));
 	}
 	
+	
+	
 	public UserTokenDTO login(Principal princ)
 	{
 		User u = userDAO.findByUsername(princ.getUsername());
-		
-		if(u == null) return null;
+				
+		if(u == null) 
+			return null;
 		
 		if(u.getStatus() != IStatus.ACTIVE)
 		{
@@ -132,9 +136,11 @@ public class UserService {
 			return null;
 		}
 		
+		UserDTO user = new Assembler().toDto(u);
+		
 		UserTokenDTO ut = new UserTokenDTO();
-		ut.setUser(new Assembler().toDto(u));
-		ut.setToken("fakju");
+		ut.setUser(user);
+		ut.setToken(TokenUtil.generateToken(user));
 				
 		return ut;
 		

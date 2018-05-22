@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lori.aspa.api.req.VehicleReq;
+import com.lori.aspa.dto.UserDTO;
 import com.lori.aspa.dto.VehicleDTO;
+import com.lori.aspa.security.TokenUtil;
+import com.lori.aspa.services.StructureService;
 import com.lori.aspa.services.UserService;
 import com.lori.aspa.services.VehicleService;
 
@@ -24,6 +27,8 @@ public class VehicleApi {
 	VehicleService vehicleService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	StructureService structureService;
 	
 	
 	
@@ -34,12 +39,14 @@ public class VehicleApi {
 	}
 	
 	@RequestMapping(value = "/getUserVehicles", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> loadUserVehicles(@RequestHeader(value = "Authorization", required = false) String token) {
+	public ResponseEntity<?> loadUserVehicles(@RequestHeader(value = "Authorization") String token) {
 
-		//String uname = TokenUtil.getUsername(token);
-		//UserDTO u = userService.findUserByUsername(uname);
-		
-		List<VehicleDTO> v = vehicleService.searchVehicle(new VehicleReq());
+		String uname = TokenUtil.getUsername(token);
+		UserDTO u = userService.findUserByUsername(uname);
+
+		VehicleReq r = new VehicleReq();
+		r.setStructureId(u.getOfficer().getStructureId());
+		List<VehicleDTO> v = vehicleService.searchVehicle(r);
 		
 		return new ResponseEntity<>(v, HttpStatus.OK);
 	}

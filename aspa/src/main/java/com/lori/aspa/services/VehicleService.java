@@ -49,6 +49,7 @@ public class VehicleService {
 	{
 		
 		Vehicle v = vehicleDAO.findById(vehicleId);
+		
 		AuthorizationSQL authSql = new AuthorizationSQL();
 		authSql.setFromDate(from);
 		authSql.setToDate(to);
@@ -57,7 +58,7 @@ public class VehicleService {
 		authSql.setVehicleId(vehicleId);
 
 		List<Authorization> listAuth =  authorizationDAO.search(authSql);
-		
+				
 		if(listAuth == null || listAuth.isEmpty())
 		{
 			return new Assembler().toDto(v);

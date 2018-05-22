@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import com.lori.aspa.ui.clients.ApiException;
 import com.lori.aspa.ui.models.AuthorizationDTO;
 import com.lori.aspa.ui.models.OfficerDTO;
 import com.lori.aspa.ui.models.PlaceDTO;
@@ -45,6 +46,7 @@ public class NewAuthBean implements Serializable {
 	List<VehicleDTO> selectedVehicles;
 	
 	OfficerDTO selectedOfficer;
+	UserDTO nextUser;
 	
 	AuthorizationDTO auth;
 	
@@ -98,6 +100,14 @@ public class NewAuthBean implements Serializable {
 	public void setLogin(LoginBean login) {
 		this.login = login;
 	}
+
+	public UserDTO getNextUser() {
+		return nextUser;
+	}
+	public void setNextUser(UserDTO nextUser) {
+		this.nextUser = nextUser;
+	}
+	
 	
 	
 	@PostConstruct
@@ -119,6 +129,7 @@ public class NewAuthBean implements Serializable {
 		this.selectedOfficers = new ArrayList<>();
 		this.selectedVehicles = new ArrayList<>();
 		this.selectedOfficer = null;
+		this.nextUser = null;
 
 	}
 	
@@ -140,11 +151,21 @@ public class NewAuthBean implements Serializable {
 			Messages.throwFacesMessage("Zgjidhni automjetin", 2);
 			return;
 		}
+		if(nextUser == null)
+		{
+			Messages.throwFacesMessage("Zgjidhni ku do e delegoni", 2);
+			return;
+		}
 		
-		new AuthService().registerAuthorization(auth, selectedOfficers, selectedVehicles, token);
-		Messages.throwFacesMessage("Autorizimi u regjistrua me sukses", 1);
-		
-		init();
+		try {
+			auth.setNextUserId(nextUser.getId());
+			new AuthService().registerAuthorization(auth, selectedOfficers, selectedVehicles, token);
+			Messages.throwFacesMessage("Autorizimi u regjistrua me sukses", 1);
+		    init();
+		}catch(ApiException a)
+		{
+			Messages.throwFacesMessage(a.getMessage(), a.getSeverity());
+		}
 	}
 	
 	
@@ -160,6 +181,19 @@ public class NewAuthBean implements Serializable {
 	
 	public void onOfficerSelect()
 	{
+		if(!selectedOfficers.isEmpty())
+		{
+			for(OfficerDTO o : selectedOfficers)
+			{
+				if(o.getId() == selectedOfficer.getId())
+				{
+					Messages.throwFacesMessage("Punonjesin "+selectedOfficer.fullName()+" e keni zgjedhur njehere", 3);
+					this.selectedOfficer = null;
+					return;
+				}
+			}
+		}
+		
 		this.selectedOfficers.add(selectedOfficer);
 		this.selectedOfficer = null;
 	}

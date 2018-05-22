@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author lorela.shehu
  */
-@ResponseStatus(value=HttpStatus.CONFLICT, reason="Entiteti ekziston")
+@ResponseStatus(value=HttpStatus.CONFLICT)
 public class EntityExistsException extends AppException {
 
     /**

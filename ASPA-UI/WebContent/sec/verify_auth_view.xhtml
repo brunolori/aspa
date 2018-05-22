@@ -32,8 +32,8 @@
 					<p:panel header="Verifiko" >
 						<p:panelGrid layout="grid" columns="1"
 							styleClass="ui-panelgrid-blank form-group">
-							<p:outputLabel value="Veprimi" styleClass="bold"/> 
-							<p:selectOneMenu value="#{verifyAuthBean.decider.decision}">
+							<p:outputLabel value="Veprimi" styleClass="bold" rendered="#{not loginBean.userToken.user.finalApproval}"/> 
+							<p:selectOneMenu value="#{verifyAuthBean.decider.decision}" rendered="#{not loginBean.userToken.user.finalApproval}">
 								<f:selectItem itemLabel="Veprimi..." itemValue="#{null}" />
 								<f:selectItem itemLabel="Mirato" itemValue="#{constantBean.DECISION_ACCEPT}" />
 								<f:selectItem itemLabel="Të ndryshohet" itemValue="#{constantBean.DECISION_RETURNED}" />
@@ -47,7 +47,9 @@
 							<p:inputTextarea value="#{verifyAuthBean.decider.reason}" placeholder="Arsyeja..." rows="5" />
 
 							<p:commandButton value="Ruaj" action="#{verifyAuthBean.decide()}" update="@form" 
-							styleClass="green-btn"/>
+							styleClass="green-btn">
+							 <p:confirm header="Ruaj" message="Jeni të sigurt?" icon="ui-icon-alert" />
+                         </p:commandButton>
 						</p:panelGrid>
 
 					</p:panel>
