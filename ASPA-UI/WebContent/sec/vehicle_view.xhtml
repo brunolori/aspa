@@ -1,0 +1,112 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
+
+	<ui:define name="title">Automjet i ri</ui:define>
+
+	<ui:define name="content">
+		<h:form id="vehicle_form">
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<div class="card card-w-title">
+						<h1>Menaxho automjetet</h1>
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-6">
+								<p:panelGrid columns="2" layout="grid"
+									columnClasses="bold,empty" styleClass="ui-panelgrid-blank">
+
+									<p:outputLabel value="Targa" />
+									<p:inputText value="#{vehicleBean.vehicle.plate}" />
+									
+									<p:outputLabel value="Struktura" />
+									<p:selectOneMenu value="#{vehicleBean.vehicle.structureId}">
+										<f:selectItem itemValue="0" itemLabel="Struktura" />
+										<f:selectItems value="#{vehicleBean.structures}" var="s"
+											itemValue="#{s.id}" itemLabel="#{s.name}" />
+									</p:selectOneMenu>
+									<p:outputLabel value="Kapaciteti" />
+									<p:inputText value="#{vehicleBean.vehicle.capacity}" />
+									<h:outputText value="Rimorkio" />
+                                    <p:selectOneRadio value="#{vehicleBean.vehicle.carriage}">
+                                        <f:selectItem itemValue="true" itemLabel="Po"/>
+                                         <f:selectItem itemValue="false" itemLabel="Jo"/>
+                                    </p:selectOneRadio>
+									<p:outputLabel value="Lloji Automjetit" />
+									<p:selectOneMenu value="#{vehicleBean.vehicle.typeCode}">
+										<f:selectItem itemValue="#{null}" itemLabel="Lloji Automjetit" />
+										<f:selectItems value="#{vehicleBean.vehicleTypes}" var="vt"
+											itemValue="#{vt.tag}" itemLabel="#{vt.description}" />
+									</p:selectOneMenu>
+									
+									
+
+								</p:panelGrid>
+							</div>
+							<div class="ui-g-12 ui-md-8">
+
+								<p:panelGrid layout="grid" columns="4"
+									styleClass="ui-panelgrid-blank">
+									<p:commandButton value="Regjistro"
+										actionListener="#{vehicleBean.register()}"
+										rendered="#{vehicleBean.vehicle.id eq 0}"
+										icon="fa fa-save" styleClass="blue-btn" update="@form">
+										<p:confirm header="Regjistro automjetin"
+											message="Jeni të sigurt?" icon="ui-icon-alert" />
+									</p:commandButton>
+
+									<p:commandButton value="Modifiko"
+										actionListener="#{vehicleBean.modify()}"
+										rendered="#{vehicleBean.vehicle.id gt 0}"
+										styleClass="purple-btn" icon="fa fa-edit" update="@form">
+										<p:confirm header="Modifiko" message="Jeni të sigurt" />
+									</p:commandButton>
+									<p:commandButton value="Fshijë"
+										actionListener="#{vehicleBean.delete()}"
+										rendered="#{vehicleBean.vehicle.id gt 0}"
+										styleClass="red-btn" icon="fa fa-trash" update="@form">
+										<p:confirm header="Fshijë" message="Jeni të sigurt"
+											icon="ui-icon-alert" />
+									</p:commandButton>
+									<p:commandButton value="Pastro"
+										actionListener="#{vehicleBean.clear()}"
+										styleClass="green-btn" icon="fa fa-trash-o" update="@form" />
+
+								</p:panelGrid>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-g-12">
+					<p:messages showDetail="true">
+						<p:autoUpdate />
+					</p:messages>
+				</div>
+
+				<div class="ui-g-12">
+
+					<p:dataTable value="#{vehicleBean.vehicles}" var="v"
+						emptyMessage="Asnjë automjet i listuar" rowIndexVar="r"
+						selectionMode="single"
+						selection="#{vehicleBean.selectedVehicle}" rowKey="#{v.id}">
+						<p:ajax event="rowSelect" listener="#{vehicleBean.onVehicleSelected()}" update="@form" />
+						<f:facet name="header">
+                               Lista Automjeteve
+                        </f:facet>
+						<p:column headerText="#"> #{r+1} </p:column>
+						<p:column headerText="Targa">#{v.plate}</p:column>
+						<p:column headerText="Kapaciteti">#{v.capacity}</p:column>
+						<p:column headerText="Struktura">#{v.structure}</p:column>
+						<p:column headerText="Lloji Automjetit">#{v.type}</p:column>
+
+					</p:dataTable>
+				</div>
+			</div>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

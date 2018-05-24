@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
+
+	<ui:define name="title">Struktura e re</ui:define>
+
+	<ui:define name="content">
+		<h:form id="structure_form">
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<div class="card card-w-title">
+						<h1>Menaxho strukturat</h1>
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-6">
+								<p:panelGrid columns="2" layout="grid"
+									columnClasses="bold,empty" styleClass="ui-panelgrid-blank">
+
+									<p:outputLabel value="ID RIMS" />
+									<p:inputText value="#{structureBean.structure.id}" />
+									<p:outputLabel value="Emri Strukturës" />
+									<p:inputText value="#{structureBean.structure.name}" />
+									<p:outputLabel value="Struktura prind" />
+									<p:selectOneMenu value="#{structureBean.structure.parentId}">
+										<f:selectItem itemValue="0" itemLabel="Struktura Prind" />
+										<f:selectItems value="#{structureBean.structures}" var="s"
+											itemValue="#{s.id}" itemLabel="#{s.name}" />
+									</p:selectOneMenu>
+
+								</p:panelGrid>
+							</div>
+							<div class="ui-g-12 ui-md-8">
+
+								<p:panelGrid layout="grid" columns="4"
+									styleClass="ui-panelgrid-blank">
+									<p:commandButton value="Regjistro"
+										actionListener="#{structureBean.register()}"
+										rendered="#{structureBean.structure.id eq 0}"
+										icon="fa fa-save" styleClass="blue-btn" update="@form">
+										<p:confirm header="Regjistro strukturën"
+											message="Jeni të sigurt?" icon="ui-icon-alert" />
+									</p:commandButton>
+
+									<p:commandButton value="Modifiko"
+										actionListener="#{structureBean.modify()}"
+										rendered="#{structureBean.structure.id gt 0}"
+										styleClass="purple-btn" icon="fa fa-edit" update="@form">
+										<p:confirm header="Modifiko" message="Jeni të sigurt" />
+									</p:commandButton>
+									<p:commandButton value="Fshijë"
+										actionListener="#{structureBean.delete()}"
+										rendered="#{structureBean.structure.id gt 0}"
+										styleClass="red-btn" icon="fa fa-trash" update="@form">
+										<p:confirm header="Fshijë" message="Jeni të sigurt"
+											icon="ui-icon-alert" />
+									</p:commandButton>
+									<p:commandButton value="Pastro"
+										actionListener="#{structureBean.clear()}"
+										styleClass="green-btn" icon="fa fa-trash-o" update="@form" />
+
+								</p:panelGrid>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-g-12">
+					<p:messages showDetail="true">
+						<p:autoUpdate />
+					</p:messages>
+				</div>
+
+				<div class="ui-g-12">
+
+					<p:dataTable value="#{structureBean.structures}" var="s"
+						emptyMessage="Asnjë strukturë e listuar" rowIndexVar="r"
+						selectionMode="single"
+						selection="#{structureBean.selectedStructure}" rowKey="#{s.id}">
+						<p:ajax event="rowSelect" listener="#{structureBean.onStructureSelect}" update="@form" />
+						<f:facet name="header">
+                               Lista Strukturave
+                        </f:facet>
+						<p:column headerText="#"> #{r+1} </p:column>
+						<p:column headerText="Id Rims">#{s.id}</p:column>
+						<p:column headerText="Emri Strukturës">#{s.name}</p:column>
+						<p:column headerText="Struktura prind">#{s.parent}</p:column>
+
+					</p:dataTable>
+				</div>
+			</div>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

@@ -5,14 +5,11 @@
  */
 package com.lori.aspa.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  *
  * @author bruno2
  */
-@ResponseStatus(value=HttpStatus.NO_CONTENT)
 public class EmptyFieldsException extends AppException {
 
 

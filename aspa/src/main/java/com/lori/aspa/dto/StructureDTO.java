@@ -14,6 +14,8 @@ public class StructureDTO {
 	    
 	    
 	    
+	    
+	    
 		public int getId() {
 			return id;
 		}
@@ -44,8 +46,7 @@ public class StructureDTO {
 		public void setActive(boolean active) {
 			this.active = active;
 		}
-		
-	    
+	
 	    
 	    
 

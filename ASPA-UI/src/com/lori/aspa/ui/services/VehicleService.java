@@ -5,6 +5,7 @@ import java.util.List;
 import com.lori.aspa.ui.clients.VehicleClient;
 import com.lori.aspa.ui.criterias.VehicleReq;
 import com.lori.aspa.ui.models.VehicleDTO;
+import com.lori.aspa.ui.models.VehicleTypeDTO;
 
 public class VehicleService {
 
@@ -40,6 +41,12 @@ public class VehicleService {
 	{
 		return new VehicleClient().searchVehicles(req, token);
 	}
+	
+	public List<VehicleTypeDTO> loadVehicleTypes() {
+		return new VehicleClient().loadVehicleTypes();
+	}
+
+	
 	
 	
 }

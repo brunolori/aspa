@@ -54,6 +54,10 @@ public class Structure implements Serializable {
 
     public Structure() {
     }
+    
+    public Structure(int id) {
+    	this.id = id;
+    }
 
 
 	public int getId() {

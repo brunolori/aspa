@@ -77,12 +77,12 @@
 						<p:column headerText="Dt.Nisje">#{a.fromDate}</p:column>
 						<p:column headerText="Dt.Kthimi">#{a.toDate}</p:column>
 						<p:column headerText="Përdoruesi">#{a.user}</p:column>
-						<p:column headerText="Statusi">#{a.decision}</p:column>
+						<p:column headerText="Statusi">
+						<h:outputLabel value="#{a.decision == constantBean.DECISION_ACCEPT?'APROVUAR':'TË KTHYERA'}"/>
+						</p:column>
 					</p:dataTable>
 
 				</div>
-
-
 
 
 			</div>

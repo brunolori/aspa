@@ -11,8 +11,10 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.lori.aspa.constants.IStatus;
 import com.lori.aspa.dao.sql.VehicleSQL;
 import com.lori.aspa.entities.Vehicle;
+import com.lori.aspa.entities.VehicleType;
 import com.lori.aspa.utils.StringUtil;
 
 @SuppressWarnings("unchecked")
@@ -28,6 +30,21 @@ public class VehicleDAO {
 		return em.find(Vehicle.class, id);
 	}
 	
+	public VehicleType getVehicleTypeByTag(String tag)
+	{
+		List<VehicleType> type = em.createQuery("FROM VehicleType v WHERE v.status=:st AND v.tag=:tag")
+				.setParameter("tag", tag)
+				.setParameter("st", IStatus.ACTIVE)
+				.getResultList();
+		if(type != null && !type.isEmpty())
+		{
+			return type.get(0);
+		}
+		
+		return null;
+		
+	}
+		
 	public Vehicle create(Vehicle vehicle)
 	{
 		em.persist(vehicle);
@@ -99,6 +116,13 @@ public class VehicleDAO {
 
 		return q.getResultList();
 
+	}
+	
+	
+	public List<VehicleType> loadVehicleTypes()
+	{
+		return em.createQuery("FROM VehicleType t WHERE t.status=:ac").setParameter("ac", IStatus.ACTIVE)
+				.getResultList();
 	}
 	
 
