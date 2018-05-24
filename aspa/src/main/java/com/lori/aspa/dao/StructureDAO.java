@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.lori.aspa.constants.IStatus;
 import com.lori.aspa.entities.Structure;
 import com.lori.aspa.utils.StringUtil;
 
@@ -25,6 +26,12 @@ public class StructureDAO {
 	public Structure findById(Integer id) 
 	{
 		return em.find(Structure.class, id);
+	}
+	
+	
+	public List<Structure> loadStructures() {
+		
+		return em.createQuery("FROM Structure s WHERE s.status=:st").setParameter("st", IStatus.ACTIVE).getResultList(); 
 	}
 	
 	

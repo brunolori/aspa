@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lori.aspa.annotations.AppTransactional;
 import com.lori.aspa.assemblers.Assembler;
 import com.lori.aspa.constants.IStatus;
 import com.lori.aspa.dao.StructureDAO;
@@ -47,7 +48,15 @@ public class StructureService {
 		return strs;
 
 	}
+	
+	
+	public List<StructureDTO> loadStructures() {
 
+		return new Assembler().structureListToDto(structureDAO.loadStructures());
+
+	}
+	
+	@AppTransactional
 	public StructureDTO registerStructure(StructureDTO dto, String uname) throws AppException {
 
 		if(dto.getId() <= 0)
@@ -75,13 +84,14 @@ public class StructureService {
 		str.setCreateTime(Calendar.getInstance().getTime());
 		
 		str.setCreateUser(u);
-		
+
 		str = structureDAO.create(str);
 
 		return new Assembler().toDto(str);
 
 	}
 
+	@AppTransactional
 	public StructureDTO modifyStructure(StructureDTO dto, String uname) throws AppException {
 
 		
@@ -108,5 +118,8 @@ public class StructureService {
 		return new Assembler().toDto(str);
 
 	}
+	
+
+	
 
 }

@@ -57,11 +57,12 @@ public class VehicleApi {
 	
 	
 	@RequestMapping(value = "/loadVehicleTypes", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> loadVehicleTypes()
-	{
+	public ResponseEntity<?> loadVehicleTypes() {
 		List<VehicleTypeDTO> vt = vehicleService.loadVehicleTypes();
 		return new ResponseEntity<>(vt, HttpStatus.OK);
 	}
+	
+	
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = { "application/json" })
 	public ResponseEntity<?> registerVehicle(@RequestHeader(value = "Authorization") String token, @RequestBody VehicleDTO dto) {

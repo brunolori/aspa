@@ -90,6 +90,13 @@ public class StructureApi {
 
 	}
 	
+	
+	@RequestMapping(value = "/loadStructures", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> loadStructures()
+	{
+		List<StructureDTO> str = structureService.loadStructures();
+		return new ResponseEntity<>(str, HttpStatus.OK);
+	}
 
 	
 	

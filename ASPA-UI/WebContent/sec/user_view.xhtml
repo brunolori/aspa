@@ -1,0 +1,150 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
+
+	<ui:define name="title">Përdoruesit</ui:define>
+
+	<ui:define name="content">
+		<h:form id="user_form">
+			<h1 style="font-size: 18px">Menaxho Përdorues</h1>
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12 ui-md-6">
+					<p:panel header="Kërko Oficerin">
+
+						<div class="ui-g">
+							<div class="ui-g-12">
+								<p:panelGrid columns="2" layout="grid" style="bold,empty"
+									styleClass="ui-panelgrid-blank">
+									<p:outputLabel value="Emër" styleClass="bold" />
+									<p:outputLabel value="Mbiemër" styleClass="bold" />
+									<p:inputText />
+									<p:inputText />
+
+								</p:panelGrid>
+							</div>
+
+							<div class="ui-g-12">
+								<p:panelGrid columns="3" layout="grid"
+									styleClass="ui-panelgrid-blank">
+									<p:commandButton value="Kërko"
+										actionListener="#{createUserMB.searchOfficersFromRims()}"
+										icon="ui-icon-search" styleClass="purple-btn" update="@form" />
+									<p:commandButton value="Pastro"
+										actionListener="#{createUserMB.clear()}" icon="ui-icon-trash"
+										styleClass="green-btn" update="@form" />
+
+								</p:panelGrid>
+							</div>
+
+							<div class="ui-g-12">
+
+								<p:dataTable value="#{null}" var=" "
+									emptyMessage="Asnjë oficer i listuar" rowIndexVar="r">
+									<f:facet name="header">
+                               Lista e Oficerëve
+                                </f:facet>
+									<p:column headerText="#"> #{r+1} </p:column>
+									<p:column headerText="Emri"></p:column>
+									<p:column headerText="Mbiemri"></p:column>
+									<p:column headerText="Grada"></p:column>
+									<p:column headerText="Fuksioni"></p:column>
+									<p:column headerText="Struktura"></p:column>
+
+								</p:dataTable>
+
+							</div>
+						</div>
+					</p:panel>
+				</div>
+				<div class="ui-g-12 ui-md-6">
+					<p:panel header="Të dhënat e Përdoruesit">
+						<div class="ui-g">
+							<div class="ui-g-12">
+								<p:panelGrid columns="4" layout="grid" style="bold,empty"
+									styleClass="ui-panelgrid-blank">
+									<p:outputLabel value="Emër" styleClass="bold" />
+									<p:inputText disabled="true" />
+									<p:outputLabel value="Mbiemër" styleClass="bold" />
+									<p:inputText disabled="true" />
+									<p:outputLabel value="Nr.RMIS" styleClass="bold" />
+									<p:inputText disabled="true" />
+									<p:outputLabel value="Grada" styleClass="bold" />
+									<p:inputText disabled="true" />
+									<p:outputLabel value="Fuksioni" styleClass="bold" />
+									<p:inputText disabled="true" />
+									<p:outputLabel value="Struktura" styleClass="bold" />
+									<p:inputText disabled="true" />
+									<p:outputLabel value="Statusi" styleClass="bold" />
+									<p:inputText disabled="true" />
+									<p:outputLabel value="Username" styleClass="bold" />
+									<p:inputText disabled="true" />
+									<p:outputLabel value="Password" styleClass="bold" />
+									<p:inputText disabled="true" />
+									<p:outputLabel value="Roli" styleClass="bold" />
+									<p:selectOneMenu value="#{null}">
+										<f:selectItem itemValue="#{null}" itemLabel="Roli" />
+										<f:selectItems value="#{null}" var=" " itemValue="#{null}"
+											itemLabel="#{null}" />
+									</p:selectOneMenu>
+
+								</p:panelGrid>
+							</div>
+
+
+							<div class="ui-g-12">
+
+								<p:panelGrid layout="grid" columns="4"
+									styleClass="ui-panelgrid-blank">
+									<p:commandButton value="Regjistro" icon="fa fa-save"
+										styleClass="blue-btn" update="@form">
+										<p:confirm header="Regjistro përdorues"
+											message="Jeni të sigurt?" icon="ui-icon-alert" />
+									</p:commandButton>
+									<p:commandButton value="Modifiko" styleClass="purple-btn"
+										icon="fa fa-edit" update="@form">
+										<p:confirm header="Modifiko" message="Jeni të sigurt" />
+									</p:commandButton>
+									<p:commandButton value="Fshijë" styleClass="red-btn"
+										icon="fa fa-trash" update="@form">
+										<p:confirm header="Fshijë" message="Jeni të sigurt"
+											icon="ui-icon-alert" />
+									</p:commandButton>
+									<p:commandButton value="Pastro" styleClass="green-btn"
+										icon="fa fa-trash-o" update="@form" />
+
+								</p:panelGrid>
+
+							</div>
+
+							<div class="ui-g-12">
+								<p:messages showDetail="true">
+									<p:autoUpdate />
+								</p:messages>
+							</div>
+
+							<div class="ui-g-12">
+
+								<p:dataTable value="#{null}" var=" "
+									emptyMessage="Asnjë pëdorues i listuar" rowIndexVar="r">
+										<f:facet name="header">
+	                               			Lista e Përdoruesve
+	                                    </f:facet>
+									<p:column headerText="#"> #{r+1} </p:column>
+									<p:column headerText="Username"></p:column>
+									<p:column headerText="Password"></p:column>
+									<p:column headerText="Roli"></p:column>
+									<p:column headerText="Statusi"></p:column>
+
+								</p:dataTable>
+							</div>
+						</div>
+					</p:panel>
+				</div>
+			</div>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

@@ -11,7 +11,9 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.lori.aspa.constants.IStatus;
 import com.lori.aspa.dao.sql.UserSQL;
+import com.lori.aspa.entities.Role;
 import com.lori.aspa.entities.User;
 import com.lori.aspa.utils.StringUtil;
 
@@ -26,6 +28,13 @@ public class UserDAO {
 	{
 		return em.find(User.class, id);
 	}
+	
+	
+	public List<Role> loadRoles(){
+		
+		return em.createQuery("FROM Role r WHERE r.status=:st").setParameter("st",IStatus.ACTIVE).getResultList();
+	}
+	
 
 	public User create(User user) 
 	{

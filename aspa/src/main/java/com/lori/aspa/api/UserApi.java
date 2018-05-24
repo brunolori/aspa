@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lori.aspa.dto.RoleDTO;
 import com.lori.aspa.dto.UserDTO;
 import com.lori.aspa.model.Principal;
 import com.lori.aspa.model.UserTokenDTO;
@@ -49,5 +50,12 @@ public class UserApi {
 		return new ResponseEntity<>(u, HttpStatus.OK);
 	}
 	
+	
+	@RequestMapping(value = "/loadRoles", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> loadRoles()
+	{
+		List<RoleDTO> r = userService.loadRoles();
+		return new ResponseEntity<>(r, HttpStatus.OK);
+	}
 	
 }

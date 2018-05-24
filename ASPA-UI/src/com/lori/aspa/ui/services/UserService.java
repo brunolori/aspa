@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lori.aspa.ui.clients.UserClient;
 import com.lori.aspa.ui.models.Principal;
+import com.lori.aspa.ui.models.RoleDTO;
 import com.lori.aspa.ui.models.UserDTO;
 import com.lori.aspa.ui.models.UserTokenDTO;
 
@@ -39,5 +40,10 @@ public class UserService {
 		return new UserClient().login(principal);
 	}
 	
+	
+	public List<RoleDTO> loadRoles(){
+		
+		return new UserClient().loadRoles();
+	}
 	
 }

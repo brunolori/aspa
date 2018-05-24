@@ -101,7 +101,7 @@ public class StructureBean implements Serializable {
 
 	public void modify() {
 		try {
-			new StructureService().modifyStructure(selectedStructure, token);
+			new StructureService().modifyStructure(structure, token);
 			Messages.throwFacesMessage("Struktura u modifikua me sukses", 1);
 		    init();
 		}catch(ApiException a)

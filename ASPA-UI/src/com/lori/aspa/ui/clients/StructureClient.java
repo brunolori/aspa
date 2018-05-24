@@ -95,6 +95,26 @@ public class StructureClient {
 	}
 
 	public List<StructureDTO> loadStructures() {
+		
+		final String BASE_URL = IApiClient.SERVER+"/api/structure/loadStructures";
+	    
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+		
+		ParameterizedTypeReference<List<StructureDTO>> typeRef = new ParameterizedTypeReference<List<StructureDTO>>() {};
+		
+		ResponseEntity<List<StructureDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+		{
+			return response.getBody();
+		}				
+		
 		return null;
 	}
 

@@ -78,7 +78,8 @@
 						emptyMessage="Asnjë strukturë e listuar" rowIndexVar="r"
 						selectionMode="single"
 						selection="#{structureBean.selectedStructure}" rowKey="#{s.id}">
-						<p:ajax event="rowSelect" listener="#{structureBean.onStructureSelect}" update="@form" />
+						<p:ajax event="rowSelect"
+							listener="#{structureBean.onStructureSelected()}" update="@form" />
 						<f:facet name="header">
                                Lista Strukturave
                         </f:facet>
