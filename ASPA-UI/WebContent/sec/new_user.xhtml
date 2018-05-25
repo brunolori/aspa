@@ -7,9 +7,12 @@
 	<ui:define name="title">Përdoruesit</ui:define>
 
 	<ui:define name="content">
-		<h:form id="user_form">
+		<h:form id="new_user_form">
 			<h1 style="font-size: 18px">Menaxho Përdorues</h1>
+			
+			
 			<div class="ui-g ui-fluid">
+						
 				<div class="ui-g-12 ui-md-6">
 					<p:panel header="Kërko Oficerin">
 
@@ -29,11 +32,11 @@
 								<p:panelGrid columns="3" layout="grid"
 									styleClass="ui-panelgrid-blank">
 									<p:commandButton value="Kërko"
-										actionListener="#{createUserMB.searchOfficersFromRims()}"
-										icon="ui-icon-search" styleClass="purple-btn" update="@form" />
+									
+										icon="ui-icon-search" styleClass="purple-btn" />
 									<p:commandButton value="Pastro"
-										actionListener="#{createUserMB.clear()}" icon="ui-icon-trash"
-										styleClass="green-btn" update="@form" />
+										 icon="ui-icon-trash"
+										styleClass="green-btn"  />
 
 								</p:panelGrid>
 							</div>
@@ -123,22 +126,7 @@
 									<p:autoUpdate />
 								</p:messages>
 							</div>
-
-							<div class="ui-g-12">
-
-								<p:dataTable value="#{null}" var=" "
-									emptyMessage="Asnjë pëdorues i listuar" rowIndexVar="r">
-										<f:facet name="header">
-	                               			Lista e Përdoruesve
-	                                    </f:facet>
-									<p:column headerText="#"> #{r+1} </p:column>
-									<p:column headerText="Username"></p:column>
-									<p:column headerText="Password"></p:column>
-									<p:column headerText="Roli"></p:column>
-									<p:column headerText="Statusi"></p:column>
-
-								</p:dataTable>
-							</div>
+							
 						</div>
 					</p:panel>
 				</div>
