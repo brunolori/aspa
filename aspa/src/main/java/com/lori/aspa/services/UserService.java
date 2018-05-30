@@ -98,6 +98,11 @@ public class UserService {
 	public UserDTO findUserById(Integer id) {
 		return new Assembler().toDto(userDAO.findById(id));
 	}
+	
+	
+	public RoleDTO findRoleById(Integer id) {
+		return new Assembler().toDto(userDAO.findRoleById(id));
+	}
 
 	public UserDTO findUserByUsername(String uname) {
 		return new Assembler().toDto(userDAO.findByUsername(uname));
@@ -166,6 +171,10 @@ public class UserService {
 	}
 	
 
+	public List<UserDTO> loadUsers() {
+
+		return new Assembler().userListToDto(userDAO.loadUsers());
+	}
 
 	
 }

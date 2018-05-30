@@ -1,0 +1,87 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+
+	
+
+	
+			<div class="ui-g ui-fluid">
+
+				<div class="ui-g-12 ui-md-10 ui-lg-6">
+					<p:panelGrid layout="grid" columns="4"
+						styleClass="ui-panelgrid-blank">
+						<p:commandButton value="Mbrapa" action="#{userManagerBean.goToUserList()}" update="@form"
+							styleClass="orange-btn" icon="fa fa-arrow-left" />
+
+					</p:panelGrid>
+				</div>
+
+				<div class="ui-g-12">
+					<p:messages showDetail="true">
+						<p:autoUpdate />
+					</p:messages>
+				</div>
+
+
+				<div class="ui-g-12 ui-md-6 ">
+					<p:panel header="Modifiko Përdorues">
+						<p:panelGrid layout="grid" columns="4"
+							styleClass="ui-panelgrid-blank">
+							<p:outputLabel value="Emër" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.user.officer.name}"  />
+							<p:outputLabel value="Mbiemër" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.user.officer.surname}" />
+							<p:outputLabel value="Nr.RMIS" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.user.officer.id}" />
+							<p:outputLabel value="Grada" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.user.officer.grade}" />
+							<p:outputLabel value="Funksioni" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.user.officer.function}" />
+							<p:outputLabel value="Struktura" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.user.officer.structure}" />
+							<p:outputLabel value="Statusi" styleClass="bold" />
+							<p:selectOneMenu value="#{userManagerBean.user.active}">
+								<f:selectItem itemLabel="AKTIV" itemValue="true"/>
+								<f:selectItem itemLabel="JO AKTIV" itemValue="false"/>
+							</p:selectOneMenu>
+							<p:outputLabel value="Username" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.user.username}" />
+							<p:outputLabel value="Password" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.user.secret}" />
+							<p:outputLabel value="Roli" styleClass="bold" />
+							<p:selectCheckboxMenu value="#{userManagerBean.selectedRoles}" label="Rolet" converter="roleConverter" >
+								<f:selectItems value="#{userManagerBean.roles}" var="u" itemValue="#{u}"
+									itemLabel="#{u.description}" />
+							</p:selectCheckboxMenu>
+						</p:panelGrid>
+					</p:panel>
+
+				</div>
+
+				<div class="ui-g-12">
+
+					<p:panelGrid layout="grid" columns="4"
+						styleClass="ui-panelgrid-blank">
+						<p:commandButton value="Modifiko" action="#{userManagerBean.modify()}" styleClass="purple-btn"
+							icon="fa fa-edit" update="@form">
+							<p:confirm header="Modifiko" message="Jeni të sigurt" />
+						</p:commandButton>
+						<p:commandButton value="Anullo" action="#{userManagerBean.goToUserList()}" styleClass="red-btn"
+							icon="fa fa-trash" update="@form">
+							<p:confirm header="Fshijë" message="Jeni të sigurt"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+
+					</p:panelGrid>
+
+				</div>
+
+
+
+
+
+			</div>
+
+</ui:composition>

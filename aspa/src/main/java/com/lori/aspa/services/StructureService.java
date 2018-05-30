@@ -33,12 +33,19 @@ public class StructureService {
 
 	public List<StructureDTO> getStructureChilds(Integer structureId) {
 
+		System.out.println("STRUCTURE ID: "+structureId);
+		
+		
 		List<StructureDTO> strs = new ArrayList<>();
 
 		List<StructureDTO> childs = new Assembler()
 				.structureListToDto(structureDAO.search(null, structureId, IStatus.ACTIVE, null, null));
+		
+		
+		
 		if (childs != null && !childs.isEmpty()) {
 			for (StructureDTO s : childs) {
+				System.out.println("CHILD ID: "+s.getId());
 				strs.add(s);
 				strs.addAll(getStructureChilds(s.getId()));
 			}
@@ -108,7 +115,7 @@ public class StructureService {
 	    User user = userDAO.findByUsername(uname);
 		Structure str = structureDAO.findById(dto.getId());
 		str.setName(dto.getName());
-		str.setParent(new Structure(dto.getId()));
+		str.setParent(new Structure(dto.getParentId()));
 		str.setUpdateTime(Calendar.getInstance().getTime());
 		str.setUpdateUser(user);
 

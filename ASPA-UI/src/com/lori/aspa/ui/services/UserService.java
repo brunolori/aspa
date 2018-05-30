@@ -10,9 +10,12 @@ import com.lori.aspa.ui.models.UserTokenDTO;
 
 public class UserService {
 
-	
 	public UserDTO findUserById(Integer id) {
 		return new UserClient().findUserById(id);
+	}
+	
+	public RoleDTO findRoleById(Integer id) {
+		return new UserClient().findRoleById(id);
 	}
 
 	public UserDTO registerUser(UserDTO user, String token) {
@@ -30,7 +33,6 @@ public class UserService {
 	public List<UserDTO> searchUser(String token) {
 		return new UserClient().searchUser(token);
 	}
-	
 
 	public List<UserDTO> queryUser(String nameSurname) {
 		return new UserClient().queryUser(nameSurname);
@@ -39,11 +41,15 @@ public class UserService {
 	public UserTokenDTO login(Principal principal) {
 		return new UserClient().login(principal);
 	}
-	
-	
-	public List<RoleDTO> loadRoles(){
-		
+
+	public List<RoleDTO> loadRoles() {
 		return new UserClient().loadRoles();
 	}
 	
+	public List<UserDTO> loadUsers(){
+		
+		return new UserClient().loadUsers();
+	}
+	
+
 }

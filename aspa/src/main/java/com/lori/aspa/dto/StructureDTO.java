@@ -46,6 +46,12 @@ public class StructureDTO {
 		public void setActive(boolean active) {
 			this.active = active;
 		}
+		
+		@Override
+		public String toString() {
+			return "StructureDTO [id=" + id + ", name=" + name + ", parent=" + parent + ", parentId=" + parentId
+					+ ", active=" + active + "]";
+		}
 	
 	    
 	    

@@ -6,6 +6,13 @@ public class Principal {
 	String password;
 	
 	
+	public Principal() {}
+	
+	public Principal(String u,String p)
+	{
+		username = u; password = p;
+	}
+	
 	public String getUsername() {
 		return username;
 	}

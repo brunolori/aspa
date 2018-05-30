@@ -115,5 +115,48 @@ public class DateUtil {
 		return null;
 	}
 	
+	 public static Date getFirstMonthDate(int month)
+	    {
+	        if(month<1)
+	        {
+	            return null;
+	        }
+	        
+	        month = month-1;
+	        
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.set(Calendar.DATE, 1);
+	        calendar.set(Calendar.MONTH, month);
+	        
+	        return calendar.getTime();
+	    }
+	 
+	 
+	 public static String numToMonth(int month)
+	 {
+		 switch(month)
+		 {
+		 	case 0 : return "JAN";
+		 	case 1 : return "SHK";
+		 	case 2 : return "MAR";
+		 	case 3 : return "PRI";
+		 	case 4 : return "MAJ";
+		 	case 5 : return "QER";
+		 	case 6 : return "KOR";
+		 	case 7 : return "GUS";
+		 	case 8 : return "SHT";
+		 	case 9 : return "TET";
+		 	case 10 : return "NEN";
+		 	case 11 : return "DHJ";
+		 	case 12 : return "JAN";
+		 	
+		 }
+		 
+		 return "N/A";
+	 }
+	 
+	 
+	 
+	
 	
 }

@@ -29,10 +29,23 @@ public class UserDAO {
 		return em.find(User.class, id);
 	}
 	
+	public Role findRoleById(Integer id) 
+	{
+		return em.find(Role.class, id);
+	}
+	
 	
 	public List<Role> loadRoles(){
 		
 		return em.createQuery("FROM Role r WHERE r.status=:st").setParameter("st",IStatus.ACTIVE).getResultList();
+	}
+	
+	
+public List<User> loadUsers( ){
+		
+		return em.createQuery("FROM User u WHERE u.status=:st")
+				.setParameter("st",IStatus.ACTIVE)
+				.getResultList();
 	}
 	
 

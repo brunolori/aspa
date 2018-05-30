@@ -38,6 +38,12 @@ public class UserApi {
 		return new ResponseEntity<>(u, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/findRoleById/{id}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> findRoleById(@PathVariable(name = "id") Integer roleId) {
+		RoleDTO u = userService.findRoleById(roleId);
+		return new ResponseEntity<>(u, HttpStatus.OK);
+	}
+		
 	@RequestMapping(value = "/findByUsername/{uname}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> findUserById(@PathVariable(name = "uname") String uname) {
 		UserDTO u = userService.findUserByUsername(uname);
@@ -56,6 +62,13 @@ public class UserApi {
 	{
 		List<RoleDTO> r = userService.loadRoles();
 		return new ResponseEntity<>(r, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/loadUsers", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> loadUsers()
+	{
+		List<UserDTO> u = userService.loadUsers();
+		return new ResponseEntity<>(u, HttpStatus.OK);
 	}
 	
 }

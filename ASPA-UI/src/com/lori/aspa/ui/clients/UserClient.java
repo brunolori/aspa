@@ -41,6 +41,35 @@ public class UserClient {
 
 		return null;
 	}
+	
+	public RoleDTO findRoleById(Integer id) {
+		final String BASE_URL = IApiClient.SERVER + "/api/user/findRoleById/" + id;
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ErrorHandler());
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<?> entity = new HttpEntity<Object>(headers);
+
+		ResponseEntity<RoleDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity,
+				RoleDTO.class);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+
+		return null;
+	}
+
+	
+	
+	
+	
+	
+	
 
 	public UserDTO registerUser(UserDTO user, String token) {
 		return null;
@@ -131,4 +160,29 @@ public class UserClient {
 		return null;
 	}
 
+	
+	public List<UserDTO> loadUsers() {
+
+		final String BASE_URL = IApiClient.SERVER + "/api/user/loadUsers";
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		ParameterizedTypeReference<List<UserDTO>> typeRef = new ParameterizedTypeReference<List<UserDTO>>() {
+		};
+
+		ResponseEntity<List<UserDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity,
+				typeRef);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+
+		return null;
+}
 }

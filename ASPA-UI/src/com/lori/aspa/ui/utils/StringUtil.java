@@ -42,4 +42,9 @@ public class StringUtil {
 		return stringBuilder.toString();
 	}
 	
+	public static String formatDouble(double d)
+    {
+        return String.format("%.2f", d);
+    }
+	
 }

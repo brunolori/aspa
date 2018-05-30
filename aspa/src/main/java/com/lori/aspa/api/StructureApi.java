@@ -63,7 +63,7 @@ public class StructureApi {
 		try {
 
 			String uname = TokenUtil.getUsername(token);
-			
+						
 			StructureDTO str = structureService.registerStructure(dto, uname);
 			return new ResponseEntity<>(str, HttpStatus.OK);
 

@@ -4,37 +4,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
 
-	<ui:define name="title">Përdoruesit</ui:define>
+	 <ui:define name="content">
+        <h:form id="user_manager_form">
+            <ui:include src="#{userManagerBean.activePage}"/>
+        </h:form>
 
-	<ui:define name="content">
-		<h:form id="user_manager">
-			<h1>Lista Përdoruesve</h1>
-			<div class="ui-g ui-fluid">
-			
-			<div class="ui-g-12 ui-md-10 ui-lg-6">
-					<p:panelGrid layout="grid" columns="4"
-						styleClass="ui-panelgrid-blank">
-						<p:button value="Shto Përdorues" outcome="new_user"
-							styleClass="orange-btn" icon="fa fa-user-plus" />
-					</p:panelGrid>
-				</div>
-				<div class="ui-g-12">
-
-					<p:dataTable value="#{null}" var=" "
-						rowIndexVar="r" emptyMessage="Asnjë përdorues i listuar">
-						<f:facet name="header">Lista e përdorusve</f:facet>
-						<p:column headerText="#">#{r+1}</p:column>
-						<p:column headerText="Emri"></p:column>
-						<p:column headerText="Mbiemri"></p:column>
-						<p:column headerText="Grada"></p:column>
-						<p:column headerText="Funksioni"></p:column>
-						<p:column headerText="Struktura"></p:column>
-						<p:column headerText="Statusi"></p:column>
-						
-					</p:dataTable>
-
-				</div>
-			</div>
-		</h:form>
-	</ui:define>
-</ui:composition>
+    </ui:define>
+	</ui:composition>

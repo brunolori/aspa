@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
+
+	<ui:define name="title">Profili</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<div class="card">
+				<h1>Profili Përdoruesit</h1>
+				<div class="ui-g ui-fluid">
+					<div class="ui-g-12 ui-md-4">
+						<p:panelGrid columns="2"  layout="grid"	styleClass="ui-panelgrid-blank">
+							<p:outputLabel value="Emër"/>
+							<p:inputText value="#{profileBean.user.officer.name}" readonly="true" />
+							<p:outputLabel value="Mbiemër" />
+							<p:inputText value="#{profileBean.user.officer.surname}" readonly="true"/>
+							<p:outputLabel value="Grada"/>
+							<p:inputText value="#{profileBean.user.officer.grade}" readonly="true"/>
+							<p:outputLabel value="Funksioni"/>
+							<p:inputText value="#{profileBean.user.officer.function}" readonly="true"/>
+							<p:outputLabel value="Struktura"/>
+							<p:inputText value="#{profileBean.user.officer.structure}" readonly="true"/>
+							<p:outputLabel value="Përdoruesi"/>
+							<p:inputText value="#{profileBean.user.username}" readonly="true"/>
+							<p:outputLabel value="Fjalëkalimi"/>
+							<p:inputText value="#{profileBean.user.secret}" readonly="true"/>
+						</p:panelGrid>
+
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
