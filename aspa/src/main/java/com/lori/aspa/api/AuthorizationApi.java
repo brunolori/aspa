@@ -30,63 +30,60 @@ public class AuthorizationApi {
 	AuthorizationService authorizationService;
 	@Autowired
 	UserService userService;
-	
-	
-	
 
 	@RequestMapping(value = "/findAuthorization/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> findAuthorization(@PathVariable(name = "id") Integer authorizationId) {
 		AuthorizationDTO auth = authorizationService.findAuthorizationById(authorizationId);
-		if(auth == null) {
+		if (auth == null) {
 			return new ResponseEntity<String>(new String("Nuk u gjend autorizimi"), HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(auth, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/searchAuthorization", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> searchAuthorization(@RequestHeader(value = "Authorization") String token, @RequestBody AuthorizationReq req) {
-				
+	public ResponseEntity<?> searchAuthorization(@RequestHeader(value = "Authorization") String token,
+			@RequestBody AuthorizationReq req) {
+
 		List<AuthorizationDTO> auths = authorizationService.searchAuthorization(req);
 		return new ResponseEntity<>(auths, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/myDashboard", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getMyDashboard(@RequestHeader(value = "Authorization") String token) {
 		String uname = TokenUtil.getUsername(token);
 		MyDashboardDTO dash = authorizationService.getMydashboard(uname);
 		return new ResponseEntity<>(dash, HttpStatus.OK);
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = { "application/json" })
-	public ResponseEntity<?> registerAuthorization(
-			@RequestHeader(value = "Authorization") String token, @RequestBody AuthorizationDTO dto) {
+	public ResponseEntity<?> registerAuthorization(@RequestHeader(value = "Authorization") String token,
+			@RequestBody AuthorizationDTO dto) {
 
 		try {
 
 			String uname = TokenUtil.getUsername(token);
 			UserDTO u = userService.findUserByUsername(uname);
 			dto.setUserId(u.getId());
-			
+
 			AuthorizationDTO auth = authorizationService.registerAuthorization(dto);
 			return new ResponseEntity<>(auth, HttpStatus.OK);
 
 		} catch (AppException e) {
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST, produces = { "application/json" })
-	public ResponseEntity<?> modifyAuthorization(@RequestHeader(value = "Authorization") String token,@RequestBody AuthorizationDTO dto) {
+	public ResponseEntity<?> modifyAuthorization(@RequestHeader(value = "Authorization") String token,
+			@RequestBody AuthorizationDTO dto) {
 		try {
 			String uname = TokenUtil.getUsername(token);
 
 			AuthorizationDTO auth = authorizationService.modifyAuthorization(dto, uname);
 			return new ResponseEntity<>(auth, HttpStatus.OK);
 		} catch (AppException e) {
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -104,37 +101,35 @@ public class AuthorizationApi {
 			String uname = TokenUtil.getUsername(token);
 			authorizationService.decide(dto, uname);
 			return new ResponseEntity<>(HttpStatus.OK);
-		}catch(AppException e)
-		{
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		} catch (AppException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@RequestMapping(value = "/getAuthHistory/{auth_id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getVerifiedAuths(@RequestHeader(value = "Authorization") String token,
-			@PathVariable(name="auth_id") Integer authId) {
-				
+			@PathVariable(name = "auth_id") Integer authId) {
+
 		List<ApprovalHistoryDTO> histories = authorizationService.getAuthHistory(authId);
 		return new ResponseEntity<>(histories, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/getAuthorizationsToVerify", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getAuthsToVerify(@RequestHeader(value = "Authorization") String token) {
-		
+
 		String uname = TokenUtil.getUsername(token);
-		
+
 		List<AuthorizationDTO> auths = authorizationService.getAuthsToVerify(uname);
 		return new ResponseEntity<>(auths, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/getVerifiedAuths", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getVerifiedAuths(@RequestHeader(value = "Authorization") String token) {
-		
+
 		String uname = TokenUtil.getUsername(token);
-		
+
 		List<AuthorizationDTO> auths = authorizationService.getVerifiedAuths(uname);
 		return new ResponseEntity<>(auths, HttpStatus.OK);
 	}
-	
 
 }

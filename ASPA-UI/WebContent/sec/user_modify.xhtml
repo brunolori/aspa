@@ -66,11 +66,11 @@
 						styleClass="ui-panelgrid-blank">
 						<p:commandButton value="Modifiko" action="#{userManagerBean.modify()}" styleClass="purple-btn"
 							icon="fa fa-edit" update="@form">
-							<p:confirm header="Modifiko" message="Jeni të sigurt" />
+							<p:confirm header="Modifiko" message="Jeni të sigurt?" />
 						</p:commandButton>
 						<p:commandButton value="Anullo" action="#{userManagerBean.goToUserList()}" styleClass="red-btn"
 							icon="fa fa-trash" update="@form">
-							<p:confirm header="Fshijë" message="Jeni të sigurt"
+							<p:confirm header="Anullo" message="Jeni të sigurt?"
 								icon="ui-icon-alert" />
 						</p:commandButton>
 

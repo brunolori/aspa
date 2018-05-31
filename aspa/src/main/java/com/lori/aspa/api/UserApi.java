@@ -86,5 +86,25 @@ public class UserApi {
 		}
 
 	}
+	
+
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST, produces = { "application/json" })
+	public ResponseEntity<?> modifyUser(@RequestHeader(value = "Authorization") String token,
+			@RequestBody UserDTO dto) {
+
+		try {
+
+			String uname = TokenUtil.getUsername(token);
+
+			UserDTO user = userService.modifyUser(dto, uname);
+			return new ResponseEntity<>(user, HttpStatus.OK);
+
+		} catch (AppException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
 
 }

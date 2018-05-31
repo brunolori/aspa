@@ -27,7 +27,7 @@
 						<p:column headerText="Dt.Nisje">#{a.fromDate}</p:column>
 						<p:column headerText="Dt.Kthimi">#{a.toDate}</p:column>
 						<p:column headerText="Përdoruesi">#{a.user}</p:column>
-						<p:column headerText="Statusi">#{a.decision}</p:column>
+						<p:column headerText="Statusi">#{formatBean.formatDecision(a.decision)}</p:column>
 					</p:dataTable>
 
 				</div>

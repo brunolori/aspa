@@ -98,5 +98,13 @@ public class VehicleApi {
 	}
 	
 	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = { "application/json" })
+	public ResponseEntity<?> delete(@RequestHeader(value = "Authorization") String token,
+			@RequestBody VehicleDTO dto) {
+		VehicleDTO v = vehicleService.delete(dto);
+		return new ResponseEntity<>(v, HttpStatus.OK);
+	}
+	
+	
 
 }

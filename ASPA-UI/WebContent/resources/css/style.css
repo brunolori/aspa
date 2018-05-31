@@ -163,3 +163,84 @@ body .ui-paginator {
 .topAlign{
     vertical-align: top;
 }
+
+.lbl-info{
+    text-align: center;
+    font-size: 11px;
+    color:white;
+    padding: 2px;
+    border-radius: 3px;
+    background-color: #00c0ef;
+}
+.lbl-success{
+    text-align: center;
+    width:80px;
+    font-size: 11px;
+    color:white;
+    padding: 2px;
+    border-radius: 3px;
+    background-color: #4EB99F;
+}
+.lbl-warning{
+    text-align: center;
+    width:80px;
+    font-size: 11px;
+    color:white;
+    padding: 2px;
+    border-radius: 3px;
+    background-color: #f39c12;
+}
+.lbl-danger{
+    text-align: center;
+    width:80px;
+    font-size: 11px;
+    color:white;
+    padding: 2px;
+    border-radius: 3px;
+    background-color: #c12e2a;
+}
+.lbl-disable{
+    text-align: center;
+    width:80px;
+    font-size: 11px;
+    color:white;
+    padding: 2px;
+    border-radius: 3px;
+    background-color: #b3b3b3;
+}
+.label-success{
+    color:white;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 3px;
+    background-color: #4EB99F;
+}
+.label-warning{
+    color:white;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 3px;
+    background-color: #f39c12;
+}
+.label-danger{
+    color:white;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 3px;
+    background-color: #c12e2a;
+}
+
+.label-grey{
+    color:white;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 3px;
+    background-color:  #889294;
+}
+.label-info{
+    color:white;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 3px;
+    background-color: #00c0ef;
+}

@@ -20,6 +20,7 @@ public class StructureService {
 		return new StructureClient().modifyStructure(str, token);
 	}
 
+	
 	public StructureDTO deleteStructure(StructureDTO str, String token) {
 		return new StructureClient().deleteStructure(str, token);
 	}

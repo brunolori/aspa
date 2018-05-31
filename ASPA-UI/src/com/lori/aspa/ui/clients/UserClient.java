@@ -91,6 +91,25 @@ public class UserClient {
 	}
 
 	public UserDTO modifyUser(UserDTO user, String token) {
+		
+		final String BASE_URL = IApiClient.SERVER+"/api/user/modify";
+	    
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ErrorHandler());
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		headers.set("Authorization", token);
+		HttpEntity<?> entity = new HttpEntity<UserDTO>(user,headers);
+		
+		ResponseEntity<UserDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity,UserDTO.class);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+		{
+			return response.getBody();
+		}			
 		return null;
 	}
 

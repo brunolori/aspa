@@ -39,8 +39,7 @@ public class UserService {
 	OfficerDAO officerDAO;
 	@Autowired
 	RoleDAO roleDAO;
-	
-	
+
 	public UserDTO findUserById(Integer id) {
 		return new Assembler().toDto(userDAO.findById(id));
 	}
@@ -57,15 +56,37 @@ public class UserService {
 
 		return new Assembler().roleListToDto(userDAO.loadRoles());
 	}
-	
+
 	public List<UserDTO> loadUsers() {
 		return new Assembler().userListToDto(userDAO.loadUsers());
 	}
-	
+
 	public List<UserDTO> queryUser(String query) {
 		return new Assembler().userListToDto(userDAO.query(query));
 	}
-	
+
+	public UserTokenDTO login(Principal princ) {
+		User u = userDAO.findByUsername(princ.getUsername());
+
+		if (u == null)
+			return null;
+
+		if (u.getStatus() != IStatus.ACTIVE) {
+			return null;
+		}
+		if (!u.getSecret().equals(princ.getPassword())) {
+			return null;
+		}
+
+		UserDTO user = new Assembler().toDto(u);
+
+		UserTokenDTO ut = new UserTokenDTO();
+		ut.setUser(user);
+		ut.setToken(TokenUtil.generateToken(user));
+
+		return ut;
+
+	}
 
 	public UserDTO create(UserDTO dto, String uname) throws AppException {
 
@@ -78,13 +99,12 @@ public class UserService {
 		if (dto.getOfficer() == null || dto.getOfficer().getId() <= 0) {
 			throw new EmptyFieldsException("Nuk ka të dhëna për oficerin");
 		}
-		
+
 		if (!StringUtil.isValid(dto.getUsername())) {
 			throw new EmptyFieldsException("Plotësoni 'Username'");
 		}
-		
-		if(dto.getRoles() == null || dto.getRoles().isEmpty())
-		{
+
+		if (dto.getRoles() == null || dto.getRoles().isEmpty()) {
 			throw new EmptyFieldsException("Zgjidhni rolet'");
 		}
 		/*
@@ -130,31 +150,68 @@ public class UserService {
 		return new Assembler().toDto(u);
 	}
 
-		
+	public UserDTO modifyUser(UserDTO dto, String uname) throws AppException {
 
-	public UserTokenDTO login(Principal princ) {
-		User u = userDAO.findByUsername(princ.getUsername());
+		User regUser = userDAO.findByUsername(uname);
 
-		if (u == null)
-			return null;
-
-		if (u.getStatus() != IStatus.ACTIVE) {
-			return null;
-		}
-		if (!u.getSecret().equals(princ.getPassword())) {
-			return null;
+		if (dto == null) {
+			throw new EmptyFieldsException("Nuk ka të dhëna");
 		}
 
-		UserDTO user = new Assembler().toDto(u);
+		if (dto.getOfficer() == null || dto.getOfficer().getId() <= 0) {
+			throw new EmptyFieldsException("Nuk ka të dhëna për oficerin");
+		}
 
-		UserTokenDTO ut = new UserTokenDTO();
-		ut.setUser(user);
-		ut.setToken(TokenUtil.generateToken(user));
+		if (!StringUtil.isValid(dto.getUsername())) {
+			throw new EmptyFieldsException("Plotësoni 'Username'");
+		}
 
-		return ut;
+		if (dto.getRoles() == null || dto.getRoles().isEmpty()) {
+			throw new EmptyFieldsException("Zgjidhni rolet'");
+		}
+		/*
+		 * if(!StringUtil.isValid(dto.getSecret())) { throw new
+		 * EmptyFieldsException("Plotësoni 'Fjalëkalimin'"); }
+		 */
 
+		List<User> users = userDAO.search(new UserSQL(dto.getUsername()));
+		if (users != null && !users.isEmpty()) {
+			// if (regUser.getId() != users.get(0).getId())
+			throw new EntityExistsException("Ky përdorues ekziston në sistem");
+
+		}
+
+		Officer o = new Officer();
+		o.setCreateTime(Calendar.getInstance().getTime());
+		o.setCreateUser(regUser);
+		o.setFunction(dto.getOfficer().getFunction());
+		o.setGrade(dto.getOfficer().getGrade());
+		o.setId(dto.getOfficer().getId());
+		o.setName(dto.getOfficer().getName());
+		o.setPosition(dto.getOfficer().getPosition());
+		o.setStatus(IStatus.ACTIVE);
+		o.setStructure(structureDAO.findById(dto.getOfficer().getStructureId()));
+		o.setSurname(dto.getOfficer().getSurname());
+
+		o = officerDAO.create(o);
+
+		User u = userDAO.findById(dto.getId());
+		u.setUsername(dto.getUsername());
+		u.setOfficer(o);
+		u.setUpdateTime(Calendar.getInstance().getTime());
+		u.setUpdateUser(regUser);
+		u.setStatus(dto.isActive()?IStatus.ACTIVE:IStatus.NOT_ACTIVE);
+
+		List<String> roles = new ArrayList<>();
+		if (dto.getRoles() != null && !dto.getRoles().isEmpty()) {
+			for (RoleDTO d : dto.getRoles()) {
+				roles.add(d.getTag());
+			}
+		}
+
+		u.setRoles(roleDAO.findByCode(roles));
+		u = userDAO.update(u);
+		return new Assembler().toDto(u);
 	}
 
-
-	
 }

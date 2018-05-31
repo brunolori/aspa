@@ -130,6 +130,13 @@ public class VehicleBean implements Serializable {
 	}
 
 	public void delete() {
+		try {
+		new VehicleService().deleteVehicle(vehicle, token);
+		Messages.throwFacesMessage("Automjeti u fshi me sukses", 1);
+		}catch(ApiException a) {
+			Messages.throwFacesMessage(a.getMessage(), a.getSeverity());
+		}
+		
 	}
 
 }

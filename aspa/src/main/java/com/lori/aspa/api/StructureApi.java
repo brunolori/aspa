@@ -98,6 +98,11 @@ public class StructureApi {
 		return new ResponseEntity<>(str, HttpStatus.OK);
 	}
 
-	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = { "application/json" })
+	public ResponseEntity<?> delete(@RequestHeader(value = "Authorization") String token,
+			@RequestBody StructureDTO dto) {
+		StructureDTO str = structureService.delete(dto);
+		return new ResponseEntity<>(str, HttpStatus.OK);
+	}
 	
 }

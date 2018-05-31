@@ -22,56 +22,49 @@ public class StructureService {
 
 	@Autowired
 	StructureDAO structureDAO;
-	@Autowired 
+	@Autowired
 	UserDAO userDAO;
-
 
 	public StructureDTO findStructureById(Integer structureId) {
 		return new Assembler().toDto(structureDAO.findById(structureId));
 	}
 
 	public List<StructureDTO> getStructureChilds(Integer structureId) {
-				
+
 		Structure str = structureDAO.findById(structureId);
-		
+
 		List<Structure> list = structureDAO.listChilds(str.getCode());
-		
+
 		list.remove(str);
-		
+
 		return new Assembler().structureListToDto(list);
-		
+
 	}
-	
+
 	public List<StructureDTO> getStructureChilds(String code) {
-		
-		
+
 		List<Structure> list = structureDAO.listChilds(code);
-		for(Structure s : list)
-		{
-			if(s.getCode().equals(code))
-			{
+		for (Structure s : list) {
+			if (s.getCode().equals(code)) {
 				list.remove(s);
 				break;
 			}
 		}
-		
-		
+
 		return new Assembler().structureListToDto(list);
-		
+
 	}
-	
-	
+
 	public List<StructureDTO> loadStructures() {
 
 		return new Assembler().structureListToDto(structureDAO.loadStructures());
 
 	}
-	
+
 	@AppTransactional
 	public StructureDTO registerStructure(StructureDTO dto, String uname) throws AppException {
 
-		if(dto.getId() <= 0)
-		{
+		if (dto.getId() <= 0) {
 			throw new EmptyFieldsException("Plotëso ID e RMIS");
 		}
 		if (dto.getName() == null) {
@@ -84,10 +77,10 @@ public class StructureService {
 			throw new EmptyFieldsException("Struktura prind e papërcaktuar");
 		}
 
-		StructureDTO parent = findStructureById(dto.getParentId()); 
-		String code = parent.getCode()+"["+dto.getId()+"]";
+		StructureDTO parent = findStructureById(dto.getParentId());
+		String code = parent.getCode() + "[" + dto.getId() + "]";
 		User u = userDAO.findByUsername(uname);
-		
+
 		Structure str = new Structure();
 		str.setId(dto.getId());
 		str.setName(dto.getName());
@@ -106,7 +99,6 @@ public class StructureService {
 	@AppTransactional
 	public StructureDTO modifyStructure(StructureDTO dto, String uname) throws AppException {
 
-		
 		if (dto.getName() == null) {
 
 			throw new EmptyFieldsException("Emri strukturës i papërcaktuar ");
@@ -117,57 +109,53 @@ public class StructureService {
 			throw new EmptyFieldsException("Struktura prind e papërcaktuar");
 		}
 
-		StructureDTO parent = findStructureById(dto.getParentId()); 
-		String code = parent.getCode()+"["+dto.getId()+"]";
-		
-	    User user = userDAO.findByUsername(uname);
+		StructureDTO parent = findStructureById(dto.getParentId());
+		String code = parent.getCode() + "[" + dto.getId() + "]";
+
+		User user = userDAO.findByUsername(uname);
 		Structure str = structureDAO.findById(dto.getId());
 		boolean updateChilds = !str.getCode().equals(code);
-		
+
 		str.setName(dto.getName());
 		str.setCode(code);
 		str.setParent(new Structure(dto.getParentId()));
 		str.setUpdateTime(Calendar.getInstance().getTime());
 		str.setUpdateUser(user);
 		str = structureDAO.update(str);
-		
-		if(updateChilds)
-		{
+
+		if (updateChilds) {
 			List<StructureDTO> childs = getStructureChilds(dto.getCode());
-			
-					if(childs != null)
-					{
-						for(StructureDTO s : childs)
-						{							
-							updateCode(s,code);
-						}
-					}
+
+			if (childs != null) {
+				for (StructureDTO s : childs) {
+					updateCode(s, code);
+				}
+			}
 		}
-		
 
 		return new Assembler().toDto(str);
 
 	}
-	
 
-	private void updateCode(StructureDTO dto, String parentNewCode)
-	{
+	private void updateCode(StructureDTO dto, String parentNewCode) {
 
-		
 		Structure s = structureDAO.findById(dto.getId());
-		String newCode = parentNewCode+"["+s.getId()+"]";
+		String newCode = parentNewCode + "[" + s.getId() + "]";
 		s.setCode(newCode);
 		s = structureDAO.update(s);
 		List<StructureDTO> childs = getStructureChilds(s.getId());
-		if(childs!=null)
-		{
-			for(StructureDTO c : childs)
-			{
+		if (childs != null) {
+			for (StructureDTO c : childs) {
 				updateCode(c, newCode);
 			}
 		}
-		
+
 	}
-	
+
+	public StructureDTO delete(StructureDTO dto) {
+		Structure str = structureDAO.findById(dto.getId());
+		str.setStatus(IStatus.NOT_ACTIVE);
+		return new Assembler().toDto(structureDAO.update(str));
+	}
 
 }

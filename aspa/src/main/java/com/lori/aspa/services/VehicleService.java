@@ -32,6 +32,7 @@ import com.lori.aspa.exceptions.EmptyFieldsException;
 import com.lori.aspa.exceptions.EntityExistsException;
 
 @Service
+@AppTransactional
 public class VehicleService {
 
 	@Autowired
@@ -46,8 +47,6 @@ public class VehicleService {
 	public VehicleDTO findVehicleById(Integer id) {
 		return new Assembler().toDto(vehicleDAO.findById(id));
 	}
-	
-	
 
 	public List<VehicleDTO> searchVehicle(VehicleReq req) {
 		VehicleSQL sql = new RequestAssembler().toSql(req);
@@ -84,7 +83,6 @@ public class VehicleService {
 		return new Assembler().vehicleTypeListToDto(vehicleDAO.loadVehicleTypes());
 	}
 
-	@AppTransactional
 	public VehicleDTO registerVehicle(VehicleDTO dto, String uname) throws AppException {
 
 		if (dto.getPlate() == null) {
@@ -105,9 +103,7 @@ public class VehicleService {
 		User u = userDAO.findByUsername(uname);
 		Structure structure = structureDAO.findById(dto.getStructureId());
 		VehicleType type = vehicleDAO.getVehicleTypeByTag(dto.getTypeCode());
-		
-		
-		
+
 		Vehicle v = new Vehicle();
 
 		v.setPlate(dto.getPlate());
@@ -126,7 +122,6 @@ public class VehicleService {
 
 	}
 
-	@AppTransactional
 	public VehicleDTO modifyVehicle(VehicleDTO dto, String uname) throws AppException {
 
 		if (dto.getPlate() == null) {
@@ -147,8 +142,7 @@ public class VehicleService {
 		User u = userDAO.findByUsername(uname);
 		Structure structure = structureDAO.findById(dto.getStructureId());
 		VehicleType type = vehicleDAO.getVehicleTypeByTag(dto.getTypeCode());
-		
-		
+
 		Vehicle v = vehicleDAO.findById(dto.getId());
 
 		v.setPlate(dto.getPlate());
@@ -159,13 +153,17 @@ public class VehicleService {
 		v.setType(type);
 		v.setUpdateTime(Calendar.getInstance().getTime());
 		v.setUpdateUser(u);
-		
-		
 
 		v = vehicleDAO.update(v);
 
 		return new Assembler().toDto(v);
 
+	}
+
+	public VehicleDTO delete(VehicleDTO dto) {
+		Vehicle vehicle = vehicleDAO.findById(dto.getId());
+		vehicle.setStatus(IStatus.NOT_ACTIVE);
+		return new Assembler().toDto(vehicleDAO.update(vehicle));
 	}
 
 }

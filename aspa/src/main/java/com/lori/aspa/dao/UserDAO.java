@@ -39,7 +39,7 @@ public class UserDAO {
 
 	public List<User> loadUsers() {
 
-		return em.createQuery("FROM User u WHERE u.status=:st").setParameter("st", IStatus.ACTIVE).getResultList();
+		return em.createQuery("FROM User u WHERE 1=1").getResultList();
 	}
 
 	public User create(User user) {

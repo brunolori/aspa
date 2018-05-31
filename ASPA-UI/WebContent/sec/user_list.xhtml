@@ -35,7 +35,10 @@
 				<p:column headerText="Grada">#{u.officer.grade}</p:column>
 				<p:column headerText="Funksioni">#{u.officer.function}</p:column>
 				<p:column headerText="Struktura">#{u.officer.structure}</p:column>
-				<p:column headerText="Status">#{u.active?'AKTIV':'JO AKTIV'}</p:column>
+				<p:column headerText="Status">
+				<p:outputLabel value="#{u.active?'AKTIV':'JO AKTIV'}"
+				 styleClass="#{u.active?'label-success':'label-danger'}"/>
+				</p:column>
 				
 				
 			</p:dataTable>

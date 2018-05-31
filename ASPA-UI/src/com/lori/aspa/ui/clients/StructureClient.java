@@ -91,6 +91,25 @@ public class StructureClient {
 	}
 
 	public StructureDTO deleteStructure(StructureDTO str, String token) {
+		
+		final String BASE_URL = IApiClient.SERVER+"/api/structure/delete";
+	    
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ErrorHandler());
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		headers.set("Authorization", token);
+		HttpEntity<?> entity = new HttpEntity<StructureDTO>(str,headers);
+		
+		ResponseEntity<StructureDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, StructureDTO.class);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+		{
+			return response.getBody();
+		}		
 		return null;
 	}
 

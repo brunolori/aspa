@@ -29,7 +29,6 @@ public class StructureBean implements Serializable {
 
 	StructureDTO structure;
 	StructureDTO selectedStructure;
-	
 
 	public List<StructureDTO> getStructures() {
 		return structures;
@@ -85,16 +84,14 @@ public class StructureBean implements Serializable {
 	public void onStructureSelected() {
 		this.structure = selectedStructure;
 	}
-	
 
 	public void register() {
-		
+
 		try {
 			new StructureService().registerStructure(structure, token);
 			Messages.throwFacesMessage("Struktura u regjistrua me sukses", 1);
-		    init();
-		}catch(ApiException a)
-		{
+			init();
+		} catch (ApiException a) {
 			Messages.throwFacesMessage(a.getMessage(), a.getSeverity());
 		}
 	}
@@ -103,13 +100,19 @@ public class StructureBean implements Serializable {
 		try {
 			new StructureService().modifyStructure(structure, token);
 			Messages.throwFacesMessage("Struktura u modifikua me sukses", 1);
-		    init();
-		}catch(ApiException a)
-		{
+			init();
+		} catch (ApiException a) {
 			Messages.throwFacesMessage(a.getMessage(), a.getSeverity());
 		}
 	}
 
-	public void delete() {}
-
+	public void delete() {
+		try {
+			new StructureService().deleteStructure(structure, token);
+			Messages.throwFacesMessage("Struktura u fshi me sukses", 1);
+			init();
+		} catch (ApiException a) {
+			Messages.throwFacesMessage(a.getMessage(), a.getSeverity());
+		}
+	}
 }
