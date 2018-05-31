@@ -7,6 +7,7 @@ package com.lori.aspa.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -58,9 +59,10 @@ public class Officer implements Serializable {
     @JoinColumn(name = "CREATE_USER_ID", referencedColumnName = "ID")
     @ManyToOne
     private User createUser;
-   
+    
+    
 
-    public Officer() {
+	public Officer() {
     }
 
     
@@ -189,6 +191,7 @@ public class Officer implements Serializable {
 		this.createUser = createUser;
 	}
 
-   
+
+
     
 }

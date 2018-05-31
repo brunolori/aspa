@@ -31,10 +31,16 @@ public class OfficerApi {
 	
 	
 	@RequestMapping(value = "/queryOfficer", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> queryUser(@RequestParam(name = "query") String query) {
+	public ResponseEntity<?> queryOfficer(@RequestParam(name = "query") String query) {
 		List<OfficerDTO> o = officerService.queryOfficer(query);
 		return new ResponseEntity<>(o, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/searchOfficer", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> searchOfficer(@RequestParam(name = "name", required=false) String name,
+			@RequestParam(name = "surname", required=false) String surname) {
+		List<OfficerDTO> o = officerService.searchOfficer(name, surname);
+		return new ResponseEntity<>(o, HttpStatus.OK);
+	}
 
 }

@@ -23,7 +23,7 @@ public class RoleDAO {
 	public List<Role> findByCode(List<String> codes)
 	{
 		return em.createQuery("FROM Role r where r.status=:st and r.tag IN :tg")
-				.setMaxResults(1).setParameter("st", IStatus.ACTIVE)
+				.setParameter("st", IStatus.ACTIVE)
 				.setParameter("tg", codes)
 				.getResultList();
 		

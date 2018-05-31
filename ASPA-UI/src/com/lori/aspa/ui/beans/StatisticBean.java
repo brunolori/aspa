@@ -17,6 +17,7 @@ import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
 import com.lori.aspa.ui.constants.IDecision;
+import com.lori.aspa.ui.models.OfficerCount;
 import com.lori.aspa.ui.models.StructureDTO;
 import com.lori.aspa.ui.models.ValuePair;
 import com.lori.aspa.ui.services.StatisticService;
@@ -46,6 +47,8 @@ public class StatisticBean implements Serializable {
 	
 	BarChartModel officersModel;
 	BarChartModel authsModel;
+	
+	List<OfficerCount> officersByService;
 	
 	long totalAuthNr;
 	long inProcessAuthNr;
@@ -170,8 +173,13 @@ public class StatisticBean implements Serializable {
 	public void setAuthsModel(BarChartModel authsModel) {
 		this.authsModel = authsModel;
 	}
-	
-	
+
+	public List<OfficerCount> getOfficersByService() {
+		return officersByService;
+	}
+	public void setOfficersByService(List<OfficerCount> officersByService) {
+		this.officersByService = officersByService;
+	}
 	
 	
 	@PostConstruct
@@ -180,15 +188,13 @@ public class StatisticBean implements Serializable {
 		this.userId = login.getUserToken().getUser().getId();
 		this.token = login.getUserToken().getToken();
 		init();
-		
-		
 	}
 	
 	
 	public void init() {
 		this.fromDate = DateUtil.getFirstMonthDate(Calendar.getInstance().get(Calendar.MONTH) + 1);
 		this.toDate = new Date();
-		this.structures = new StructureService().loadStructures();
+		this.structures = new StructureService().getUserStructures(token);
 		this.years = new ArrayList<>();
 		years.add(2018);
 		this.year = Calendar.getInstance().get(Calendar.YEAR);
@@ -210,6 +216,7 @@ public class StatisticBean implements Serializable {
 		this.activeAuthNr = service.countActiveServices(structureId, token);
 		this.totalOffNr = service.countOfficersInService(structureId, token);
 		this.totalVehicleNr = service.countVehiclesInService(structureId, token);
+		this.officersByService = service.getOfficersByServiceNo(fromDate, toDate, structureId, token);
 		createOfficerModel();
 		createAuthsModel();
 

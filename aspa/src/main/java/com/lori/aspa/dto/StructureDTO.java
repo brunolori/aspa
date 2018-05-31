@@ -9,6 +9,7 @@ public class StructureDTO {
 	    private int id;
 	    private String name;
 	    private String parent;
+	    private String code;
 	    private int parentId;
 	    private boolean active;
 	    
@@ -45,14 +46,14 @@ public class StructureDTO {
 		}
 		public void setActive(boolean active) {
 			this.active = active;
+		}		
+		public String getCode() {
+			return code;
+		}
+		public void setCode(String code) {
+			this.code = code;
 		}
 		
-		@Override
-		public String toString() {
-			return "StructureDTO [id=" + id + ", name=" + name + ", parent=" + parent + ", parentId=" + parentId
-					+ ", active=" + active + "]";
-		}
-	
 	    
 	    
 

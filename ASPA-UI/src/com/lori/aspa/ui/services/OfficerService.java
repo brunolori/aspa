@@ -16,4 +16,8 @@ public class OfficerService {
 		return new OfficerClient().queryOfficer(nameSurname);
 	}
 	
+	public List<OfficerDTO> searchOfficer(String name,String surname) {
+		return new OfficerClient().searchOfficer(name, surname);
+	}
+	
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.lori.aspa.constants.IDecision;
 import com.lori.aspa.constants.IStatus;
+import com.lori.aspa.model.OfficerCount;
 import com.lori.aspa.model.ValuePair;
 import com.lori.aspa.utils.StringUtil;
 
@@ -27,13 +28,7 @@ public class StatisticDAO {
 
 	
 	@SuppressWarnings("rawtypes")
-	public long countAllAuths(Date fromDate, Date toDate, String decision, List<Integer> structureIds) {
-
-		System.out.println(fromDate);
-		System.out.println(toDate);
-		System.out.println(decision);
-		System.out.println(structureIds);
-		
+	public long countAllAuths(Date fromDate, Date toDate, String decision, List<Integer> structureIds) {		
 		
 		HashMap<String, Object> params = new HashMap<>();
 
@@ -50,7 +45,6 @@ public class StatisticDAO {
 			c.setTime(toDate);
 			c.add(Calendar.DATE, 1);
 			toDate = c.getTime();
-			System.err.println(toDate);
 			sql += " AND a.createTime<=:toDate";
 			params.put("toDate", toDate);
 		}
@@ -66,6 +60,7 @@ public class StatisticDAO {
 				params.put("strIds", structureIds);
 		}
 
+		 
 		Query q = em.createQuery(sql).setParameter("st", IStatus.ACTIVE);
 
 		Iterator it = params.entrySet().iterator();
@@ -75,7 +70,8 @@ public class StatisticDAO {
 			it.remove();
 		}
 
-		return (Long) q.getSingleResult();
+		Long result = (Long) q.getSingleResult();		
+		return result;
 
 	}
 	
@@ -154,6 +150,22 @@ public class StatisticDAO {
 	}
 	
 	
-	
+	public List<OfficerCount> getOfficersByServiceNo(Date fromDate, Date toDate,List<Integer> structureIds)
+	{
+		Calendar c = Calendar.getInstance();
+		c.setTime(toDate);
+		c.add(Calendar.DATE, 1);
+		toDate = c.getTime();
+		
+		return em.createQuery("SELECT new com.lori.aspa.model.OfficerCount(count(a),o) FROM Authorization a JOIN a.officers o "
+				+ "WHERE a.status=:st AND a.decision=:dcs AND a.fromDate>=:from and a.toDate<=:to AND a.structure.id IN :str "
+				+ "GROUP BY o ORDER BY count(a) DESC")
+				.setParameter("st", IStatus.ACTIVE).setParameter("dcs", IDecision.ACCEPT)
+				.setParameter("from", fromDate).setParameter("to", toDate)
+				.setParameter("str", structureIds)
+				.getResultList();
+		
+		
+	}
 
 }

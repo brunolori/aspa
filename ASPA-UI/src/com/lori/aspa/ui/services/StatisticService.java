@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.lori.aspa.ui.clients.StatisticClient;
+import com.lori.aspa.ui.models.OfficerCount;
 import com.lori.aspa.ui.models.ValuePair;
 
 public class StatisticService {
@@ -36,4 +37,9 @@ public class StatisticService {
 		return new StatisticClient().countAuthorizationsByMonth(year, structureId, token);
 	}
 
+	public List<OfficerCount> getOfficersByServiceNo(Date fromDate, Date toDate, Integer structureId, String token) {
+		return new StatisticClient().getOfficersByServiceNo(fromDate, toDate, structureId, token);
+	}
+	
+	
 }

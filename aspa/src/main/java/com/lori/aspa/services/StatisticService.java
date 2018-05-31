@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.lori.aspa.dao.StatisticDAO;
 import com.lori.aspa.dto.StructureDTO;
 import com.lori.aspa.dto.UserDTO;
+import com.lori.aspa.model.OfficerCount;
 import com.lori.aspa.model.ValuePair;
 
 
@@ -32,7 +33,7 @@ public class StatisticService {
 		else
 		{
 			UserDTO u = userService.findUserByUsername(uname);
-			List<StructureDTO> dto = structureService.getStructureChilds(structureId);
+			List<StructureDTO> dto = structureService.getStructureChilds(u.getOfficer().getStructureId());
 			if(dto == null) dto = new ArrayList<>();
 			for(StructureDTO s : dto)
 			{
@@ -52,7 +53,7 @@ public class StatisticService {
 		else
 		{
 			UserDTO u = userService.findUserByUsername(uname);
-			List<StructureDTO> dto = structureService.getStructureChilds(structureId);
+			List<StructureDTO> dto = structureService.getStructureChilds(u.getOfficer().getStructureId());
 			if(dto == null) dto = new ArrayList<>();
 			for(StructureDTO s : dto)
 			{
@@ -71,7 +72,7 @@ public class StatisticService {
 		else
 		{
 			UserDTO u = userService.findUserByUsername(uname);
-			List<StructureDTO> dto = structureService.getStructureChilds(structureId);
+			List<StructureDTO> dto = structureService.getStructureChilds(u.getOfficer().getStructureId());
 			if(dto == null) dto = new ArrayList<>();
 			for(StructureDTO s : dto)
 			{
@@ -90,7 +91,7 @@ public class StatisticService {
 		else
 		{
 			UserDTO u = userService.findUserByUsername(uname);
-			List<StructureDTO> dto = structureService.getStructureChilds(structureId);
+			List<StructureDTO> dto = structureService.getStructureChilds(u.getOfficer().getStructureId());
 			if(dto == null) dto = new ArrayList<>();
 			for(StructureDTO s : dto)
 			{
@@ -110,7 +111,7 @@ public class StatisticService {
 		else
 		{
 			UserDTO u = userService.findUserByUsername(uname);
-			List<StructureDTO> dto = structureService.getStructureChilds(structureId);
+			List<StructureDTO> dto = structureService.getStructureChilds(u.getOfficer().getStructureId());
 			if(dto == null) dto = new ArrayList<>();
 			for(StructureDTO s : dto)
 			{
@@ -129,7 +130,7 @@ public class StatisticService {
 		else
 		{
 			UserDTO u = userService.findUserByUsername(uname);
-			List<StructureDTO> dto = structureService.getStructureChilds(structureId);
+			List<StructureDTO> dto = structureService.getStructureChilds(u.getOfficer().getStructureId());
 			if(dto == null) dto = new ArrayList<>();
 			for(StructureDTO s : dto)
 			{
@@ -142,6 +143,25 @@ public class StatisticService {
 		
 	}
 	
+	public List<OfficerCount> getOfficersByServiceNo(Date fromDate, Date toDate,Integer structureId, String uname)
+	{
+		List<Integer> strs = new ArrayList<>();
+		if(structureId != null) strs.add(structureId);
+		else
+		{
+			UserDTO u = userService.findUserByUsername(uname);
+			List<StructureDTO> dto = structureService.getStructureChilds(u.getOfficer().getStructureId());
+			if(dto == null) dto = new ArrayList<>();
+			for(StructureDTO s : dto)
+			{
+				strs.add(s.getId());
+			}
+			strs.add(u.getId());
+		}
+		
+	  	return statisticDAO.getOfficersByServiceNo(fromDate, toDate, strs);
+		
+	}
 	
 
 }

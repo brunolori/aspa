@@ -1,6 +1,5 @@
 package com.lori.aspa.services;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -32,28 +31,33 @@ public class StructureService {
 	}
 
 	public List<StructureDTO> getStructureChilds(Integer structureId) {
-
-		System.out.println("STRUCTURE ID: "+structureId);
+				
+		Structure str = structureDAO.findById(structureId);
+		
+		List<Structure> list = structureDAO.listChilds(str.getCode());
+		
+		list.remove(str);
+		
+		return new Assembler().structureListToDto(list);
+		
+	}
+	
+	public List<StructureDTO> getStructureChilds(String code) {
 		
 		
-		List<StructureDTO> strs = new ArrayList<>();
-
-		List<StructureDTO> childs = new Assembler()
-				.structureListToDto(structureDAO.search(null, structureId, IStatus.ACTIVE, null, null));
-		
-		
-		
-		if (childs != null && !childs.isEmpty()) {
-			for (StructureDTO s : childs) {
-				System.out.println("CHILD ID: "+s.getId());
-				strs.add(s);
-				strs.addAll(getStructureChilds(s.getId()));
+		List<Structure> list = structureDAO.listChilds(code);
+		for(Structure s : list)
+		{
+			if(s.getCode().equals(code))
+			{
+				list.remove(s);
+				break;
 			}
-
 		}
-
-		return strs;
-
+		
+		
+		return new Assembler().structureListToDto(list);
+		
 	}
 	
 	
@@ -80,7 +84,8 @@ public class StructureService {
 			throw new EmptyFieldsException("Struktura prind e papërcaktuar");
 		}
 
-
+		StructureDTO parent = findStructureById(dto.getParentId()); 
+		String code = parent.getCode()+"["+dto.getId()+"]";
 		User u = userDAO.findByUsername(uname);
 		
 		Structure str = new Structure();
@@ -89,7 +94,7 @@ public class StructureService {
 		str.setParent(new Structure(dto.getParentId()));
 		str.setStatus(IStatus.ACTIVE);
 		str.setCreateTime(Calendar.getInstance().getTime());
-		
+		str.setCode(code);
 		str.setCreateUser(u);
 
 		str = structureDAO.create(str);
@@ -112,21 +117,57 @@ public class StructureService {
 			throw new EmptyFieldsException("Struktura prind e papërcaktuar");
 		}
 
+		StructureDTO parent = findStructureById(dto.getParentId()); 
+		String code = parent.getCode()+"["+dto.getId()+"]";
+		
 	    User user = userDAO.findByUsername(uname);
 		Structure str = structureDAO.findById(dto.getId());
+		boolean updateChilds = !str.getCode().equals(code);
+		
 		str.setName(dto.getName());
+		str.setCode(code);
 		str.setParent(new Structure(dto.getParentId()));
 		str.setUpdateTime(Calendar.getInstance().getTime());
 		str.setUpdateUser(user);
-
-
 		str = structureDAO.update(str);
+		
+		if(updateChilds)
+		{
+			List<StructureDTO> childs = getStructureChilds(dto.getCode());
+			
+					if(childs != null)
+					{
+						for(StructureDTO s : childs)
+						{							
+							updateCode(s,code);
+						}
+					}
+		}
+		
 
 		return new Assembler().toDto(str);
 
 	}
 	
 
+	private void updateCode(StructureDTO dto, String parentNewCode)
+	{
+
+		
+		Structure s = structureDAO.findById(dto.getId());
+		String newCode = parentNewCode+"["+s.getId()+"]";
+		s.setCode(newCode);
+		s = structureDAO.update(s);
+		List<StructureDTO> childs = getStructureChilds(s.getId());
+		if(childs!=null)
+		{
+			for(StructureDTO c : childs)
+			{
+				updateCode(c, newCode);
+			}
+		}
+		
+	}
 	
 
 }

@@ -17,7 +17,14 @@ public class ValuePair {
 		this.value = value;
 	}
 	
+	
 	public ValuePair(int key, Object value) {
+		super();
+		this.key = String.valueOf(key);
+		this.value = value;
+	}
+	
+	public ValuePair(long key, Object value) {
 		super();
 		this.key = String.valueOf(key);
 		this.value = value;

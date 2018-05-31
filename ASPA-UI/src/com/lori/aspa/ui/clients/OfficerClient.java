@@ -61,5 +61,33 @@ public class OfficerClient {
 		
 		return null;
 	}
+	
+	public List<OfficerDTO> searchOfficer(String name, String surname)
+	{
+		final String BASE_URL = IApiClient.SERVER+"/api/officer/searchOfficer";
+	    
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+		builder.queryParam("name", name);
+		builder.queryParam("surname", surname);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+		
+		ParameterizedTypeReference<List<OfficerDTO>> typeRef = new ParameterizedTypeReference<List<OfficerDTO>>() {};
+		
+		ResponseEntity<List<OfficerDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+		{
+			return response.getBody();
+		}				
+		
+		return null;
+	}
+	
+	
 
 }

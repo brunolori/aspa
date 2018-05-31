@@ -33,24 +33,59 @@ public class UserService {
 
 	@Autowired
 	UserDAO userDAO;
+	@Autowired
 	StructureDAO structureDAO;
+	@Autowired
 	OfficerDAO officerDAO;
+	@Autowired
 	RoleDAO roleDAO;
+	
+	
+	public UserDTO findUserById(Integer id) {
+		return new Assembler().toDto(userDAO.findById(id));
+	}
 
-	public UserDTO create(UserDTO dto, Integer userId) throws AppException {
+	public RoleDTO findRoleById(Integer id) {
+		return new Assembler().toDto(userDAO.findRoleById(id));
+	}
 
-		User regUser = userDAO.findById(userId);
+	public UserDTO findUserByUsername(String uname) {
+		return new Assembler().toDto(userDAO.findByUsername(uname));
+	}
+
+	public List<RoleDTO> loadRoles() {
+
+		return new Assembler().roleListToDto(userDAO.loadRoles());
+	}
+	
+	public List<UserDTO> loadUsers() {
+		return new Assembler().userListToDto(userDAO.loadUsers());
+	}
+	
+	public List<UserDTO> queryUser(String query) {
+		return new Assembler().userListToDto(userDAO.query(query));
+	}
+	
+
+	public UserDTO create(UserDTO dto, String uname) throws AppException {
+
+		User regUser = userDAO.findByUsername(uname);
 
 		if (dto == null) {
 			throw new EmptyFieldsException("Nuk ka të dhëna");
 		}
 
-		if (dto.getOfficer() == null) {
+		if (dto.getOfficer() == null || dto.getOfficer().getId() <= 0) {
 			throw new EmptyFieldsException("Nuk ka të dhëna për oficerin");
 		}
-
+		
 		if (!StringUtil.isValid(dto.getUsername())) {
 			throw new EmptyFieldsException("Plotësoni 'Username'");
+		}
+		
+		if(dto.getRoles() == null || dto.getRoles().isEmpty())
+		{
+			throw new EmptyFieldsException("Zgjidhni rolet'");
 		}
 		/*
 		 * if(!StringUtil.isValid(dto.getSecret())) { throw new
@@ -95,23 +130,7 @@ public class UserService {
 		return new Assembler().toDto(u);
 	}
 
-	public UserDTO findUserById(Integer id) {
-		return new Assembler().toDto(userDAO.findById(id));
-	}
-	
-	
-	public RoleDTO findRoleById(Integer id) {
-		return new Assembler().toDto(userDAO.findRoleById(id));
-	}
-
-	public UserDTO findUserByUsername(String uname) {
-		return new Assembler().toDto(userDAO.findByUsername(uname));
-	}
-
-	public List<RoleDTO> loadRoles() {
-
-		return new Assembler().roleListToDto(userDAO.loadRoles());
-	}
+		
 
 	public UserTokenDTO login(Principal princ) {
 		User u = userDAO.findByUsername(princ.getUsername());
@@ -136,71 +155,6 @@ public class UserService {
 
 	}
 
-	public List<UserDTO> queryUser(String query) {
-		return new Assembler().userListToDto(userDAO.query(query));
-	}
-	
-	
-	public UserDTO registerUser(UserDTO dto, String uname) throws AppException
-	{
-		
-		if(dto.getUsername() == null)
-		{
-			throw new AppException("Username-i i papërcaktuar");
-		}
-		
-		if(dto.getSecret() == null)
-		{
-			throw new AppException("Password-i i papërcaktuar");
-		}
-		
-		
-		 User user = userDAO.findByUsername(uname);
-		
-		 
-		 User u = new User();
-		 u.setUsername(dto.getUsername());
-		 u.setSecret(dto.getSecret());
-		 u.setCreateUser(user);
-		 u.setCreateTime(Calendar.getInstance().getTime());
-		 u.setStatus(IStatus.ACTIVE);
-		 
-		 u = userDAO.create(u);
-		 
-		 return new Assembler().toDto(u);		 
-	}
-	
-
-	public List<UserDTO> loadUsers() {
-
-		return new Assembler().userListToDto(userDAO.loadUsers());
-	}
 
 	
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-

@@ -2,135 +2,145 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" >
+	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="title">Përdoruesi i Ri</ui:define>
 
 
-			<div class="ui-g ui-fluid">
-				<div class="ui-g-12 ui-md-2">
-						<p:commandButton value="Mbrapa" action="#{userManagerBean.goToUserList()}" update="@form"
-							styleClass="orange-btn" icon="fa fa-arrow-left" />
-				</div>
+	<div class="ui-g ui-fluid">
+		<div class="ui-g-12 ui-md-2">
+			<p:commandButton value="Mbrapa"
+				action="#{userManagerBean.goToUserList()}" update="@form"
+				styleClass="orange-btn" icon="fa fa-arrow-left" />
+		</div>
 
-				<div class="ui-g-12">
-					<p:messages showDetail="true" closable="true">
-						<p:autoUpdate />
-					</p:messages>
-				</div>
+		<div class="ui-g-12">
+			<p:messages showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+		</div>
 
 
-				<div class="ui-g-12 ui-md-6 ">
-					<p:panel header="Kërko Oficerin" style="height: 100%">
+		<div class="ui-g-12 ui-md-6 ">
+			<p:panel header="Kërko Oficerin" style="height: 100%">
 
-						<div class="ui-g">
-							<div class="ui-g-12">
-								<p:panelGrid columns="2" layout="grid"
-									styleClass="ui-panelgrid-blank">
-									<p:outputLabel value="Emër" styleClass="bold" />
-									<p:outputLabel value="Mbiemër" styleClass="bold" />
-									<p:inputText />
-									<p:inputText />
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="ui-panelgrid-blank">
+							<p:outputLabel value="Emër" styleClass="bold" />
+							<p:outputLabel value="Mbiemër" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.name}" />
+							<p:inputText value="#{userManagerBean.surname}" />
 
-								</p:panelGrid>
-							</div>
+						</p:panelGrid>
+					</div>
 
-							<div class="ui-g-12">
-								<p:panelGrid columns="2" layout="grid"
-									styleClass="ui-panelgrid-blank">
-									<p:commandButton value="Kërko" icon="ui-icon-search"
-										styleClass="purple-btn" />
-									<p:commandButton value="Pastro" icon="ui-icon-trash"
-										styleClass="green-btn" />
+					<div class="ui-g-12">
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="ui-panelgrid-blank">
+							<p:commandButton value="Kërko"
+								actionListener="#{userManagerBean.searchOfficer()}"
+								icon="ui-icon-search" styleClass="purple-btn" update="@form" />
+							<p:commandButton value="Pastro"
+								actionListener="#{userManagerBean.clearSearchOfficer()}" icon="ui-icon-trash"
+								styleClass="green-btn" update="@form" />
 
-								</p:panelGrid>
-							</div>
+						</p:panelGrid>
+					</div>
 
-							<div class="ui-g-12">
+					<div class="ui-g-12">
 
-								<p:dataTable value="#{null}" var=" " paginator="true" paginatorAlwaysVisible="false"
-									rows="10"
-									emptyMessage="Asnjë oficer i listuar" rowIndexVar="r">
-							    <f:facet name="header">
+						<p:dataTable value="#{userManagerBean.officers}" var="o"
+							paginator="true" paginatorAlwaysVisible="false" rows="10"
+							selection="#{userManagerBean.selectedOfficer}"
+							selectionMode="single" rowKey="#{o.id}"
+							emptyMessage="Asnjë oficer i listuar" rowIndexVar="r">
+							<f:facet name="header">
                               	 Lista e Oficerëve
                                 </f:facet>
-									<p:column headerText="#"> #{r+1} </p:column>
-									<p:column headerText="Emri"></p:column>
-									<p:column headerText="Mbiemri"></p:column>
-									<p:column headerText="Grada"></p:column>
-									<p:column headerText="Fuksioni"></p:column>
-									<p:column headerText="Struktura"></p:column>
+							<p:ajax event="rowSelect"
+								listener="#{userManagerBean.onOfficerSelect()}" update="@form" />
+							<p:column headerText="#"> #{r+1} </p:column>
+							<p:column headerText="Emri">#{o.name}</p:column>
+							<p:column headerText="Mbiemri">#{o.surname}</p:column>
+							<p:column headerText="Grada">#{o.grade}</p:column>
+							<p:column headerText="Fuksioni">#{o.function}</p:column>
+							<p:column headerText="Struktura">#{o.structure}</p:column>
 
-								</p:dataTable>
+						</p:dataTable>
 
-							</div>
-						</div>
-					</p:panel>
+					</div>
 				</div>
+			</p:panel>
+		</div>
 
 
-				<div class="ui-g-12 ui-md-6">
-					<p:panel header="Të dhënat e Përdoruesit">
-						<div class="ui-g">
-							<div class="ui-g-12">
-								<p:panelGrid columns="4" layout="grid"
-									styleClass="ui-panelgrid-blank">
-									<p:outputLabel value="Emër" styleClass="bold" />
-									<p:inputText disabled="true" />
-									<p:outputLabel value="Mbiemër" styleClass="bold" />
-									<p:inputText disabled="true" />
-									<p:outputLabel value="Nr.RMIS" styleClass="bold" />
-									<p:inputText disabled="true" />
-									<p:outputLabel value="Grada" styleClass="bold" />
-									<p:inputText disabled="true" />
-									<p:outputLabel value="Funksioni" styleClass="bold" />
-									<p:inputText disabled="true" />
-									<p:outputLabel value="Struktura" styleClass="bold" />
-									<p:inputText disabled="true" />
-									<p:outputLabel value="Statusi" styleClass="bold" />
-									<p:inputText disabled="true" />
-									<p:outputLabel value="Username" styleClass="bold" />
-									<p:inputText disabled="true" />
-									<p:outputLabel value="Password" styleClass="bold" />
-									<p:inputText disabled="true" />
-									<p:outputLabel value="Roli" styleClass="bold" />
-									<p:selectOneMenu value="#{null}">
-										<f:selectItem itemValue="#{null}" itemLabel="Roli" />
-										<f:selectItems value="#{null}" var=" " itemValue="#{null}"
-											itemLabel="#{null}" />
-									</p:selectOneMenu>
+		<div class="ui-g-12 ui-md-6">
+			<p:panel header="Të dhënat e Përdoruesit">
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<p:panelGrid columns="4" layout="grid"
+							styleClass="ui-panelgrid-blank">
+							<p:outputLabel value="Emër" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.officer.name}"
+								disabled="#{userManagerBean.disableUser}" readonly="true" />
+							<p:outputLabel value="Mbiemër" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.officer.surname}"
+								disabled="#{userManagerBean.disableUser}" readonly="true" />
+							<p:outputLabel value="Nr.RMIS" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.officer.id}"
+								disabled="#{userManagerBean.disableUser}" readonly="true" />
+							<p:outputLabel value="Grada" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.officer.grade}"
+								disabled="#{userManagerBean.disableUser}" readonly="true" />
+							<p:outputLabel value="Funksioni" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.officer.function}"
+								disabled="#{userManagerBean.disableUser}" readonly="true" />
+							<p:outputLabel value="Struktura" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.officer.structure}"
+								disabled="#{userManagerBean.disableUser}" readonly="true" />
+							<p:outputLabel value="Username" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.user.username}"
+								disabled="#{userManagerBean.disableUser}" />
+							<p:outputLabel value="Password" styleClass="bold" />
+							<p:inputText value="#{userManagerBean.user.secret}"  disabled="#{userManagerBean.disableUser}"/>
+							<p:outputLabel value="Roli" styleClass="bold" />
+							<p:selectCheckboxMenu value="#{userManagerBean.selectedRoles}" disabled="#{userManagerBean.disableUser}"
+								label="Rolet" converter="roleConverter">
+								<f:selectItems value="#{userManagerBean.roles}" var="u"
+									itemValue="#{u}" itemLabel="#{u.description}" />
+							</p:selectCheckboxMenu>
 
-								</p:panelGrid>
-							</div>
+
+						</p:panelGrid>
+					</div>
 
 
-							<div class="ui-g-12">
+					<div class="ui-g-12">
 
-								<p:panelGrid layout="grid" columns="4"
-									styleClass="ui-panelgrid-blank">
-									<p:commandButton value="Regjistro" action="#{userManagerBean.create()}"
-									 icon="fa fa-save"
-										styleClass="blue-btn" update="@form">
-										<p:confirm header="Regjistro përdorues"
-											message="Jeni të sigurt?" icon="ui-icon-alert" />
-									</p:commandButton>
-									<p:commandButton value="Pastro" styleClass="green-btn"
-										icon="fa fa-trash-o" update="@form" />
-								</p:panelGrid>
+						<p:panelGrid layout="grid" columns="4"
+							styleClass="ui-panelgrid-blank">
+							<p:commandButton value="Regjistro"
+								action="#{userManagerBean.create()}" icon="fa fa-save"
+								styleClass="blue-btn" update="@form">
+								<p:confirm header="Regjistro përdorues"
+									message="Jeni të sigurt?" icon="ui-icon-alert" />
+							</p:commandButton>
+							<p:commandButton value="Pastro"
+								actionListener="#{userManagerBean.clearUser()}"
+								styleClass="green-btn" icon="fa fa-trash-o" update="@form" />
+						</p:panelGrid>
 
-							</div>
+					</div>
 
-							<div class="ui-g-12">
-								<p:messages showDetail="true">
-									<p:autoUpdate />
-								</p:messages>
-							</div>
+					
 
-						</div>
-					</p:panel>
 				</div>
+			</p:panel>
+		</div>
 
-			</div>
+	</div>
 
 
 

@@ -14,10 +14,13 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.lori.aspa.ui.constants.IApiClient;
+import com.lori.aspa.ui.models.OfficerCount;
+import com.lori.aspa.ui.models.OfficerDTO;
 import com.lori.aspa.ui.models.Principal;
 import com.lori.aspa.ui.models.UserTokenDTO;
 import com.lori.aspa.ui.models.ValuePair;
 import com.lori.aspa.ui.utils.DateUtil;
+import com.lori.aspa.ui.utils.StringUtil;
 
 public class StatisticClient {
 
@@ -27,8 +30,12 @@ public class StatisticClient {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
 		builder.queryParam("from", DateUtil.formatDate(fromDate));
 		builder.queryParam("to", DateUtil.formatDate(toDate));
+		if(StringUtil.isValid(decision)) {
 		builder.queryParam("decision", decision);
+		}
+		if(structureId != null) {
 		builder.queryParam("structureId", structureId);
+		}
 
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setErrorHandler(new ErrorHandler());
@@ -189,16 +196,56 @@ public class StatisticClient {
 	}
 	
 	
+public List<OfficerCount> getOfficersByServiceNo(Date fromDate, Date toDate, Integer structureId, String token) {
+		
+		
+		final String BASE_URL = IApiClient.SERVER + "/api/statistic/officersByServiceNo";
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+		builder.queryParam("from", DateUtil.formatDate(fromDate));
+		builder.queryParam("to", DateUtil.formatDate(toDate));
+		builder.queryParam("structureId", structureId);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ErrorHandler());
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		headers.set("Authorization", token);
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		ParameterizedTypeReference<List<OfficerCount>> typeRef = new ParameterizedTypeReference<List<OfficerCount>>() {};
+		
+		ResponseEntity<List<OfficerCount>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+
+		return null;
+		
+
+	}
+	
+	
+	
 
 	public static void main(String[] args) {
 		StatisticClient c = new StatisticClient();
 		UserClient u = new UserClient();
 
-		UserTokenDTO k = u.login(new Principal("bruno", "1234"));
+		UserTokenDTO k = u.login(new Principal("bolja", "1234"));
 
-		Long l = c.countAllAuths(DateUtil.toDate("01.05.2018"), DateUtil.toDate("30.05.2018"), null, 4, k.getToken());
+		List<OfficerCount> list = c.getOfficersByServiceNo(DateUtil.toDate("01.05.2018"), DateUtil.toDate("30.06.2018"), null, k.getToken());
 
-		System.out.println("STATISTIC:..... " + l);
+		System.out.println("STATISTIC:..... ");
+		for(OfficerCount p : list)
+		{
+			 OfficerDTO o = p.getOfficer();
+			 int v = (int)p.getCount();
+			
+			System.out.println("O_ID: "+o.fullName()+"\t NO:"+v);
+		}
 	}
 
 }

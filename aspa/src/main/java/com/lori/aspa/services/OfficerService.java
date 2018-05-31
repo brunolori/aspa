@@ -91,6 +91,12 @@ public class OfficerService {
 		return new Assembler().officerListToDto(officerDAO.queryOfficer(query));
 	}
 	
-	
+	public List<OfficerDTO> searchOfficer(String name, String surname)
+	{
+		OfficerSQL criterias = new OfficerSQL();
+		criterias.setName(name);
+		criterias.setSurname(surname);
+		return new Assembler().officerListToDto(officerDAO.search(criterias));
+	}
 	
 }

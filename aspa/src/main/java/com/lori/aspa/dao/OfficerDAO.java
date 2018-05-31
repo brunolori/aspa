@@ -30,8 +30,14 @@ public class OfficerDAO {
 
 	public Officer create(Officer officer) 
 	{
+		Officer o = findById(officer.getId());
+		if(o == null) {
 		em.persist(officer);
 		em.flush();
+		}else
+		{
+			officer = em.merge(officer);
+		}
 		return officer;
 	}
 

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,7 +62,7 @@ public class User implements Serializable {
         )
     private List<Role> roles;
     @JoinColumn(name = "OFFICER_ID", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Officer officer;
     @JoinColumn(name = "UPDATE_USER_ID", referencedColumnName = "ID")
     @ManyToOne

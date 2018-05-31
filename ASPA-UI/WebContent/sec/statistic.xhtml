@@ -84,7 +84,7 @@
 						<div class="overview-box-title">Autorizime gjithsej</div>
 						<div class="overview-box-details">
 							<i class="fa fa-file overview-box-details-icon" /> <span
-								class="overview-box-details-count">#{statisticBean.inProcessAuthNr}</span>
+								class="overview-box-details-count">#{statisticBean.totalAuthNr}</span>
 						</div>
 						<div class="overview-box-stats" style="color: #3fb839">#{formatBean.formatDate(statisticBean.fromDate)} - #{formatBean.formatDate(statisticBean.toDate)}</div>
 					</div>
@@ -172,11 +172,13 @@
 				</div>
 
 				<div class="ui-g-12 ui-md-4">
-					<p:panel header="Punonjës sipas ditë-shërbimi" style="height: 99%">
-						<p:dataTable emptyMessage="">
-							<p:column headerText="#"></p:column>
-							<p:column headerText="Punonjësi"></p:column>
-							<p:column headerText="Ditë"></p:column>
+					<p:panel header="Punonjësit sipas ditë-shërbimi" >
+						<p:dataTable value="#{statisticBean.officersByService}" var="os" emptyMessage="Nuk ka sherbime"
+						rowIndexVar="r">
+						<f:facet name="header">#{formatBean.formatDate(statisticBean.fromDate)} - #{formatBean.formatDate(statisticBean.toDate)}</f:facet>
+							<p:column headerText="#">#{r+1}</p:column>
+							<p:column headerText="Punonjësi">#{os.officer.fullName()}</p:column>
+							<p:column headerText="Ditë">#{os.count}</p:column>
 						</p:dataTable>
 					</p:panel>
 				</div>

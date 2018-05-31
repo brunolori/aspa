@@ -104,4 +104,16 @@ public class StructureDAO {
 
 	}
 	
+	public List<Structure> listChilds(String code)
+	{
+		return em.createQuery("FROM Structure s WHERE s.status=:st AND s.code LIKE :cod")
+				.setParameter("st", IStatus.ACTIVE)
+				.setParameter("cod", code+"%")
+				.getResultList();
+	}
+	
+	
+	
+	
+	
 }

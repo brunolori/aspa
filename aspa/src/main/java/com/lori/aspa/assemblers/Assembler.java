@@ -433,6 +433,7 @@ public class Assembler {
 		dto.setActive(e.getStatus() == IStatus.ACTIVE);
 		dto.setId(e.getId());
 		dto.setName(e.getName());
+		dto.setCode(e.getCode());
 		if(e.getParent() != null) {
 	    dto.setParent(e.getParent().getName());
 		dto.setParentId(e.getParent().getId());

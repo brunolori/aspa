@@ -38,6 +38,8 @@ public class Structure implements Serializable {
     private Structure parent;
     @Column(name = "STATUS")
     private int status;
+    @Column(name = "CODE")
+    private String code;
     @Column(name = "CREATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -137,6 +139,14 @@ public class Structure implements Serializable {
 
 	public void setCreateUser(User createUser) {
 		this.createUser = createUser;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
   
