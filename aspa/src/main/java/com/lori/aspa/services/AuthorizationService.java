@@ -145,6 +145,7 @@ public class AuthorizationService {
 		auth.setOfficers(officers);
 		auth.setRank(1);
 		auth.setReasonOfTravel(dto.getReasonOfTravel());
+		auth.setServiceObjectives(dto.getServiceObjectives());
 		auth.setStatus(IStatus.ACTIVE);
 		auth.setToPlace(toPlace);
 		auth.setStructure(structure);
@@ -241,6 +242,8 @@ public class AuthorizationService {
 		auth.setOfficers(officers);
 		auth.setVehicles(vehicles);
 		auth.setReasonOfTravel(dto.getReasonOfTravel());
+		auth.setServiceObjectives(dto.getServiceObjectives());
+		auth.setServiceRaporting(dto.getServiceRaporting());
 		auth.setStructure(structure);
 		auth.setDecision(IDecision.IN_PROCESS);
 
@@ -278,7 +281,7 @@ public class AuthorizationService {
 
 		if (decision.equals(IDecision.IN_PROCESS)) {
 			if (dto.getNextUserId() <= 0) {
-				throw new EmptyFieldsException("Zgjidhni personin qe do firmosi");
+				throw new EmptyFieldsException("Zgjidhni personin që do firmosi");
 			}
 		}
 

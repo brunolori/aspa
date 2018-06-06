@@ -1,9 +1,14 @@
 package com.lori.aspa.api;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +25,7 @@ import com.lori.aspa.exceptions.AppException;
 import com.lori.aspa.model.MyDashboardDTO;
 import com.lori.aspa.security.TokenUtil;
 import com.lori.aspa.services.AuthorizationService;
+import com.lori.aspa.services.PdfExporter;
 import com.lori.aspa.services.UserService;
 
 @RestController
@@ -30,6 +36,8 @@ public class AuthorizationApi {
 	AuthorizationService authorizationService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	PdfExporter pdfExporter;
 
 	@RequestMapping(value = "/findAuthorization/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> findAuthorization(@PathVariable(name = "id") Integer authorizationId) {
@@ -132,4 +140,28 @@ public class AuthorizationApi {
 		return new ResponseEntity<>(auths, HttpStatus.OK);
 	}
 
+	
+	
+	@RequestMapping(value = "/pdfAuth", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> pdfExporter(@PathVariable(name = "auth_id") Integer authorizationId) throws IOException {
+		
+		AuthorizationDTO authorization = authorizationService.findAuthorizationById(authorizationId);
+		
+		
+
+        InputStream bis = pdfExporter.authorizationPdf(null);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=authorization.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+    }
+	
+	
+	
+	
 }

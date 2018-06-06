@@ -25,43 +25,37 @@ public class OfficerService {
 
 	@Autowired
 	OfficerDAO officerDAO;
-	@Autowired 
+	@Autowired
 	StructureService structureService;
 	@Autowired
 	AuthorizationDAO authorizationDAO;
-	
-	
-	public OfficerDTO findOfficerById(Integer officerId)
-	{
+
+	public OfficerDTO findOfficerById(Integer officerId) {
 		return new Assembler().toDto(officerDAO.findById(officerId));
 	}
-	
-	
-	
-	public List<OfficerDTO> getStructureOfficers(Integer structureId)
-	{
+
+	public List<OfficerDTO> getStructureOfficers(Integer structureId) {
 		List<StructureDTO> strs = structureService.getStructureChilds(structureId);
-		if(strs == null) strs = new ArrayList<>();
+		if (strs == null)
+			strs = new ArrayList<>();
 		strs.add(structureService.findStructureById(structureId));
-		
+
 		List<Integer> stdIds = new ArrayList<>();
-		
-		for(StructureDTO d : strs)
-		{
+
+		for (StructureDTO d : strs) {
 			stdIds.add(d.getId());
 		}
-				
+
 		OfficerSQL criterias = new OfficerSQL();
 		criterias.setStructuresIdList(stdIds);
 		criterias.setStatus(IStatus.ACTIVE);
-		
+
 		return new Assembler().officerListToDto(officerDAO.search(criterias));
-		
+
 	}
-	
-	public OfficerDTO isAvailable(Integer officerId,Date from, Date to, Integer authId) throws EntityExistsException
-	{
-		
+
+	public OfficerDTO isAvailable(Integer officerId, Date from, Date to, Integer authId) throws EntityExistsException {
+
 		Officer o = officerDAO.findById(officerId);
 		AuthorizationSQL authSql = new AuthorizationSQL();
 		authSql.setFromDate(from);
@@ -70,33 +64,29 @@ public class OfficerService {
 		authSql.setNotDecision(IDecision.DENY);
 		authSql.setOfficerId(officerId);
 
-		List<Authorization> listAuth =  authorizationDAO.search(authSql);
-		
-		if(listAuth == null || listAuth.isEmpty())
-		{
+		List<Authorization> listAuth = authorizationDAO.search(authSql);
+
+		if (listAuth == null || listAuth.isEmpty()) {
 			return new Assembler().toDto(o);
 		}
-		if(authId == null || (authId == listAuth.get(0).getId()))
-		{
+		if (authId == null || (authId == listAuth.get(0).getId())) {
 			return new Assembler().toDto(o);
 		}
-		
-		throw new EntityExistsException(o.getName()+" "+o.getSurname()+" është i planifikuar me shërbim drejt "+listAuth.get(0).getToPlace().getName());
-		
-		
+
+		throw new EntityExistsException(o.getName() + " " + o.getSurname() + " është i planifikuar me shërbim drejt "
+				+ listAuth.get(0).getToPlace().getName());
+
 	}
-	
-	public List<OfficerDTO> queryOfficer(String query)
-	{
+
+	public List<OfficerDTO> queryOfficer(String query) {
 		return new Assembler().officerListToDto(officerDAO.queryOfficer(query));
 	}
-	
-	public List<OfficerDTO> searchOfficer(String name, String surname)
-	{
+
+	public List<OfficerDTO> searchOfficer(String name, String surname) {
 		OfficerSQL criterias = new OfficerSQL();
 		criterias.setName(name);
 		criterias.setSurname(surname);
 		return new Assembler().officerListToDto(officerDAO.search(criterias));
 	}
-	
+
 }

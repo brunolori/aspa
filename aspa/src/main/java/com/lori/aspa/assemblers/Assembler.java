@@ -100,6 +100,8 @@ public class Assembler {
 		dto.setFromPlace(e.getFromPlace().getName());
 		dto.setFromPlaceId(e.getFromPlace().getId());
 		dto.setRank(e.getRank());
+		dto.setServiceObjectives(e.getServiceObjectives());
+		dto.setServiceRaporting(e.getServiceRaporting());
 		dto.setReasonOfTravel(e.getReasonOfTravel());
 		dto.setStructure(e.getStructure().getName());
 		dto.setStructureId(e.getStructure().getId());

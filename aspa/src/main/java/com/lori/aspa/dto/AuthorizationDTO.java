@@ -30,7 +30,8 @@ public class AuthorizationDTO {
 	    List<OfficerDTO> officers;
 	    List<TravelDTO> travels;
 	    List<VehicleDTO> vehicles;
-	    
+	    String serviceObjectives;
+	    String serviceRaporting;
 	    
 	    
 		public Integer getId() {
@@ -193,6 +194,20 @@ public class AuthorizationDTO {
 		public void setVehicles(List<VehicleDTO> vehicles) {
 			this.vehicles = vehicles;
 		}
+		public String getServiceObjectives() {
+			return serviceObjectives;
+		}
+		public void setServiceObjectives(String serviceObjectives) {
+			this.serviceObjectives = serviceObjectives;
+		}
+		public String getServiceRaporting() {
+			return serviceRaporting;
+		}
+		public void setServiceRaporting(String serviceRaporting) {
+			this.serviceRaporting = serviceRaporting;
+		}
+		
+		
 		@Override
 		public String toString() {
 			return "AuthorizationDTO [id=" + id + ", fromPlace=" + fromPlace + ", fromPlaceId=" + fromPlaceId
@@ -202,9 +217,12 @@ public class AuthorizationDTO {
 					+ ", structureId=" + structureId + ", user=" + user + ", userId=" + userId + ", authorizationDate="
 					+ authorizationDate + ", active=" + active + ", nextUserId=" + nextUserId + ", nextUser=" + nextUser
 					+ ", nextStructure=" + nextStructure + ", officers=" + officers + ", travels=" + travels
-					+ ", vehicles=" + vehicles + "]";
+					+ ", vehicles=" + vehicles + ", serviceObjectives=" + serviceObjectives + ", serviceRaporting="
+					+ serviceRaporting + "]";
 		}
-	    
+		
+		
+		
 	    
 	    
 	    

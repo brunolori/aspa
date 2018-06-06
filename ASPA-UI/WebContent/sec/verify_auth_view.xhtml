@@ -29,27 +29,36 @@
 
 
 				<div class="ui-g-12 ui-md-4">
-					<p:panel header="Verifiko" >
+					<p:panel header="Verifiko">
 						<p:panelGrid layout="grid" columns="1"
 							styleClass="ui-panelgrid-blank form-group">
-							<p:outputLabel value="Veprimi" styleClass="bold" rendered="#{not loginBean.userToken.user.finalApproval}"/> 
-							<p:selectOneMenu value="#{verifyAuthBean.decider.decision}" rendered="#{not loginBean.userToken.user.finalApproval}">
+							<p:outputLabel value="Veprimi" styleClass="bold"
+								rendered="#{not loginBean.userToken.user.finalApproval}" />
+							<p:selectOneMenu value="#{verifyAuthBean.decider.decision}"
+								rendered="#{not loginBean.userToken.user.finalApproval}">
 								<f:selectItem itemLabel="Veprimi..." itemValue="#{null}" />
-								<f:selectItem itemLabel="Mirato" itemValue="#{constantBean.DECISION_ACCEPT}" />
-								<f:selectItem itemLabel="Të ndryshohet" itemValue="#{constantBean.DECISION_RETURNED}" />
-								<f:selectItem itemLabel="Refuzo" itemValue="#{constantBean.DECISION_DENY}" />
+								<f:selectItem itemLabel="Mirato"
+									itemValue="#{constantBean.DECISION_ACCEPT}" />
+								<f:selectItem itemLabel="Të ndryshohet"
+									itemValue="#{constantBean.DECISION_RETURNED}" />
+								<f:selectItem itemLabel="Refuzo"
+									itemValue="#{constantBean.DECISION_DENY}" />
 							</p:selectOneMenu>
-							<p:outputLabel value="Delego për firmë" styleClass="bold"/> 
-							<p:autoComplete dropdown="true" value="#{verifyAuthBean.nextUser}" converter="userConverter"
-								completeMethod="#{verifyAuthBean.searchUser}" var="u" itemLabel="#{u.officer.fullName()}"
-								itemValue="#{u}" placeholder="Kërko..." />
-							<p:outputLabel value="Arsyeja" styleClass="bold"/> 
-							<p:inputTextarea value="#{verifyAuthBean.decider.reason}" placeholder="Arsyeja..." rows="5" />
+							<p:outputLabel value="Delego për firmë" styleClass="bold" />
+							<p:autoComplete dropdown="true"
+								value="#{verifyAuthBean.nextUser}" converter="userConverter"
+								completeMethod="#{verifyAuthBean.searchUser}" var="u"
+								itemLabel="#{u.officer.fullName()}" itemValue="#{u}"
+								placeholder="Kërko..." />
+							<p:outputLabel value="Arsyeja" styleClass="bold" />
+							<p:inputTextarea value="#{verifyAuthBean.decider.reason}"
+								placeholder="Arsyeja..." rows="5" />
 
-							<p:commandButton value="Ruaj" action="#{verifyAuthBean.decide()}" update="@form" 
-							styleClass="green-btn">
-							 <p:confirm header="Ruaj" message="Jeni të sigurt?" icon="ui-icon-alert" />
-                         </p:commandButton>
+							<p:commandButton value="Ruaj" action="#{verifyAuthBean.decide()}"
+								update="@form" styleClass="green-btn">
+								<p:confirm header="Ruaj" message="Jeni të sigurt?"
+									icon="ui-icon-alert" />
+							</p:commandButton>
 						</p:panelGrid>
 
 					</p:panel>
@@ -72,7 +81,7 @@
 
 							<p:outputLabel value="Statusi" style="font-weight: bold" />
 							<p:outputLabel value="Struktura" style="font-weight: bold" />
-							<p:inputText value="#{verifyAuthBean.auth.decision}"
+							<p:inputText value="#{formatBean.formatDecision(verifyAuthBean.auth.decision)}"
 								readonly="true" />
 							<p:inputText value="#{verifyAuthBean.auth.structure}"
 								readonly="true" />
@@ -107,11 +116,14 @@
 								style="font-weight: bold" />
 							<p:inputTextarea value="#{verifyAuthBean.auth.reasonOfTravel}"
 								rows="5" readonly="true" />
+							<p:outputLabel value="Objekt i shërbimit"
+								style="font-weight: bold" />
+							<p:inputTextarea value="#{verifyAuthBean.auth.serviceObjectives}"
+								rows="5" readonly="true" />
 						</p:panelGrid>
 					</p:panel>
 				</div>
-	<div class="ui-g-12 ui-md-4 ">
-	</div>
+				<div class="ui-g-12 ui-md-4 "></div>
 				<div class="ui-g-12 ui-md-8 ">
 					<p:panel header="Historiku Autorizimit" style="height: 99%">
 						<p:dataTable value="#{verifyAuthBean.history}" var="h"

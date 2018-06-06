@@ -30,11 +30,11 @@ public class StatisticClient {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
 		builder.queryParam("from", DateUtil.formatDate(fromDate));
 		builder.queryParam("to", DateUtil.formatDate(toDate));
-		if(StringUtil.isValid(decision)) {
-		builder.queryParam("decision", decision);
+		if (StringUtil.isValid(decision)) {
+			builder.queryParam("decision", decision);
 		}
-		if(structureId != null) {
-		builder.queryParam("structureId", structureId);
+		if (structureId != null) {
+			builder.queryParam("structureId", structureId);
 		}
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -132,11 +132,9 @@ public class StatisticClient {
 		return 0;
 
 	}
-	
-	
+
 	public List<ValuePair> getOfficersInServiceByDate(Date fromDate, Date toDate, Integer structureId, String token) {
-		
-		
+
 		final String BASE_URL = IApiClient.SERVER + "/api/statistic/getOfficersInServiceByDate";
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
@@ -152,22 +150,22 @@ public class StatisticClient {
 		headers.set("Authorization", token);
 		HttpEntity<?> entity = new HttpEntity<Object>(headers);
 
-		ParameterizedTypeReference<List<ValuePair>> typeRef = new ParameterizedTypeReference<List<ValuePair>>() {};
-		
-		ResponseEntity<List<ValuePair>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
+		ParameterizedTypeReference<List<ValuePair>> typeRef = new ParameterizedTypeReference<List<ValuePair>>() {
+		};
+
+		ResponseEntity<List<ValuePair>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity,
+				typeRef);
 
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
 		}
 
 		return null;
-		
 
 	}
-	
-	
-	public List<ValuePair> countAuthorizationsByMonth(Integer year, Integer structureId, String token){
-		
+
+	public List<ValuePair> countAuthorizationsByMonth(Integer year, Integer structureId, String token) {
+
 		final String BASE_URL = IApiClient.SERVER + "/api/statistic/countAuthorizationsByMonth";
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
@@ -182,23 +180,22 @@ public class StatisticClient {
 		headers.set("Authorization", token);
 		HttpEntity<?> entity = new HttpEntity<Object>(headers);
 
-		ParameterizedTypeReference<List<ValuePair>> typeRef = new ParameterizedTypeReference<List<ValuePair>>() {};
-		
-		ResponseEntity<List<ValuePair>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
+		ParameterizedTypeReference<List<ValuePair>> typeRef = new ParameterizedTypeReference<List<ValuePair>>() {
+		};
+
+		ResponseEntity<List<ValuePair>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity,
+				typeRef);
 
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
 		}
 
 		return null;
-		
-		
+
 	}
-	
-	
-public List<OfficerCount> getOfficersByServiceNo(Date fromDate, Date toDate, Integer structureId, String token) {
-		
-		
+
+	public List<OfficerCount> getOfficersByServiceNo(Date fromDate, Date toDate, Integer structureId, String token) {
+
 		final String BASE_URL = IApiClient.SERVER + "/api/statistic/officersByServiceNo";
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
@@ -214,37 +211,35 @@ public List<OfficerCount> getOfficersByServiceNo(Date fromDate, Date toDate, Int
 		headers.set("Authorization", token);
 		HttpEntity<?> entity = new HttpEntity<>(headers);
 
-		ParameterizedTypeReference<List<OfficerCount>> typeRef = new ParameterizedTypeReference<List<OfficerCount>>() {};
-		
-		ResponseEntity<List<OfficerCount>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
+		ParameterizedTypeReference<List<OfficerCount>> typeRef = new ParameterizedTypeReference<List<OfficerCount>>() {
+		};
+
+		ResponseEntity<List<OfficerCount>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
+				entity, typeRef);
 
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
 		}
 
 		return null;
-		
 
 	}
-	
-	
-	
 
 	public static void main(String[] args) {
 		StatisticClient c = new StatisticClient();
 		UserClient u = new UserClient();
 
-		UserTokenDTO k = u.login(new Principal("bolja", "1234"));
+		UserTokenDTO k = u.login(new Principal("bruno", "1234"));
 
-		List<OfficerCount> list = c.getOfficersByServiceNo(DateUtil.toDate("01.05.2018"), DateUtil.toDate("30.06.2018"), null, k.getToken());
+		List<OfficerCount> list = c.getOfficersByServiceNo(DateUtil.toDate("01.05.2018"), DateUtil.toDate("30.06.2018"),
+				null, k.getToken());
 
 		System.out.println("STATISTIC:..... ");
-		for(OfficerCount p : list)
-		{
-			 OfficerDTO o = p.getOfficer();
-			 int v = (int)p.getCount();
-			
-			System.out.println("O_ID: "+o.fullName()+"\t NO:"+v);
+		for (OfficerCount p : list) {
+			OfficerDTO o = p.getOfficer();
+			int v = (int) p.getCount();
+
+			System.out.println("O_ID: " + o.fullName() + "\t NO:" + v);
 		}
 	}
 

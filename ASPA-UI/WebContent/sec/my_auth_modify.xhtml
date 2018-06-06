@@ -10,28 +10,29 @@
 		<h:form>
 			<h2>Modifiko autorizimin</h2>
 			<div class="ui-g ui-fluid">
-			
-			<div class="ui-g-12 ui-md-4">
+
+				<div class="ui-g-12 ui-md-4">
 					<p:panelGrid layout="grid" columns="2"
 						styleClass="ui-panelgrid-blank">
-						<p:commandButton value="Mbrapa" action="#{modifyAuthBean.viewAuth()}" icon="fa fa-arrow-left"
-							styleClass="orange-btn"/>
+						<p:commandButton value="Mbrapa"
+							action="#{modifyAuthBean.viewAuth()}" icon="fa fa-arrow-left"
+							styleClass="orange-btn" />
 
 						<p:commandButton value="Ruaj ndryshimet" icon="fa fa-save"
-						action="#{modifyAuthBean.modify()}"
-							styleClass="green-btn"
-							update="@form" >
-							 <p:confirm header="Ruaj ndryshimet" message="Jeni të sigurt?" icon="ui-icon-alert" />
-                         </p:commandButton>
+							action="#{modifyAuthBean.modify()}" styleClass="green-btn"
+							update="@form">
+							<p:confirm header="Ruaj ndryshimet" message="Jeni të sigurt?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
 					</p:panelGrid>
 				</div>
-				
+
 				<div class="ui-g-12">
 					<p:messages showDetail="true" closable="true">
 						<p:autoUpdate />
 					</p:messages>
 				</div>
-			
+
 				<div class="ui-g-12 ui-md-6 ">
 					<p:panel header="Të dhënat e autorizimit">
 						<p:panelGrid columns="2" layout="grid"
@@ -46,14 +47,14 @@
 							</p:selectOneMenu>
 
 							<p:outputLabel value="Nisja" style="font-weight: bold" />
-							<p:selectOneMenu value="#{modifyAuthBean.auth.fromPlaceId}">
+							<p:selectOneMenu value="#{modifyAuthBean.auth.fromPlaceId}" filter="true" filterMatchMode="contains">
 								<f:selectItem itemValue="#{null}" itemLabel="Nisja" />
 								<f:selectItems value="#{modifyAuthBean.places}" var="fp"
 									itemValue="#{fp.id}" itemLabel="#{fp.name}" />
 							</p:selectOneMenu>
 
 							<p:outputLabel value="Destinacioni" style="font-weight: bold" />
-							<p:selectOneMenu value="#{modifyAuthBean.auth.toPlaceId}">
+							<p:selectOneMenu value="#{modifyAuthBean.auth.toPlaceId}" filter="true" filterMatchMode="contains">
 								<f:selectItem itemValue="#{null}" itemLabel="Destinacioni" />
 								<f:selectItems value="#{modifyAuthBean.places}" var="dp"
 									itemValue="#{dp.id}" itemLabel="#{dp.name}" />
@@ -61,31 +62,38 @@
 
 							<p:outputLabel value="Data nisjes" style="font-weight: bold" />
 							<p:inputText value="#{modifyAuthBean.auth.fromDate}"
-								 placeholder="Data nisjes" />
-								
+								placeholder="Data nisjes" />
+
 							<p:outputLabel value="Data kthimit" style="font-weight: bold" />
 							<p:inputText value="#{modifyAuthBean.auth.toDate}"
-								 placeholder="Data kthimit" />
+								placeholder="Data kthimit" />
 
 							<p:outputLabel value="Automjetet" style="font-weight: bold" />
 							<p:selectCheckboxMenu value="#{modifyAuthBean.selectedVehicles}"
 								label="Automjetet" multiple="true" filter="true"
 								filterMatchMode="contains" converter="vehicleConverter"
-								panelStyle="width:250px" >
+								panelStyle="width:250px">
 								<f:selectItems value="#{modifyAuthBean.vehicles}" var="v"
 									itemLabel="#{v.plate}" itemValue="#{v}" />
 							</p:selectCheckboxMenu>
-							
-							<p:outputLabel value="Arsyeja e sherbimit"
+
+							<p:outputLabel value="Arsyeja e shërbimit"
 								style="font-weight: bold" />
 							<p:inputTextarea value="#{modifyAuthBean.auth.reasonOfTravel}"
 								placeholder="Arsyeja e shërbimit" rows="5" />
-								
+
+							<p:outputLabel value="Objekt i shërbimit"
+								style="font-weight: bold" />
+							<p:inputTextarea value="#{modifyAuthBean.auth.serviceObjectives}"
+								placeholder="Objekt i shërbimit" rows="5" />
+
 							<p:outputLabel value="Delego për firmë" style="font-weight: bold" />
-							
-							<p:selectOneMenu value="#{modifyAuthBean.auth.nextUserId}" placeholder="Delego për firmë">
-								<f:selectItem itemValue="#{null}" itemLabel="Delego për firmë"/>
-								<f:selectItems value="#{modifyAuthBean.users}" var="u" itemLabel="#{u.officer.fullName()}" itemValue="#{u.id}"/>
+
+							<p:selectOneMenu value="#{modifyAuthBean.auth.nextUserId}"
+								placeholder="Delego për firmë">
+								<f:selectItem itemValue="#{null}" itemLabel="Delego për firmë" />
+								<f:selectItems value="#{modifyAuthBean.users}" var="u"
+									itemLabel="#{u.officer.fullName()}" itemValue="#{u.id}" />
 							</p:selectOneMenu>
 
 
@@ -98,43 +106,47 @@
 				<div class="ui-g-12 ui-md-6">
 
 					<p:panel header="Lista punonjësve" style="height: 99%">
-					<p:panelGrid layout="grid" columns="1" styleClass="ui-panelgrid-blank"> 
-						<p:autoComplete id="ac_sx_off" value="#{modifyAuthBean.selectedOfficer}"
-							placeholder="Kërko punonjësin..."
-							completeMethod="#{modifyAuthBean.searchOfficer}" var="ao" itemLabel="#{ao.fullName()}"
-							itemValue="#{ao}"
-							converter="officerConverter">
-							<p:ajax event="itemSelect"
-								listener="#{modifyAuthBean.onOfficerSelect}" update="ac_sx_off off_tbl" />
-						</p:autoComplete>
-						<p:dataTable id="off_tbl" value="#{modifyAuthBean.selectedOfficers}"
-							var="o" rowIndexVar="r" reflow="true" styleClass="no-border"
-							emptyMessage="Nuk keni zgjedhur asnjë punonjës">
-							<p:column headerText="#">
+						<p:panelGrid layout="grid" columns="1"
+							styleClass="ui-panelgrid-blank">
+							<p:autoComplete id="ac_sx_off"
+								value="#{modifyAuthBean.selectedOfficer}"
+								placeholder="Kërko punonjësin..."
+								completeMethod="#{modifyAuthBean.searchOfficer}" var="ao"
+								itemLabel="#{ao.fullName()}" itemValue="#{ao}"
+								converter="officerConverter">
+								<p:ajax event="itemSelect"
+									listener="#{modifyAuthBean.onOfficerSelect}"
+									update="ac_sx_off off_tbl" />
+							</p:autoComplete>
+							<p:dataTable id="off_tbl"
+								value="#{modifyAuthBean.selectedOfficers}" var="o"
+								rowIndexVar="r" reflow="true" styleClass="no-border"
+								emptyMessage="Nuk keni zgjedhur asnjë punonjës">
+								<p:column headerText="#">
 										#{r+1}
 									</p:column>
-							<p:column headerText="Punonjësi">
+								<p:column headerText="Punonjësi">
 										#{o.name} #{o.surname}
 									</p:column>
-							<p:column headerText="Struktura">
+								<p:column headerText="Struktura">
 										#{o.structure}
 									</p:column>
-							<p:column headerText="Funksioni">
+								<p:column headerText="Funksioni">
 										#{o.function}
 									</p:column>
-							<p:column headerText="Hiq">
-								<p:commandLink value="hiq" update="off_tbl"
-									action="#{modifyAuthBean.removeOfficer(o)}" />
-							</p:column>
-						</p:dataTable>
+								<p:column headerText="Hiq">
+									<p:commandLink value="hiq" update="off_tbl"
+										action="#{modifyAuthBean.removeOfficer(o)}" />
+								</p:column>
+							</p:dataTable>
 						</p:panelGrid>
 					</p:panel>
 
 				</div>
 
-				
 
-				
+
+
 
 			</div>
 

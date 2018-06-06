@@ -35,12 +35,14 @@
 							<p:outputLabel value="Përdoruesi" style="font-weight: bold" />
 							<p:inputText value="#{verifiedAuthBean.auth.authorizationDate}"
 								readonly="true" />
-							<p:inputText value="#{verifiedAuthBean.auth.user}" readonly="true" />
+							<p:inputText value="#{verifiedAuthBean.auth.user}"
+								readonly="true" />
 
 
 							<p:outputLabel value="Statusi" style="font-weight: bold" />
 							<p:outputLabel value="Struktura" style="font-weight: bold" />
-							<p:inputText value="#{formatBean.formatDecision(verifiedAuthBean.auth.decision)}"
+							<p:inputText
+								value="#{formatBean.formatDecision(verifiedAuthBean.auth.decision)}"
 								readonly="true" />
 							<p:inputText value="#{verifiedAuthBean.auth.structure}"
 								readonly="true" />
@@ -62,11 +64,11 @@
 							<p:outputLabel value="Automjetet" style="font-weight: bold" />
 							<p:outputLabel value="Punonjësit" style="font-weight: bold" />
 							<p:dataList value="#{verifiedAuthBean.auth.vehicles}" var="v">
-		  			#{v.plate}
-		  		</p:dataList>
+		  						#{v.plate}
+		  					</p:dataList>
 							<p:dataList value="#{verifiedAuthBean.auth.officers}" var="of">
-		  			#{of.name} #{of.surname}
-		  		</p:dataList>
+		  						#{of.name} #{of.surname}
+		  		           	</p:dataList>
 
 						</p:panelGrid>
 						<p:panelGrid layout="grid" columns="1"
@@ -74,6 +76,10 @@
 							<p:outputLabel value="Arsyeja e shërbimit"
 								style="font-weight: bold" />
 							<p:inputTextarea value="#{verifiedAuthBean.auth.reasonOfTravel}"
+								rows="5" readonly="true" />
+							<p:outputLabel value="Objekt i shërbimit"
+								style="font-weight: bold" />
+							<p:inputTextarea value="#{verifiedAuthBean.auth.serviceObjectives}"
 								rows="5" readonly="true" />
 						</p:panelGrid>
 					</p:panel>
@@ -90,14 +96,9 @@
 							<p:column headerText="Veprimi">#{formatBean.formatDecision(h.decision)}</p:column>
 							<p:column headerText="Arsyeja">#{h.reason}</p:column>
 						</p:dataTable>
+
 					</p:panel>
 				</div>
-
-
-
-
-
-
 
 			</div>
 		</h:form>

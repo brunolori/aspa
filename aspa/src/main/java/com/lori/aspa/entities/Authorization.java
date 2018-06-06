@@ -71,6 +71,10 @@ public class Authorization implements Serializable {
     @Column(name = "UPDATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
+    @Column(name = "SERVICE_OBJECTIVES")
+    private String serviceObjectives;
+    @Column(name = "SERVICE_RAPORTING")
+    private String serviceRaporting;
     @JoinColumn(name = "NEXT_USER_ID", referencedColumnName = "ID")
     @ManyToOne
     private User nextUser;
@@ -259,6 +263,22 @@ public class Authorization implements Serializable {
 
 	public void setNextUser(User nextUser) {
 		this.nextUser = nextUser;
+	}
+
+	public String getServiceObjectives() {
+		return serviceObjectives;
+	}
+
+	public void setServiceObjectives(String serviceObjectives) {
+		this.serviceObjectives = serviceObjectives;
+	}
+
+	public String getServiceRaporting() {
+		return serviceRaporting;
+	}
+
+	public void setServiceRaporting(String serviceRaporting) {
+		this.serviceRaporting = serviceRaporting;
 	}
 
 	

@@ -25,14 +25,14 @@
 							</p:selectOneMenu>
 
 							<p:outputLabel value="Nisja" style="font-weight: bold" />
-							<p:selectOneMenu value="#{newAuthBean.auth.fromPlaceId}">
+							<p:selectOneMenu value="#{newAuthBean.auth.fromPlaceId}" filter="true" filterMatchMode="contains">
 								<f:selectItem itemValue="#{null}" itemLabel="Nisja" />
 								<f:selectItems value="#{newAuthBean.places}" var="fp"
 									itemValue="#{fp.id}" itemLabel="#{fp.name}" />
 							</p:selectOneMenu>
 
 							<p:outputLabel value="Destinacioni" style="font-weight: bold" />
-							<p:selectOneMenu value="#{newAuthBean.auth.toPlaceId}" >
+							<p:selectOneMenu value="#{newAuthBean.auth.toPlaceId}" filter="true" filterMatchMode="contains">
 								<f:selectItem itemValue="#{null}" itemLabel="Destinacioni" />
 								<f:selectItems value="#{newAuthBean.places}" var="dp"
 									itemValue="#{dp.id}" itemLabel="#{dp.name}" />
@@ -42,8 +42,8 @@
 							<p:inputMask value="#{newAuthBean.auth.fromDate}"
 								mask="99.99.9999" placeholder="Data nisjes" />
 							<p:outputLabel value="Data kthimit" style="font-weight: bold" />
-							<p:inputMask value="#{newAuthBean.auth.toDate}"
-								mask="99.99.9999" placeholder="Data kthimit" />
+							<p:inputMask value="#{newAuthBean.auth.toDate}" mask="99.99.9999"
+								placeholder="Data kthimit" />
 
 							<p:outputLabel value="Automjetet" style="font-weight: bold" />
 							<p:selectCheckboxMenu value="#{newAuthBean.selectedVehicles}"
@@ -57,15 +57,17 @@
 								style="font-weight: bold" />
 							<p:inputTextarea value="#{newAuthBean.auth.reasonOfTravel}"
 								placeholder="Arsyeja e shërbimit" rows="5" />
+							<p:outputLabel value="Objekt i shërbimit"
+								style="font-weight: bold" />
+							<p:inputTextarea value="#{newAuthBean.auth.serviceObjectives}"
+								placeholder="Objekt i shërbimit" rows="5" />
 							<p:outputLabel value="Delego për firmë" style="font-weight: bold" />
 							<p:autoComplete id="dd" dropdown="true"
 								value="#{newAuthBean.nextUser}"
-								completeMethod="#{newAuthBean.searchUser}" 
-								var="nu" converter="userConverter"
-								itemLabel="#{nu.officer.fullName()}"
-								itemValue="#{nu}" 
-								placeholder="Delego për firmë"/>
-								
+								completeMethod="#{newAuthBean.searchUser}" var="nu"
+								converter="userConverter" itemLabel="#{nu.officer.fullName()}"
+								itemValue="#{nu}" placeholder="Delego për firmë" />
+
 						</p:panelGrid>
 
 					</p:panel>
@@ -75,35 +77,38 @@
 				<div class="ui-g-12 ui-md-6">
 
 					<p:panel header="Shto punonjësit" style="height: 99%">
-					<p:panelGrid layout="grid" columns="1" styleClass="ui-panelgrid-blank"> 
-						<p:autoComplete id="ac_sx_off" value="#{newAuthBean.selectedOfficer}"
-							placeholder="Kërko punonjësin..."
-							completeMethod="#{newAuthBean.searchOfficer}" var="ao" itemLabel="#{ao.fullName()}"
-							itemValue="#{ao}"
-							converter="officerConverter">
-							<p:ajax event="itemSelect"
-								listener="#{newAuthBean.onOfficerSelect}" update="ac_sx_off off_tbl" />
-						</p:autoComplete>
-						<p:dataTable id="off_tbl" value="#{newAuthBean.selectedOfficers}"
-							var="o" rowIndexVar="r" reflow="true" styleClass="no-border"
-							emptyMessage="Nuk keni zgjedhur asnjë punonjës">
-							<p:column headerText="#">
+						<p:panelGrid layout="grid" columns="1"
+							styleClass="ui-panelgrid-blank">
+							<p:autoComplete id="ac_sx_off"
+								value="#{newAuthBean.selectedOfficer}"
+								placeholder="Kërko punonjësin..."
+								completeMethod="#{newAuthBean.searchOfficer}" var="ao"
+								itemLabel="#{ao.fullName()}" itemValue="#{ao}"
+								converter="officerConverter">
+								<p:ajax event="itemSelect"
+									listener="#{newAuthBean.onOfficerSelect}"
+									update="ac_sx_off off_tbl" />
+							</p:autoComplete>
+							<p:dataTable id="off_tbl" value="#{newAuthBean.selectedOfficers}"
+								var="o" rowIndexVar="r" reflow="true" styleClass="no-border"
+								emptyMessage="Nuk keni zgjedhur asnjë punonjës">
+								<p:column headerText="#">
 										#{r+1}
 									</p:column>
-							<p:column headerText="Punonjësi">
+								<p:column headerText="Punonjësi">
 										#{o.name} #{o.surname}
 									</p:column>
-							<p:column headerText="Struktura">
+								<p:column headerText="Struktura">
 										#{o.structure}
 									</p:column>
-							<p:column headerText="Funksioni">
+								<p:column headerText="Funksioni">
 										#{o.function}
 									</p:column>
-							<p:column headerText="Hiq">
-								<p:commandLink value="hiq" update="off_tbl"
-									action="#{newAuthBean.removeOfficer(o)}" />
-							</p:column>
-						</p:dataTable>
+								<p:column headerText="Hiq">
+									<p:commandLink value="hiq" update="off_tbl"
+										action="#{newAuthBean.removeOfficer(o)}" />
+								</p:column>
+							</p:dataTable>
 						</p:panelGrid>
 					</p:panel>
 
@@ -121,14 +126,16 @@
 						<p:commandButton value="Regjistro" icon="fa fa-save"
 							styleClass="blue-btn" action="#{newAuthBean.register()}"
 							update="@form">
-							 <p:confirm header="Regjistro autorizimin" message="Jeni të sigurt?" icon="ui-icon-alert" />
-                         </p:commandButton>
+							<p:confirm header="Regjistro autorizimin"
+								message="Jeni të sigurt?" icon="ui-icon-alert" />
+						</p:commandButton>
 
 						<p:commandButton value="Pastro" icon="fa fa-clear"
 							styleClass="red-btn" action="#{newAuthBean.clear()}"
-							update="@form" >
-							 <p:confirm header="Pastro autorizimin" message="Jeni të sigurt?" icon="ui-icon-alert" />
-                         </p:commandButton>
+							update="@form">
+							<p:confirm header="Pastro autorizimin" message="Jeni të sigurt?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
 					</p:panelGrid>
 				</div>
 
