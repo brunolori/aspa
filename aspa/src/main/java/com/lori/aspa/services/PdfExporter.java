@@ -3,7 +3,6 @@ package com.lori.aspa.services;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.BaseColor;
@@ -138,7 +137,7 @@ public class PdfExporter {
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("Mbështetur në Planin e Veprimit Nr. 499 Prot, datë 26.04.2018, me qëllim realizimin e porosive të lëna nga Drejtori i Përgjithshem i Policisë së Shtetit, Drejtues Madhor Ardi VELIU ,mbi programimin e masave per sezonin turistik 2018 si dhe te objektivave të organizatës në funksion të garantimit të rendit e sigurisë publike gjatë fluksit veror, për plotësimin e nevojave për sigurimin dhe mbajtjen në gatishmëri të mjeteve të ndërlidhjes dhe komunikimit, si ato fikse e të lëvizshme, pajisjeve të tjera të nevojshme për kryerjen e detyrave gjatë periudhës verore:", normalFont));
+             table.addCell(new Phrase(auth.getReasonOfTravel(), normalFont));
              document.add(table);
 
              paragraf = new Paragraph("\n");
@@ -158,7 +157,7 @@ public class PdfExporter {
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("Konfigurimi, formatimi dhe kontroll i parametrave teknike të kompjuterëve, printerëve dhe skanerëve të pashaportave në PKK Porti Vlorë, PKKKakavijë, PKK Porti Sarandë, PKK Tre Urat.", normalFont));
+             table.addCell(new Phrase(auth.getServiceObjectives(), normalFont));
              document.add(table);
 
              paragraf = new Paragraph("\n");
@@ -178,27 +177,32 @@ public class PdfExporter {
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("1. PKK Porti Vlorë\n"
-                     + "2. PKK Kakavijë \n"
-                     + "3. PKK Porti Sarandë\n"
-                     + "4. PKK Tre Urat", normalFont));
+             table.addCell(new Phrase(auth.getFromPlace(), smallFont));
+             document.add(table);
+             
+             table = new PdfPTable(1);
+             table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
+             table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+             table.setWidthPercentage(90);
+             table.addCell(new Phrase(auth.getToPlace(), smallFont));
              document.add(table);
 
              paragraf = new Paragraph("\n");
              document.add(paragraf);
 
-             widths = new float[]{4f, 6f};
-             table = new PdfPTable(2);
+             widths = new float[]{4f, 3f, 3f};
+             table = new PdfPTable(3);
              table.setWidthPercentage(90);
              table.setWidths(widths);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.addCell(new Phrase("III. Koha e realizimit të shërbimit : ", normalBoldFont));
-             table.addCell(new Phrase("19.05.2018-21.05.2018", normalFont));
+             table.addCell(new Phrase(auth.getFromDate(), normalFont));
+             table.addCell(new Phrase(auth.getToDate(), normalFont));
              document.add(table);
 
              paragraf = new Paragraph("\n");
              document.add(paragraf);
-
+             
              table = new PdfPTable(1);
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
@@ -213,10 +217,7 @@ public class PdfExporter {
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("1. Lorela Shehu \n"
-                     + "2. Bruno Veizaj \n"
-                     + "3. Besjana Zjarri \n"
-                     + "4. Kleivis Hasani", normalFont));
+             table.addCell(new Phrase("test", normalFont));
              document.add(table);
 
              paragraf = new Paragraph("\n");
@@ -248,7 +249,7 @@ public class PdfExporter {
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("Në përfundim të kryerjes së shërbimit, të hartohet informacioni ne lidhje me punën e bere.", normalFont));
+             table.addCell(new Phrase(auth.getServiceRaporting(), normalFont));
              document.add(table);
 
              paragraf = new Paragraph("\n");

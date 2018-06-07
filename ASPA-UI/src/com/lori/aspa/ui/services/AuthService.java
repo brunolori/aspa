@@ -2,6 +2,7 @@ package com.lori.aspa.ui.services;
 
 import java.util.List;
 
+
 import com.lori.aspa.ui.clients.AuthClient;
 import com.lori.aspa.ui.criterias.AuthorizationReq;
 import com.lori.aspa.ui.models.ApprovalHistoryDTO;
@@ -63,12 +64,11 @@ public class AuthService {
 		return new AuthClient().getVerifiedAuths(token);
 	}
 	
+	
 	public List<ApprovalHistoryDTO> getAuthHistory(AuthorizationDTO auth, String token)
 	{
-		 return new AuthClient().getAuthHistory(auth, token);
+		return new AuthClient().getAuthHistory(auth, token);
 	}
-	
-	
 	
 	
 	

@@ -162,7 +162,7 @@ public class AuthorizationService {
 	public AuthorizationDTO modifyAuthorization(AuthorizationDTO dto, String uname) throws AppException {
 
 		if (dto.getDecision().equals(IDecision.IN_PROCESS) && isVerified(dto)) {
-			throw new AppException("Autorizimi nuk mund te ndryshohet ne kete moment");
+			throw new AppException("Autorizimi nuk mund të ndryshohet në këtë moment");
 		}
 
 		if (dto.getUserId() == null) {

@@ -142,14 +142,12 @@ public class AuthorizationApi {
 
 	
 	
-	@RequestMapping(value = "/pdfAuth", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+	@RequestMapping(value = "/pdfAuth/{auth_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> pdfExporter(@PathVariable(name = "auth_id") Integer authorizationId) throws IOException {
 		
 		AuthorizationDTO authorization = authorizationService.findAuthorizationById(authorizationId);
 		
-		
-
-        InputStream bis = pdfExporter.authorizationPdf(null);
+        InputStream bis = pdfExporter.authorizationPdf(authorization);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=authorization.pdf");
