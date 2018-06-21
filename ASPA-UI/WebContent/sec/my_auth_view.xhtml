@@ -16,7 +16,7 @@
 				  <p:button value="Modifiko" outcome="my_auth_modify" styleClass="green-btn" icon="fa fa-edit">
 				  	<f:param name="auth_id" value="#{viewAuthBean.auth.id}"/>
 				  </p:button>
-				  <p:button value="Printo"  target="_blank" styleClass="blue-btn" icon="fa fa-print"/>
+				  <p:button value="Printo" href="http://localhost:8888/api/authorization/pdfAuth/#{viewAuthBean.auth.id}" target="_blank" styleClass="blue-btn" icon="fa fa-print"/>
 				  <p:commandButton value="Fshijë" action="#{viewAuthBean.delete()}" styleClass="red-btn" icon="fa fa-trash"/>
 			  </p:panelGrid>
 		  </div>

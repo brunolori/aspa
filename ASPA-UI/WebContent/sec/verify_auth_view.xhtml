@@ -4,8 +4,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
 
-
-
 	<ui:define name="content">
 		<h:form id="verify_auth_form">
 			<div class="ui-g ui-fluid">
@@ -14,7 +12,7 @@
 						styleClass="ui-panelgrid-blank">
 						<p:button value="Mbrapa" outcome="verify_auth_list"
 							styleClass="orange-btn" icon="fa fa-arrow-left" />
-						<p:button value="Printo" target="_blank" styleClass="blue-btn"
+						<p:button value="Printo" href="http://localhost:8888/api/authorization/pdfAuth/#{verifyAuthBean.auth.id}" target="_blank" styleClass="blue-btn"
 							icon="fa fa-print" />
 
 					</p:panelGrid>
@@ -25,7 +23,6 @@
 						<p:autoUpdate />
 					</p:messages>
 				</div>
-
 
 
 				<div class="ui-g-12 ui-md-4">
@@ -63,8 +60,6 @@
 
 					</p:panel>
 				</div>
-
-
 
 
 				<div class="ui-g-12 ui-md-8 ">
@@ -137,12 +132,6 @@
 						</p:dataTable>
 					</p:panel>
 				</div>
-
-
-
-
-
-
 
 			</div>
 		</h:form>

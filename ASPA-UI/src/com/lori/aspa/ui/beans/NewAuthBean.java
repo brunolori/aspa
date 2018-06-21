@@ -1,5 +1,6 @@
 package com.lori.aspa.ui.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import com.lori.aspa.ui.clients.ApiException;
 import com.lori.aspa.ui.models.AuthorizationDTO;
@@ -159,9 +162,17 @@ public class NewAuthBean implements Serializable {
 		
 		try {
 			auth.setNextUserId(nextUser.getId());
-			new AuthService().registerAuthorization(auth, selectedOfficers, selectedVehicles, token);
+			auth = new AuthService().registerAuthorization(auth, selectedOfficers, selectedVehicles, token);
 			Messages.throwFacesMessage("Autorizimi u regjistrua me sukses", 1);
-		    init();
+		    
+		    
+		    ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
+		    try {
+				ext.redirect("http://localhost:8888/api/authorization/pdfAuth/"+auth.getId());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		    
 		}catch(ApiException a)
 		{
 			Messages.throwFacesMessage(a.getMessage(), a.getSeverity());

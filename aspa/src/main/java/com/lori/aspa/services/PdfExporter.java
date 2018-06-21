@@ -19,6 +19,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.lori.aspa.dto.AuthorizationDTO;
+import com.lori.aspa.dto.OfficerDTO;
 
 @Service
 public class PdfExporter {
@@ -130,8 +131,7 @@ public class PdfExporter {
 
              paragraf = new Paragraph("\n");
              document.add(paragraf);
-             paragraf = new Paragraph("\n");
-             document.add(paragraf);
+
        
              table = new PdfPTable(1);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
@@ -150,9 +150,6 @@ public class PdfExporter {
              table.addCell(new Phrase("I. Objekt i shërbimit : ", normalBoldFont));
              document.add(table);
 
-             paragraf = new Paragraph("\n");
-             document.add(paragraf);
-
              table = new PdfPTable(1);
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
@@ -169,16 +166,6 @@ public class PdfExporter {
              table.setWidthPercentage(90);
              table.addCell(new Phrase("II. Njësia shpenzuese : ", normalBoldFont));
              document.add(table);
-
-             paragraf = new Paragraph("\n");
-             document.add(paragraf);
-
-             table = new PdfPTable(1);
-             table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
-             table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
-             table.setWidthPercentage(90);
-             table.addCell(new Phrase(auth.getFromPlace(), smallFont));
-             document.add(table);
              
              table = new PdfPTable(1);
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
@@ -189,15 +176,13 @@ public class PdfExporter {
 
              paragraf = new Paragraph("\n");
              document.add(paragraf);
-
-             widths = new float[]{4f, 3f, 3f};
-             table = new PdfPTable(3);
-             table.setWidthPercentage(90);
+             widths = new float[]{0.35f, 0.65f};
+             table = new PdfPTable(2);
              table.setWidths(widths);
+             table.setWidthPercentage(90);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.addCell(new Phrase("III. Koha e realizimit të shërbimit : ", normalBoldFont));
-             table.addCell(new Phrase(auth.getFromDate(), normalFont));
-             table.addCell(new Phrase(auth.getToDate(), normalFont));
+             table.addCell(new Phrase(auth.getFromDate()+" - "+auth.getToDate(), normalFont));
              document.add(table);
 
              paragraf = new Paragraph("\n");
@@ -210,14 +195,23 @@ public class PdfExporter {
              table.addCell(new Phrase("IV. Grupi i punës : ", normalBoldFont));
              document.add(table);
 
-             paragraf = new Paragraph("\n");
-             document.add(paragraf);
-
              table = new PdfPTable(1);
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("test", normalFont));
+             
+             if(auth.getOfficers() == null || auth.getOfficers().isEmpty())
+             {
+            	 table.addCell(new Phrase("nuk ka punonjes!!!", normalFont));
+             }
+             else
+             {
+            	for(OfficerDTO o : auth.getOfficers())
+            	{
+            		table.addCell(new Phrase(o.getName()+" "+o.getSurname(), normalFont));
+            	}
+             }
+             
              document.add(table);
 
              paragraf = new Paragraph("\n");
@@ -242,8 +236,6 @@ public class PdfExporter {
              table.addCell(new Phrase("VI. Raportimi :  ", normalBoldFont));
              document.add(table);
 
-             paragraf = new Paragraph("\n");
-             document.add(paragraf);
 
              table = new PdfPTable(1);
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
@@ -254,23 +246,22 @@ public class PdfExporter {
 
              paragraf = new Paragraph("\n");
              document.add(paragraf);
-             paragraf = new Paragraph("\n");
-             document.add(paragraf);
+
 
              table = new PdfPTable(1);
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("DREJTORI I PËRGJITHSHËM I POLICISË SË SHTETIT\n\n", new Font(Font.FontFamily.TIMES_ROMAN, 13, Font.BOLD)));
+             table.addCell(new Phrase("DREJTORI I PËRGJITHSHËM I POLICISË SË SHTETIT\n", new Font(Font.FontFamily.TIMES_ROMAN, 13, Font.BOLD)));
              document.add(table);
 
              table = new PdfPTable(1);
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("Drejtues Madhor  Ardi VELIU\n", new Font(Font.FontFamily.TIMES_ROMAN, 13, Font.BOLD)));
+             table.addCell(new Phrase("Drejtues Madhor Ardi VELIU\n", new Font(Font.FontFamily.TIMES_ROMAN, 13, Font.BOLD)));
              document.add(table);
-
+/*
              //document.add(paragraf);
              paragraf = new Paragraph("\n");
              document.add(paragraf);
@@ -288,21 +279,21 @@ public class PdfExporter {
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("Alda TELHAJ", normalFont));
+             table.addCell(new Phrase(auth.getUser(), normalFont));
              document.add(table);
 
              table = new PdfPTable(1);
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("Shefi i Sektorit Helpdesk", normalFont));
+             table.addCell(new Phrase("Shefi i Sektorit", normalFont));
              document.add(table);
 
              table = new PdfPTable(1);
              table.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
              table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
              table.setWidthPercentage(90);
-             table.addCell(new Phrase("Alda TELHAJ", normalFont));
+             table.addCell(new Phrase(auth.getUser(), normalFont));
              document.add(table);
 
              paragraf = new Paragraph("\n");
@@ -338,7 +329,7 @@ public class PdfExporter {
              table.setWidthPercentage(90);
              table.addCell(new Phrase("Drejtues i Lartë Theodhori GRAVANI", normalFont));
              document.add(table);
-
+*/
              document.close();
 
              InputStream stream = new ByteArrayInputStream(baos.toByteArray());

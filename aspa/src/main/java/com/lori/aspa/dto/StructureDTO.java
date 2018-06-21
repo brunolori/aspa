@@ -1,8 +1,6 @@
 package com.lori.aspa.dto;
 
 
-
-
 public class StructureDTO {
 	
 
@@ -13,10 +11,7 @@ public class StructureDTO {
 	    private int parentId;
 	    private boolean active;
 	    
-	    
-	    
-	    
-	    
+
 		public int getId() {
 			return id;
 		}
